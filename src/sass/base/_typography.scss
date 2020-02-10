@@ -1,4 +1,8 @@
 p {
-    color: darken($color-dark, 40%);
+    color: $color-primary;
     font-size: 3rem;
+}
+
+h1 {
+    color: $color-light;
 }
