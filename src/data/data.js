@@ -1,4 +1,4 @@
 export default function Data() {
-  let data = require('./data.json')
+  let data = require('./flightdata.json')
   return data.Egencia
 }
