@@ -1,24 +1,23 @@
-import React from 'react';
-import { BrowserRouter } from "react-router-dom";
-import firebaseConfig from '../config/firebase';
+import React from 'react'
+import {BrowserRouter} from 'react-router-dom'
+import firebaseConfig from '../config/firebase'
 
-import Router from "./Router";
+import Router from './Router'
+import Model from '../data/model'
 
-import "../css/style.css";
-
+import '../css/style.css'
 
 function App() {
-
-  const firebase = require('firebase/app');
-  firebase.initializeApp(firebaseConfig);
-
+  const firebase = require('firebase/app')
+  firebase.initializeApp(firebaseConfig)
+  Model(0) //Initziating Model
   return (
-      <BrowserRouter>
-            <div className="App">
-              <Router />
-            </div>
+    <BrowserRouter>
+      <div className='App'>
+        <Router />
+      </div>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App
