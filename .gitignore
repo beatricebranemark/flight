@@ -29,4 +29,4 @@ yarn-error.log*
 package-lock.json
 
 #data
-flightdata.json
+./src/data/flightdata.json
