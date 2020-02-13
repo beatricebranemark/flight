@@ -5,6 +5,6 @@ export default function Model(filter) {
   const data = Data()
   store.dispatch({
     type: 'SET_DATA',
-    payload: data,
+    payload: data[filter],
   })
 }

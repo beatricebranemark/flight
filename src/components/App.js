@@ -10,7 +10,7 @@ import '../css/style.css'
 function App() {
   const firebase = require('firebase/app')
   firebase.initializeApp(firebaseConfig)
-  Model({}) //Initziating Model
+  Model(0) //Initziating Model
   return (
     <BrowserRouter>
       <div className='App'>
