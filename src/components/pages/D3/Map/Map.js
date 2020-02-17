@@ -2,7 +2,7 @@ import React from 'react'
 import Model from '../../../../data/model'
 
 const Map = props => {
-  console.log(props.data)
+  //console.log(props.data)
 
   function handleMap() {
     Model(1)
