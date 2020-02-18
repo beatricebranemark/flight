@@ -3,14 +3,19 @@ import {BrowserRouter} from 'react-router-dom'
 import firebaseConfig from '../config/firebase'
 
 import Router from './Router'
-import Model from '../data/model'
+import filterSchoolAndOrg from '../data/FilterScoolAndOrg'
+//import Filter from 'Filter.js'
 
 import '../css/style.css'
 
 function App() {
   const firebase = require('firebase/app')
   firebase.initializeApp(firebaseConfig)
-  Model({}) //Initziating Model
+
+  let selectedSchool = 'ECS'
+  let selectedOrg = 'TEORETISK DATOLOGI'
+  filterSchoolAndOrg.setSchool(selectedSchool) //Initziating Model
+  //filterSchoolAndOrg.setOrg(selectedOrg)
   return (
     <BrowserRouter>
       <div className='App'>
