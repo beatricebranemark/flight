@@ -57,7 +57,7 @@ const PersonList = props => {
   }
 
     return (
-      <div>
+      <div className="personlist">
           {employee_list.map(emp =>(
             <li key={emp} className="person_inactive" onClick={(e) => chosenEmployee(e,emp)}>Employee: {emp}</li>
           ))}

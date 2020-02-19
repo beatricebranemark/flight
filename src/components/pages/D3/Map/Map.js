@@ -155,7 +155,7 @@ const Map = props => {
         })
     }
   })
-  return <svg width={1200} height={700} ref={d3Container}></svg>
+  return <svg width={1100} height={500} ref={d3Container} className="map"></svg>
 }
 
 export default Map

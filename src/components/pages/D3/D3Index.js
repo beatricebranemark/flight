@@ -17,9 +17,11 @@ const D3Index = () => {
     <div className='homepage'>
       <h1 className='homepage__heading'>Flight</h1>
       <NavBar data={data} />
-      {data.length > 0 ? <BarChart data={data} /> : []}
-      <Map data={data} />
-      {data.length > 0 ? <PersonList data={data} /> : []}
+      <main className="homepage__main">
+        {data.length > 0 ? <BarChart data={data} /> : []}
+        <Map data={data} />
+        {data.length > 0 ? <PersonList data={data} /> : []}
+      </main>
     </div>
   )
 }
