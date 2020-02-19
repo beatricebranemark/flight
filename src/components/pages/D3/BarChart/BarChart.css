@@ -1,7 +1,10 @@
 
 
-.bar_inactive {
-    opacity: 0.5;
+
+
+.bar_active {
+  stroke: black;
+  stroke-width: 2;
 }
 
 .d3-tip {
