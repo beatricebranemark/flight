@@ -6,23 +6,9 @@ const PersonList = props => {
   console.log(props.data)
 
   // Data
-  const dataset = props.data
   const d3Container = useRef(null)
-  console.log(dataset)
 
-  //Organisation
-  let groupByOrganisation = d3
-  .nest()
-  .key(function(d) {
-    return d.org_name
-  })
-  .entries(dataset)
-
-  groupByOrganisation = groupByOrganisation.filter(organisation => {
-      return organisation.key === "TILLÄMPAD FYSIKALISK KEMI";
-  })
-  console.log(groupByOrganisation)
-  let organisation_trips = groupByOrganisation[0].values;
+  let organisation_trips = props.data[0].values;
 
   //Lista med employees
   const employee_list = []

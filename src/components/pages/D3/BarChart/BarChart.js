@@ -79,11 +79,11 @@ const BarChart = props => {
     width = 960 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
-  /*
+  
   const sendData = (clickedBar) => {
     console.log(clickedBar.year)
   }
-  */
+  
 
   useEffect(() => {
     var svg = d3.select(d3Container.current),
