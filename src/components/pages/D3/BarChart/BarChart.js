@@ -4,9 +4,23 @@ import * as d3 from 'd3'
 
 const BarChart = props => {
   // Data
+
+  let organisation_trips = props.data[0].values
   const d3Container = useRef(null)
   const airportData = require('../../../../data/airports.json')
-  let organisation_trips = props.data[0].values
+
+  /*let groupByOrganisation = d3
+    .nest()
+    .key(function(d) {
+      return d.org_name
+    })
+    .entries(dataset)
+
+  groupByOrganisation = groupByOrganisation.filter(organisation => {
+    return organisation.key === 'ELEKTROTEKN TEORI & KONSTRUKT'
+  })
+  console.log(groupByOrganisation)*/
+
 
   let data_list = [
     {month: 'january', 2017: 0, 2018: 0, 2019: 0},

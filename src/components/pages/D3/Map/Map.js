@@ -18,7 +18,7 @@ const Map = props => {
       // Map and projection
       let projection = d3
         .geoMercator()
-        .scale(85)
+        .scale(100)
         .translate([1200 / 2, (600 / 2) * 1.3])
 
       // Change these data to see ho the great circle reacts*/
@@ -48,6 +48,7 @@ const Map = props => {
             d.population = populationById[d.id]
           })*/
 
+
           function colorMap(d) {
             let country = groupByCountry.filter(country => {
               let res = country.key.split(',')
@@ -75,7 +76,9 @@ const Map = props => {
             .enter()
             .append('path')
             .attr('fill', function(d) {
+
               let country = colorMap(d)
+              
               return country.length > 0 ? 'red' : '#b8b8b8'
             }) // //return color(populationById[d.id])
             .attr('d', d3.geoPath().projection(projection))
@@ -153,7 +156,7 @@ const Map = props => {
         })
     }
   })
-  return <svg width={1200} height={600} ref={d3Container}></svg>
+  return <svg width={1400} height={800} ref={d3Container}></svg>
 }
 
 export default Map
