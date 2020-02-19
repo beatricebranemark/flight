@@ -18,8 +18,8 @@ const Map = props => {
       // Map and projection
       let projection = d3
         .geoMercator()
-        .scale(100)
-        .translate([1200 / 2, (600 / 2) * 1.3])
+        .scale(150)
+        .translate([1200 / 2, (600 / 2) * 1.5])
 
       // Change these data to see ho the great circle reacts*/
 
@@ -48,7 +48,6 @@ const Map = props => {
             d.population = populationById[d.id]
           })*/
 
-
           function colorMap(d) {
             let country = groupByCountry.filter(country => {
               let res = country.key.split(',')
@@ -76,22 +75,22 @@ const Map = props => {
             .enter()
             .append('path')
             .attr('fill', function(d) {
-
               let country = colorMap(d)
-              
+
               return country.length > 0 ? 'red' : '#b8b8b8'
             }) // //return color(populationById[d.id])
             .attr('d', d3.geoPath().projection(projection))
             .on('mouseover', function(d) {
               d3.select(this).attr('fill', 'blue')
               console.log(d.properties.name)
-              let xPosition = d3.mouse(this)[0] - 15
-              let yPosition = d3.mouse(this)[1] - 25
+              let xPosition = d3.mouse(this)[0] - 30
+              let yPosition = d3.mouse(this)[1] - 50
               tooltip.attr(
                 'transform',
                 'translate(' + xPosition + ',' + yPosition + ')'
               )
               tooltip.select('text').text(d.properties.name)
+              tooltip.style('display', 'block')
             })
             .on('mouseout', function(d) {
               let country = colorMap(d)
@@ -141,22 +140,22 @@ const Map = props => {
 
           tooltip
             .append('rect')
-            .attr('width', 30)
-            .attr('height', 20)
+            .attr('width', 120)
+            .attr('height', 30)
             .attr('fill', 'white')
-            .style('opacity', 0.5)
+            .style('opacity', 1)
 
           tooltip
             .append('text')
-            .attr('x', 15)
+            .attr('x', 60)
             .attr('dy', '1.2em')
             .style('text-anchor', 'middle')
-            .attr('font-size', '12px')
+            .attr('font-size', '20px')
             .attr('font-weight', 'bold')
         })
     }
   })
-  return <svg width={1400} height={800} ref={d3Container}></svg>
+  return <svg width={1200} height={700} ref={d3Container}></svg>
 }
 
 export default Map
