@@ -86,12 +86,18 @@ const BarChart = props => {
   
 
   useEffect(() => {
+
+    // ändra detta till senare, om vi tar bart hela baren varje gång så kommer vi inte behålla "aktiva bars"
+    var chart = d3.select('.svg_barchart')
+    chart.remove();
+
     var svg = d3.select(d3Container.current),
       margin = {top: 20, right: 20, bottom: 30, left: 40},
       width = +svg.attr('width') - margin.left - margin.right,
       height = +svg.attr('height') - margin.top - margin.bottom,
       g = svg
         .append('g')
+        .attr('class', 'svg_barchart')
         .attr(
           'transform',
           'translate(' + margin.left + ',' + margin.top + ')'
@@ -117,6 +123,8 @@ const BarChart = props => {
     x0.domain(data.map(function (d) { return d.month; }));
     x1.domain(keys).rangeRound([0, x0.bandwidth()]);
     y.domain([0, d3.max(data, function (d) { return d3.max(keys, function (key) { return d[key]; }); })]).nice();
+
+
 
     g.append("g")
     .selectAll("g")
