@@ -10,51 +10,74 @@ const PersonList = props => {
   const d3Container = useRef(null)
   console.log(dataset)
 
-  // Dimensions
-  const totalW = 600
-  const totalH = 300
-  const margin = {
-    top: 5,
-    bottom: 5,
-    left: 5,
-    right: 5,
-  }
-  const w = totalW - margin.left - margin.right
-  const h = totalH - margin.top - margin.bottom
-
-  // Scales
-  useEffect(() => {
-    //drawChart()
-    let xScale = d3.scaleLinear().domain([0, 10])
-
-    let yScale = d3
-      .scaleBand()
-      .domain(d3.range(dataset.length))
-      .rangeRound([h, 0])
-
-    // DOM
-    let svg = d3.select(d3Container.current)
-
-    let g = svg
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
-      .attr('id', 'bar-g')
-
-    // Data Bars
-    g.selectAll('rect')
-      .data(dataset)
-      .enter()
-      .append('rect')
-      .attr('x', (d, i) => xScale(i))
-      .attr('y', d => yScale(d.org))
-      .attr('width', 10)
-      .attr('height', (d, i) => i)
-      .attr('fill', d => `rgb(150,0,0)`)
-      .attr('rx', 10)
+  //Organisation
+  let groupByOrganisation = d3
+  .nest()
+  .key(function(d) {
+    return d.org_name
   })
-  // Labels are added the same way as above...
+  .entries(dataset)
 
-  return <svg width={totalW} height={totalH} ref={d3Container}></svg>
+  groupByOrganisation = groupByOrganisation.filter(organisation => {
+      return organisation.key === "TILLÄMPAD FYSIKALISK KEMI";
+  })
+  console.log(groupByOrganisation)
+  let organisation_trips = groupByOrganisation[0].values;
+
+  //Lista med employees
+  const employee_list = []
+  const na_list = []
+    organisation_trips.forEach(d => {
+      if(d.employee != "N/A"){
+        if(employee_list.includes(d.employee) === false){
+          employee_list.push(d.employee)
+        }
+    }
+    else{
+      na_list.push(d.employee);
+    }
+      
+    });
+  console.log(employee_list);
+
+
+
+  //Click function
+  const chosen_employees_list = [];
+
+  function chosenEmployee(evt,id){
+    console.log(evt.target.className) //=inactive by default
+    console.log(id);
+
+   if (evt.target.className == "person_inactive"){
+      evt.target.className = "person_active";
+      if (chosen_employees_list.includes(id) === false){ //om personen inte finns i listan, lägg till
+        chosen_employees_list.push(id);
+      }
+      
+   } 
+   else {
+    evt.target.className = "person_inactive"
+    if (chosen_employees_list.includes(id) === true){ //om personen finns i listan, ta bort
+      const index = chosen_employees_list.indexOf(id);
+      chosen_employees_list.splice(index,1);
+  }
+    }
+
+    console.log(evt.target.className)
+    console.log(chosen_employees_list)
+    
+    return chosen_employees_list;
+  }
+
+    return (
+      <div>
+          {employee_list.map(emp =>(
+            <li key={emp} className="person_inactive" onClick={(e) => chosenEmployee(e,emp)}>Employee: {emp}</li>
+          ))}
+      </div>
+  );
+
 }
 
 export default PersonList
