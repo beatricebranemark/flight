@@ -1,13 +1,17 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import Model from '../../../../data/model'
 import * as d3 from 'd3'
-
+import './BarChart.css'
 
 const BarChart = props => {
   // Data
   const dataset = props.data
   const d3Container = useRef(null)
   const airportData = require('../../../../data/airports.json')
+  const filteredTravels = []
+
+
+  const [active, setActive] = useState(false);
 
   let groupByOrganisation = d3
   .nest()
@@ -71,26 +75,15 @@ organisation_trips.forEach(trip => {
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
-/*
-  const sendYear = (e) => {
-    year = e
-    return year
-  }
-
-  const sendMonth = (e) => {
-    month = e
-    return month
-  }
 
 
-  const sendData = (year) => {
-    items = props.data.filter(function (travel) { // filter first for friends
-      if (travel.year === year){
-        return items
-    console.log(data)
+  const sendData = (clickedBar) => {
+    
+
+    console.log(clickedBar.year)
   }
-    })}
- */
+    
+ 
  
   useEffect(() => {
     
@@ -120,6 +113,7 @@ organisation_trips.forEach(trip => {
     var data = data_list;
     var keys = Object.keys(data[3]).slice(0,3);
 
+    
     x0.domain(data.map(function (d) { return d.month; }));
     x1.domain(keys).rangeRound([0, x0.bandwidth()]);
     y.domain([0, d3.max(data, function (d) { return d3.max(keys, function (key) { return d[key]; }); })]).nice();
@@ -129,16 +123,38 @@ organisation_trips.forEach(trip => {
     .data(data)
     .enter().append("g")
     .attr("transform", function (d) { return "translate(" + x0(d.month) + ",0)"; })
-    .on('click', function (d) {console.log(d.month)})
+    .attr('id', function(d) {return d.month})
+    //.on("click", function (d) {handleChange(d.key)} )
+    //.on('click', function (d) {console.log(d.month)})
     .selectAll("rect")
-    .data(function (d) { return keys.map(function (key) { return { key: key, value: d[key] }; }); })
+    .data(function (d) { return keys.map(function (key) { return { key: key, value: d[key], month: d.month }; }); })
     .enter().append("rect")
     .attr("x", function (d) { return x1(d.key); })
     .attr("y", function (d) { return y(d.value); })
     .attr("width", x1.bandwidth())
     .attr("height", function (d) { return height - y(d.value); })
     .attr("fill", function (d) { return z(d.key); })
-    .on('click', function(d) {console.log(d.key)});
+    .attr('id', function(d) {return d.key})
+    /*
+    .on("mouseover", function() {tooltip.style("display", null); })
+    .on("mouseout", function() {tooltip.style("display", "none"); })
+    .on("mousemove", function(d) {
+      let xPosition = d3.mouse(this)[0]-5;
+      let yPosition = d3.mouse(this)[1]-5;
+      tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+      tooltip.select("text").text(d.value);
+    })
+    */
+    .attr('class', 'bar_inactive')
+    //.on('click', function(d) {changeClass()})
+    .on('click', function(d) {
+     // console.log(d3.select(this).attr('class'))
+    d3.select(this).attr('class') == 'bar_inactive' ? d3.select(this).attr('class','bar_active') : d3.select(this).attr('class','bar_inactive')
+    let obj = {month: d.month, year:d.key, class: d3.select(this).attr('class')}
+     // console.log({month: d.month, year:d.key, class: d3.select(this).attr('class')})
+      sendData(obj);
+    });
+
 
 g.append("g")
     .attr("class", "axis")
@@ -180,6 +196,23 @@ legend.append("text")
     .attr("dy", "0.32em")
     .text(function (d) { return d; });
 
+  // Prep the tooltip bits, initial display is hidden
+  var tooltip = svg.append("g")
+  .attr("class", "tooltip")
+  .style("display", "none");
+    
+  tooltip.append("rect")
+  .attr("width", 60)
+  .attr("height", 20)
+  .attr("fill", "white")
+  .style("opacity", 0.5);
+
+  tooltip.append("text")
+  .attr("x", 30)
+  .attr("dy", "1.2em")
+  .style("text-anchor", "middle")
+  .attr("font-size", "12px")
+  .attr("font-weight", "bold");
 
   })
 
