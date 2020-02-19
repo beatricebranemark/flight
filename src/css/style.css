@@ -21,7 +21,7 @@ h1 {
 .homepage__main {
   display: grid;
   grid-template-columns: 100rem 20rem;
-  grid-template-rows: auto; }
+  grid-template-rows: 25rem 70rem auto; }
 
 .map {
   margin-left: -10rem;
@@ -29,12 +29,13 @@ h1 {
   grid-column: 1/2; }
 
 .personlist {
-  grid-row: 1/3;
+  grid-row: 1/-1;
   grid-column: 2/3; }
   .personlist li {
     list-style: none;
     background-color: lightgrey;
     padding: 0.4rem;
     margin: 0.7rem;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
+    text-align: center;
     font-family: "Arial"; }
