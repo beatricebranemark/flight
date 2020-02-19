@@ -1,6 +1,7 @@
 import React, {useRef, useEffect} from 'react'
 import Model from '../../../../data/model'
 import * as d3 from 'd3'
+import './index.css'
 
 const Map = props => {
   let d3Container = useRef(null)
@@ -47,6 +48,26 @@ const Map = props => {
             d.population = populationById[d.id]
           })*/
 
+
+          function colorMap(d) {
+            let country = groupByCountry.filter(country => {
+              let res = country.key.split(',')
+              let swedish
+              for (let i = 0; i < countries.length; i++) {
+                if (countries[i].english == d.properties.name) {
+                  swedish = countries[i].swedish
+                }
+              }
+              if (res[0] == swedish) {
+                return res
+              }
+              if (res[1] == swedish) {
+                return res
+              }
+            })
+            return country
+          }
+
           // Draw the map
           svg
             .append('g')
@@ -55,25 +76,30 @@ const Map = props => {
             .enter()
             .append('path')
             .attr('fill', function(d) {
-              let country = groupByCountry.filter(country => {
-                let res = country.key.split(',')
-                let swedish
-                for (let i = 0; i < countries.length; i++) {
-                  if (countries[i].english == d.properties.name) {
-                    swedish = countries[i].swedish
-                  }
-                }
-                if (res[0] == swedish) {
-                  return res
-                }
-                if (res[1] == swedish) {
-                  return res
-                }
-              })
 
+              let country = colorMap(d)
+              
               return country.length > 0 ? 'red' : '#b8b8b8'
             }) // //return color(populationById[d.id])
             .attr('d', d3.geoPath().projection(projection))
+            .on('mouseover', function(d) {
+              d3.select(this).attr('fill', 'blue')
+              console.log(d.properties.name)
+              let xPosition = d3.mouse(this)[0] - 15
+              let yPosition = d3.mouse(this)[1] - 25
+              tooltip.attr(
+                'transform',
+                'translate(' + xPosition + ',' + yPosition + ')'
+              )
+              tooltip.select('text').text(d.properties.name)
+            })
+            .on('mouseout', function(d) {
+              let country = colorMap(d)
+              d3.select(this).attr(
+                'fill',
+                country.length > 0 ? 'red' : '#b8b8b8'
+              )
+            })
             .style('stroke', '#fff')
             .style('stroke-width', 0)
 
@@ -107,6 +133,26 @@ const Map = props => {
               console.log(TypeError)
             }
           })
+
+          let tooltip = svg
+            .append('g')
+            .attr('class', 'tooltip')
+            .style('display', 'none')
+
+          tooltip
+            .append('rect')
+            .attr('width', 30)
+            .attr('height', 20)
+            .attr('fill', 'white')
+            .style('opacity', 0.5)
+
+          tooltip
+            .append('text')
+            .attr('x', 15)
+            .attr('dy', '1.2em')
+            .style('text-anchor', 'middle')
+            .attr('font-size', '12px')
+            .attr('font-weight', 'bold')
         })
     }
   })

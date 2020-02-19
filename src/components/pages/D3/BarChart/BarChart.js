@@ -4,6 +4,7 @@ import * as d3 from 'd3'
 
 const BarChart = props => {
   // Data
+
   let organisation_trips = props.data[0].values
   const d3Container = useRef(null)
   const airportData = require('../../../../data/airports.json')
@@ -19,6 +20,7 @@ const BarChart = props => {
     return organisation.key === 'ELEKTROTEKN TEORI & KONSTRUKT'
   })
   console.log(groupByOrganisation)*/
+
 
   let data_list = [
     {month: 'january', 2017: 0, 2018: 0, 2019: 0},
