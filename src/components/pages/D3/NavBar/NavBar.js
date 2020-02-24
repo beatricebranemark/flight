@@ -48,23 +48,31 @@ const NavBar = () => {
   function handleSelectedOrg(e) {
     FilterScoolAndOrg.setOrg(e.target.value)
   }
+  function submitGroup(){
+
+  }
 
   return (
     <div className='NavBar'>
-      <p>NavBar</p>
-      <select
-        id='schools'
-        onChange={handleSelectedSchool}
-        ref={schoolsList}
-      ></select>
-      <select
-        id='organisations'
-        onChange={handleSelectedOrg}
-        ref={organisationsList}
-      >
-        <option></option>
-      </select>
-    </div>
+            <select
+
+              className="browser-default custom-select"
+              
+              id='schools'
+              onChange={handleSelectedSchool}
+              ref={schoolsList}
+            ></select>
+          
+            <select
+              className="browser-default custom-select"
+              id='organisations'
+              onChange={handleSelectedOrg}
+              ref={organisationsList}
+            >
+            </select>
+
+      </div>
+     
   )
 }
 
