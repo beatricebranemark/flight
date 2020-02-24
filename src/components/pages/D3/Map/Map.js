@@ -76,7 +76,6 @@ const Map = props => {
             .append('path')
             .attr('fill', function(d) {
               let country = colorMap(d)
-
               return country.length > 0 ? 'red' : '#b8b8b8'
             }) // //return color(populationById[d.id])
             .attr('d', d3.geoPath().projection(projection))
