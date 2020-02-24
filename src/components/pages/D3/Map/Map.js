@@ -1,13 +1,15 @@
 import React, {useRef, useEffect} from 'react'
 import Model from '../../../../data/model'
+import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './index.css'
 
-const Map = props => {
+const Map = ({data, filter}) => {
   let d3Container = useRef(null)
   let countries = require('./csvjson.json')
+
   useEffect(() => {
-    if (props.data.length > 0) {
+    if (data.length > 0) {
       d3.select(d3Container.current)
         .selectAll('*')
         .remove()
@@ -37,8 +39,22 @@ const Map = props => {
       function zoomed() {
         g.selectAll('path') // To prevent stroke width from scaling
           .attr('transform', d3.event.transform)
-        svg.selectAll('.line').attr('transform', d3.event.transform)
+        svg
+          .selectAll('.line')
+          .attr('transform', d3.event.transform)
+          .style('stroke-width', 1.2 / d3.event.transform.k)
       }
+      function chosenCountry(country) {
+        for (let i = 0; i < countries.length; i++) {
+          if (countries[i].english == country) {
+            filter.map.chosenCountry = countries[i].swedish
+            break
+          }
+        }
+        filter.map.filter = true
+        Model(filter)
+      }
+
       fetch(
         'https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson'
       )
@@ -51,7 +67,7 @@ const Map = props => {
             .key(function(d) {
               return [d.arrival_country, d.departure_country]
             })
-            .entries(props.data[0].values)
+            .entries(data)
 
           function colorMap(d) {
             let country = groupByCountry.filter(country => {
@@ -102,11 +118,14 @@ const Map = props => {
                 country.length > 0 ? '#83be83' : '#b8b8b8'
               )
             })
+            .on('click', function(d) {
+              chosenCountry(d.properties.name)
+            })
             .style('stroke', '#fff')
             .style('stroke-width', 0)
 
           // Create data: coordinates of start and end
-          props.data[0].values.map(function(flight) {
+          data.map(function(flight) {
             try {
               let coordinates = [
                 [
@@ -167,5 +186,12 @@ const Map = props => {
     ></svg>
   )
 }
-
-export default Map
+const mapStateToProps = state => {
+  let newData =
+    state.getMap.data.length == 0 ? state.getData : state.getMap
+  return {
+    data: newData.data,
+    filter: state.getFilterOptions.data,
+  }
+}
+export default connect(mapStateToProps)(Map)

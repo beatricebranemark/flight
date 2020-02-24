@@ -1,8 +1,39 @@
 import {combineReducers, createStore} from 'redux'
+import Filter from '../components/Filter'
 
 const getDataReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_DATA': {
+      return {...state, data: action.payload}
+    }
+    default:
+  }
+  return state
+}
+
+const getBarDataReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_BAR_DATA': {
+      return {...state, data: action.payload}
+    }
+    default:
+  }
+  return state
+}
+
+const getMapDataReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_MAP_DATA': {
+      return {...state, data: action.payload}
+    }
+    default:
+  }
+  return state
+}
+
+const getPersonDataReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_PERSON_DATA': {
       return {...state, data: action.payload}
     }
     default:
@@ -30,16 +61,45 @@ const getSchoolReducer = (state = {}, action) => {
   return state
 }
 
+const getFilterOptionsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_FILTERING': {
+      return {...state, data: action.payload}
+    }
+    default:
+  }
+  return state
+}
+
 const reducers = combineReducers({
   getData: getDataReducer,
+  getBar: getBarDataReducer,
+  getMap: getMapDataReducer,
+  getPerson: getPersonDataReducer,
   getOrgs: getOrgsReducer,
   getSchools: getSchoolReducer,
+  getFilterOptions: getFilterOptionsReducer,
 })
 
 const store = createStore(reducers)
 
 store.dispatch({
   type: 'SET_DATA',
+  payload: [],
+})
+
+store.dispatch({
+  type: 'SET_BAR_DATA',
+  payload: [],
+})
+
+store.dispatch({
+  type: 'SET_MAP_DATA',
+  payload: [],
+})
+
+store.dispatch({
+  type: 'SET_PERSON_DATA',
   payload: [],
 })
 
@@ -51,6 +111,11 @@ store.dispatch({
 store.dispatch({
   type: 'SET_SCHOOLS',
   payload: [],
+})
+
+store.dispatch({
+  type: 'SET_FILTERING',
+  payload: Filter(),
 })
 
 export default store
