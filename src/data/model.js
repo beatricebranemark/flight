@@ -5,7 +5,6 @@ import filterSchoolAndOrg from './FilterScoolAndOrg'
 export default function Model({}) {
   //Get the data
   let data = filterSchoolAndOrg.getOrg()
-  console.log(data)
   store.dispatch({
     type: 'SET_DATA',
     payload: data,

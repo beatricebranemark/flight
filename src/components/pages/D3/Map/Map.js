@@ -33,20 +33,12 @@ const Map = props => {
           return response.json()
         })
         .then(map => {
-          console.log(map)
-
           let groupByCountry = d3
             .nest()
             .key(function(d) {
-              console.log(d)
               return [d.arrival_country, d.departure_country]
             })
             .entries(props.data[0].values)
-          console.log(groupByCountry)
-
-          /*data.features.forEach(function(d) {
-            d.population = populationById[d.id]
-          })*/
 
           function colorMap(d) {
             let country = groupByCountry.filter(country => {
@@ -68,7 +60,7 @@ const Map = props => {
           }
 
           // Draw the map
-          svg
+          let g = svg
             .append('g')
             .selectAll('path')
             .data(map.features)
@@ -76,12 +68,13 @@ const Map = props => {
             .append('path')
             .attr('fill', function(d) {
               let country = colorMap(d)
-              return country.length > 0 ? 'rgba(112,128,144, .2)' : '#b8b8b8'
+              return country.length > 0
+                ? 'rgba(112,128,144, .2)'
+                : '#b8b8b8'
             }) // //return color(populationById[d.id])
             .attr('d', d3.geoPath().projection(projection))
             .on('mouseover', function(d) {
               d3.select(this).attr('fill', 'rgba(112,128,144, 1)')
-              console.log(d.properties.name)
               let xPosition = d3.mouse(this)[0] - 30
               let yPosition = d3.mouse(this)[1] - 50
               tooltip.attr(
@@ -95,11 +88,25 @@ const Map = props => {
               let country = colorMap(d)
               d3.select(this).attr(
                 'fill',
-                country.length > 0 ? 'rgba(112,128,144, .2)' : '#b8b8b8'
+                country.length > 0
+                  ? 'rgba(112,128,144, .2)'
+                  : '#b8b8b8'
               )
             })
             .style('stroke', '#fff')
             .style('stroke-width', 0)
+
+          const zoom = d3
+            .zoom()
+            .scaleExtent([1, 8])
+            .on('zoom', zoomed)
+
+          svg.call(zoom)
+
+          function zoomed() {
+            g.selectAll('path') // To prevent stroke width from scaling
+              .attr('transform', d3.event.transform)
+          }
 
           // Create data: coordinates of start and end
           props.data[0].values.map(function(flight) {
@@ -114,7 +121,6 @@ const Map = props => {
                   parseInt(flight.arrival_coord[0]),
                 ],
               ]
-              console.log("heeej")
               let link = {
                 type: 'LineString',
                 coordinates: coordinates,
@@ -154,7 +160,14 @@ const Map = props => {
         })
     }
   })
-  return <svg width={1100} height={700} ref={d3Container} className="map"></svg>
+  return (
+    <svg
+      width={1100}
+      height={700}
+      ref={d3Container}
+      className='map'
+    ></svg>
+  )
 }
 
 export default Map

@@ -58,14 +58,12 @@ class FilterSchoolAndOrg {
   setOrg(selectedOrg) {
     this.selectedOrg = selectedOrg
     //Filter out selected organisation
-    console.log(this.organisationsInSelectedSchool)
+
     this.organisation = this.organisationsInSelectedSchool.filter(
       org => {
         return org.key === this.selectedOrg
       }
     )
-    console.log(this.organisation)
-
     Model({})
   }
 
