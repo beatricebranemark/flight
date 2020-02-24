@@ -23,7 +23,7 @@ const D3Index = () => {
       <NavBar data={data} />
       {data.length == 0 ? <HomeScreen></HomeScreen> : []}
       {data.length > 0 ? <BarChart data={data} /> : []}
-      <Map data={data} />
+      {data.length > 0 ? <Map data={data} /> : []}
       {data.length > 0 ? <PersonList data={data} /> : []}
     </div>
   )

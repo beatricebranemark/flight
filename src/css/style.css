@@ -18,6 +18,7 @@ p {
 h1 {
   color: lightgrey; }
 
+
 .homescreen__container {
   text-align: center;
   margin-top: 15px; }
@@ -59,3 +60,26 @@ h1 {
   padding: 15px; }
   .homepage__heading .homepage__heading__title {
     font-family: 'Patua One', cursive; }
+
+.homepage__main {
+  display: grid;
+  grid-template-columns: 100rem 20rem;
+  grid-template-rows: 25rem 70rem auto; }
+
+.map {
+  margin-left: -10rem;
+  grid-row: 2/3;
+  grid-column: 1/2; }
+
+.personlist {
+  grid-row: 1/-1;
+  grid-column: 2/3; }
+  .personlist li {
+    list-style: none;
+    background-color: lightgrey;
+    padding: 0.4rem;
+    margin: 0.7rem;
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: "Arial"; }
+

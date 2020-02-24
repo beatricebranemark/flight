@@ -1,11 +1,11 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import store from '../../../../reducers'
 import FilterScoolAndOrg from '../../../../data/FilterScoolAndOrg'
 
 const NavBar = () => {
-  const [orgs, setOrgs] = useState(store.getState().getOrgs.data)
+  const [orgs, setOrgs] = useState([])
   const [schools, setSchools] = useState(
-    store.getState().getSchools.data
+    store.getState().getSchools.data.map(schools => schools)
   )
 
   let organisationsList = React.createRef()
@@ -13,10 +13,11 @@ const NavBar = () => {
 
   store.subscribe(() => {
     setOrgs(store.getState().getOrgs.data)
-    setSchools(store.getState().getSchools.data)
+    //setSchools(store.getState().getSchools.data)
   })
 
   useEffect(() => {
+    console.log(schools)
     let schoolNode = schoolsList.current.children
     if (schoolNode.length < 1) {
       schools.map(school => {
