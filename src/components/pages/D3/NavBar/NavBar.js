@@ -27,27 +27,31 @@ const NavBar = () => {
         schoolsList.current.appendChild(optionTag)
       })
     }
-    let orgNode = organisationsList.current
-    while (orgNode.firstChild) {
-      orgNode.removeChild(orgNode.lastChild)
+
+    if (currentSchool == '') {
+      let orgNode = organisationsList.current
+      while (orgNode.firstChild) {
+        orgNode.removeChild(orgNode.lastChild)
+      }
+      orgs.map(org => {
+        let optionTag = document.createElement('option')
+        optionTag.setAttribute('value', org.key)
+        optionTag.innerHTML = org.key
+        organisationsList.current.appendChild(optionTag)
+      })
     }
-    orgs.map(org => {
-      let optionTag = document.createElement('option')
-      optionTag.setAttribute('value', org.key)
-      optionTag.innerHTML = org.key
-      organisationsList.current.appendChild(optionTag)
-    })
   })
 
   function renderOrganisations() {}
 
   function handleSelectedSchool(e) {
-    setCurrentSchool(e.target.value)
+    setCurrentSchool('')
     FilterScoolAndOrg.setSchool(e.target.value)
     renderOrganisations()
   }
 
   function handleSelectedOrg(e) {
+    setCurrentSchool('org')
     FilterScoolAndOrg.setOrg(e.target.value)
   }
   function submitGroup() {}
