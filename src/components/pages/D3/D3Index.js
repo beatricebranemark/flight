@@ -22,9 +22,15 @@ const D3Index = () => {
           
       <NavBar data={data} />
       {data.length == 0 ? <HomeScreen></HomeScreen> : []}
-      {data.length > 0 ? <BarChart data={data} /> : []}
-      {data.length > 0 ? <Map data={data} /> : []}
-      {data.length > 0 ? <PersonList data={data} /> : []}
+      <div className="row">
+        <div className="col-sm-8">
+          {data.length > 0 ? <BarChart data={data} /> : []}
+          {data.length > 0 ? <Map data={data} /> : []}
+        </div>
+        <div className="col-sm-4">
+          {data.length > 0 ? <PersonList data={data} /> : []}
+        </div>
+      </div>
     </div>
   )
 }
