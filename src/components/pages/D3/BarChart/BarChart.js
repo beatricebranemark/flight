@@ -11,7 +11,6 @@ const BarChart = props => {
   const airportData = require('../../../../data/airports.json')
   const filteredTravels = []
 
-
   const [active, setActive] = useState(false);
 
   /*let groupByOrganisation = d3
@@ -41,6 +40,10 @@ const BarChart = props => {
     {month: 'november', 2017: 0, 2018: 0, 2019: 0},
     {month: 'december', 2017: 0, 2018: 0, 2019: 0},
   ]
+ 
+
+  let months = {1: 'january', 2:'february', 3: 'march', 4: 'april', 5: 'may', 6: 'june',
+                7: 'july', 8:'august', 9: 'september', 10:'october', 11: 'november', 12: 'december'}
 
   organisation_trips.forEach(trip => {
     let date = trip.departure_time
@@ -74,17 +77,39 @@ const BarChart = props => {
       }
     }
   })
+  
+  const getKeyByValue = (object, value) => { 
+    for (var prop in object) { 
+        if (object.hasOwnProperty(prop)) { 
+            if (object[prop] === value) 
+            return prop; 
+        } 
+    } 
+} 
+  
+  const sendData = (clickedBar, cl) => {
+    organisation_trips.forEach(trip =>{
+      if(trip.year == clickedBar.year){
+        let departure = trip.departure_time.split('/')
+        let month_int = parseInt(departure[0])
+        let ans = getKeyByValue(months, clickedBar.month); 
+        if(month_int == ans){
+          if(cl=='bar_active'){
+            filteredTravels.push(trip)
+          }
+          if(cl =='bar_inactive'){
+            const index = filteredTravels.indexOf(trip)
+            filteredTravels.splice(index, 1)
+          }
+        }
+      }
+    })
+    console.log(filteredTravels)
+  }
 
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 250 - margin.top - margin.bottom;
-
-  
-  const sendData = (clickedBar) => {
-    console.log(clickedBar.year)
-
-  }
-  
 
   useEffect(() => {
 
@@ -135,9 +160,6 @@ const BarChart = props => {
     .enter().append("g")
     .attr("transform", function (d) { return "translate(" + x0(d.month) + ",0)"; })
     .attr('id', function(d) {return d.month})
-    
-    //.on("click", function (d) {handleChange(d.key)} )
-    //.on('click', function (d) {console.log(d.month)})
     .selectAll("rect")
     .data(function (d) { return keys.map(function (key) { return { key: key, value: d[key], month: d.month }; }); })
     .enter().append("rect")
@@ -154,11 +176,8 @@ const BarChart = props => {
       divTooltip.html((d.value+" travels"));
   })
   .on("mouseout", function(d){
-      divTooltip.style("display", "none");
-      // d3.select(window.activeBar).style('opacity',0.5);
-      // window.activeBar = {};
-  })
-    
+      divTooltip.style("display", "none")
+  }) 
     .attr('class', 'bar_inactive')
     //.on('click', function(d) {changeClass()})
     .on('click', function(d) {
@@ -166,7 +185,7 @@ const BarChart = props => {
     d3.select(this).attr('class') == 'bar_inactive' ? d3.select(this).attr('class','bar_active') : d3.select(this).attr('class','bar_inactive')
     let obj = {month: d.month, year:d.key, class: d3.select(this).attr('class')}
      // console.log({month: d.month, year:d.key, class: d3.select(this).attr('class')})
-      sendData(obj);
+      sendData(obj, d3.select(this).attr('class'));
     });
 
 
@@ -196,7 +215,12 @@ g.append("g")
     .data(keys.slice())
     .enter().append("g")
     .attr("transform", function (d, i) { return "translate(0," + i * 20 + ")"; })
-    .on('click', function (d) {console.log(d)});
+    .attr('class', 'bar_inactive')
+    .on('click', function(d) {
+     d3.select(this).attr('class') == 'bar_inactive' ? d3.select(this).attr('class','bar_active') : d3.select(this).attr('class','bar_inactive')
+     let obj = {month: '-', year:d, class: d3.select(this).attr('class')}
+       sendData(obj, d3.select(this).attr('class'));
+     });
 
 legend.append("rect")
     .attr("x", width - 19)
