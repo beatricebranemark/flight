@@ -1,6 +1,7 @@
 import Data from './data'
 import store from '../reducers'
 import Model from './model'
+import getFilter from '../components/Filter'
 import * as d3 from 'd3'
 
 class FilterSchoolAndOrg {
@@ -64,7 +65,8 @@ class FilterSchoolAndOrg {
         return org.key === this.selectedOrg
       }
     )
-    Model({})
+    let filter = getFilter()
+    Model(filter)
   }
 
   getOrg() {

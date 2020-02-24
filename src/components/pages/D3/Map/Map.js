@@ -25,7 +25,20 @@ const Map = props => {
 
       // A path generator
       let path = d3.geoPath().projection(projection)
+      let g = svg.append('g')
 
+      const zoom = d3
+        .zoom()
+        .scaleExtent([1, 8])
+        .on('zoom', zoomed)
+
+      svg.call(zoom)
+
+      function zoomed() {
+        g.selectAll('path') // To prevent stroke width from scaling
+          .attr('transform', d3.event.transform)
+        svg.selectAll('.line').attr('transform', d3.event.transform)
+      }
       fetch(
         'https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson'
       )
@@ -60,16 +73,14 @@ const Map = props => {
           }
 
           // Draw the map
-          let g = svg
-            .append('g')
-            .selectAll('path')
+          g.selectAll('path')
             .data(map.features)
             .enter()
             .append('path')
             .attr('fill', function(d) {
               let country = colorMap(d)
               return country.length > 0
-                ? 'rgba(112,128,144, .2)'
+                ? '#83be83' //rgba(112,128,144, .2)
                 : '#b8b8b8'
             }) // //return color(populationById[d.id])
             .attr('d', d3.geoPath().projection(projection))
@@ -88,25 +99,11 @@ const Map = props => {
               let country = colorMap(d)
               d3.select(this).attr(
                 'fill',
-                country.length > 0
-                  ? 'rgba(112,128,144, .2)'
-                  : '#b8b8b8'
+                country.length > 0 ? '#83be83' : '#b8b8b8'
               )
             })
             .style('stroke', '#fff')
             .style('stroke-width', 0)
-
-          const zoom = d3
-            .zoom()
-            .scaleExtent([1, 8])
-            .on('zoom', zoomed)
-
-          svg.call(zoom)
-
-          function zoomed() {
-            g.selectAll('path') // To prevent stroke width from scaling
-              .attr('transform', d3.event.transform)
-          }
 
           // Create data: coordinates of start and end
           props.data[0].values.map(function(flight) {
@@ -129,6 +126,7 @@ const Map = props => {
               svg
                 .append('path')
                 .attr('d', path(link))
+                .attr('class', 'line')
                 .style('fill', 'none')
                 .style('stroke', 'purple')
                 .style('opacity', 0.5)
