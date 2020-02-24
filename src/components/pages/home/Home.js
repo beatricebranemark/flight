@@ -1,9 +1,10 @@
 import React from 'react'
-
+import D3Index from '../D3/D3Index'
 const Home = () => {
   return (
     <div className='homepage'>
-      <h1 className='homepage__heading'>Flight</h1>
+
+      <D3Index></D3Index>
     </div>
   )
 }

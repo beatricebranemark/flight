@@ -12,7 +12,6 @@ const Router = () => {
     <Switch>
       <Route exact path='/' component={D3Index} />
       <Route path='/home' component={Home} />
-
       <Route path='/selectschool' component={SelectSchool} />
       <Route path='/bea' component={LinearGraph} />
     </Switch>

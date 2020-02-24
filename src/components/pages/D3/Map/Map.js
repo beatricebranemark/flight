@@ -114,7 +114,7 @@ const Map = props => {
                   parseInt(flight.arrival_coord[0]),
                 ],
               ]
-
+              console.log("heeej")
               let link = {
                 type: 'LineString',
                 coordinates: coordinates,
