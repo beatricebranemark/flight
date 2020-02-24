@@ -17,7 +17,6 @@ const NavBar = () => {
   })
 
   useEffect(() => {
-    console.log(schools)
     let schoolNode = schoolsList.current.children
     if (schoolNode.length < 1) {
       schools.map(school => {
@@ -49,31 +48,24 @@ const NavBar = () => {
   function handleSelectedOrg(e) {
     FilterScoolAndOrg.setOrg(e.target.value)
   }
-  function submitGroup(){
-
-  }
+  function submitGroup() {}
 
   return (
     <div className='NavBar'>
-            <select
+      <select
+        className='browser-default custom-select'
+        id='schools'
+        onChange={handleSelectedSchool}
+        ref={schoolsList}
+      ></select>
 
-              className="browser-default custom-select"
-              
-              id='schools'
-              onChange={handleSelectedSchool}
-              ref={schoolsList}
-            ></select>
-          
-            <select
-              className="browser-default custom-select"
-              id='organisations'
-              onChange={handleSelectedOrg}
-              ref={organisationsList}
-            >
-            </select>
-
-      </div>
-     
+      <select
+        className='browser-default custom-select'
+        id='organisations'
+        onChange={handleSelectedOrg}
+        ref={organisationsList}
+      ></select>
+    </div>
   )
 }
 
