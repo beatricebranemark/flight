@@ -76,11 +76,11 @@ const Map = props => {
             .append('path')
             .attr('fill', function(d) {
               let country = colorMap(d)
-              return country.length > 0 ? 'red' : '#b8b8b8'
+              return country.length > 0 ? 'rgba(112,128,144, .2)' : '#b8b8b8'
             }) // //return color(populationById[d.id])
             .attr('d', d3.geoPath().projection(projection))
             .on('mouseover', function(d) {
-              d3.select(this).attr('fill', 'blue')
+              d3.select(this).attr('fill', 'rgba(112,128,144, 1)')
               console.log(d.properties.name)
               let xPosition = d3.mouse(this)[0] - 30
               let yPosition = d3.mouse(this)[1] - 50
@@ -95,7 +95,7 @@ const Map = props => {
               let country = colorMap(d)
               d3.select(this).attr(
                 'fill',
-                country.length > 0 ? 'red' : '#b8b8b8'
+                country.length > 0 ? 'rgba(112,128,144, .2)' : '#b8b8b8'
               )
             })
             .style('stroke', '#fff')
@@ -124,9 +124,9 @@ const Map = props => {
                 .append('path')
                 .attr('d', path(link))
                 .style('fill', 'none')
-                .style('stroke', 'orange')
+                .style('stroke', 'purple')
                 .style('opacity', 0.5)
-                .style('stroke-width', 1)
+                .style('stroke-width', 1.2)
             } catch (TypeError) {
               console.log(TypeError)
             }
@@ -154,7 +154,7 @@ const Map = props => {
         })
     }
   })
-  return <svg width={1200} height={700} ref={d3Container}></svg>
+  return <svg width={1100} height={700} ref={d3Container} className="map"></svg>
 }
 
 export default Map
