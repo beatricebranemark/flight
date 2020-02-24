@@ -7,6 +7,7 @@ const NavBar = () => {
   const [schools, setSchools] = useState(
     store.getState().getSchools.data.map(schools => schools)
   )
+  const [currentSchool, setCurrentSchool] = useState('')
 
   let organisationsList = React.createRef()
   let schoolsList = React.createRef()
@@ -41,6 +42,7 @@ const NavBar = () => {
   function renderOrganisations() {}
 
   function handleSelectedSchool(e) {
+    setCurrentSchool(e.target.value)
     FilterScoolAndOrg.setSchool(e.target.value)
     renderOrganisations()
   }
