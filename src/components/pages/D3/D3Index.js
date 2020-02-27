@@ -6,7 +6,7 @@ import store from '../../../reducers'
 import NavBar from './NavBar/NavBar'
 import HomeScreen from './HomeScreen'
 import {Provider} from 'react-redux'
-
+import SideChart from './SideChart/SideChart'
 import { useBooleanKnob } from 'retoggle'
 import { Header, Icon, Image,Button, Menu, Segment, Sidebar } from 'semantic-ui-react'
 
@@ -18,7 +18,6 @@ const D3Index = () => {
   })
 
   function showSideBar() {
-    console.log(visible)
 
     if (visible == false){
       
@@ -33,6 +32,7 @@ const D3Index = () => {
         <h1 className='homepage__heading__title'>Flight</h1>
       </div>
         <Provider store={store}>
+
           <NavBar data={data} />
             {data.length == 0 ? (
           <HomeScreen />
@@ -50,14 +50,14 @@ const D3Index = () => {
                 visible={visible}
                 width='wide'
               >
-            <Menu.Item>
-              <PersonList />
-            </Menu.Item>
+              <h1>heeej</h1>
+              <SideChart></SideChart>
+
             </Sidebar>
       <Sidebar.Pusher>
         <Segment basic>
         <BarChart />
-              <Map />  
+              <Map />
         </Segment>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
