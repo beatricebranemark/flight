@@ -25,8 +25,20 @@ const Map = ({data, filter}) => {
 
       // Change these data to see ho the great circle reacts*/
 
+      var scale = d3
+        .scaleSqrt()
+        .domain([10, 1])
+        .range([2, 10])
       // A path generator
       let path = d3.geoPath().projection(projection)
+
+      let pathDot = d3
+        .geoPath()
+        .projection(projection)
+        .pointRadius(function(d) {
+          return scale(d.scale)
+        })
+
       let g = svg.append('g')
 
       const zoom = d3
@@ -42,7 +54,12 @@ const Map = ({data, filter}) => {
         svg
           .selectAll('.line')
           .attr('transform', d3.event.transform)
-          .style('stroke-width', 1.2 / d3.event.transform.k)
+          .style('stroke-width', 1 / d3.event.transform.k)
+
+        svg
+          .selectAll('.dot')
+          .attr('transform', d3.event.transform)
+          .style('stroke-width', 0.1 / d3.event.transform.k)
       }
       function chosenCountry(country) {
         for (let i = 0; i < countries.length; i++) {
@@ -141,6 +158,12 @@ const Map = ({data, filter}) => {
                 type: 'LineString',
                 coordinates: coordinates,
               }
+
+              let link2 = {
+                type: 'Point',
+                coordinates: coordinates[1],
+                scale: 5,
+              }
               // Add the path
               svg
                 .append('path')
@@ -149,7 +172,16 @@ const Map = ({data, filter}) => {
                 .style('fill', 'none')
                 .style('stroke', 'purple')
                 .style('opacity', 0.5)
-                .style('stroke-width', 1.2)
+                .style('stroke-width', 5)
+
+              svg
+                .append('path')
+                .attr('d', pathDot(link2))
+                .attr('class', 'dot')
+                .style('fill', 'red')
+                .style('stroke', 'purple')
+                .style('opacity', 1)
+                .style('stroke-width', 0.5)
             } catch (TypeError) {
               console.log(TypeError)
             }
@@ -186,11 +218,11 @@ const Map = ({data, filter}) => {
     ></svg>
   )
 }
+
 const mapStateToProps = (state, ownProps) => {
-  console.log(state.getMap.data)
   let newData =
     state.getMap.data.length == 0 ? state.getData : state.getMap
-  console.log(newData)
+  console.log(ownProps)
   return {
     data: newData.data,
     filter: ownProps.filter,
