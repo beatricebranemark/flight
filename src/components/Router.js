@@ -6,11 +6,13 @@ import D3Index from './pages/D3/D3Index'
 
 import SelectSchool from './pages/selectSchool/SelectSchool'
 import LinearGraph from './pages/Bea/LinearGraph'
+import ChordsDiagram from './pages/ChordDiagram/ChordDiagram'
 
 const Router = () => {
   return (
     <Switch>
       <Route exact path='/' component={D3Index} />
+      <Route path='/chords' component={ChordsDiagram}/>
       <Route path='/home' component={Home} />
       <Route path='/selectschool' component={SelectSchool} />
       <Route path='/bea' component={LinearGraph} />
