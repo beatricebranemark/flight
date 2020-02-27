@@ -19,44 +19,44 @@ export default function Model(filterOptions) {
   }
 
   if (filterOptions.barChart.filter) {
-    data = data.filter(emp => {
+    let filteredData = data.filter(emp => {
       return filterOptions.barChart.employees.includes(emp.employee)
     })
     store.dispatch({
       type: 'SET_MAP_DATA',
-      payload: data,
+      payload: filteredData,
     })
     store.dispatch({
       type: 'SET_PERSON_DATA',
-      payload: data,
+      payload: filteredData,
     })
   }
 
   if (filterOptions.map.filter) {
-    data = data.filter(emp => {
+    let filteredData = data.filter(emp => {
       return filterOptions.map.chosenCountry == emp.arrival_country
     })
     store.dispatch({
       type: 'SET_BAR_DATA',
-      payload: data,
+      payload: filteredData,
     })
     store.dispatch({
-      type: 'SET_PERSONLIST_DATA',
-      payload: data,
+      type: 'SET_PERSON_DATA',
+      payload: filteredData,
     })
   }
 
   if (filterOptions.personList.filter) {
-    data = data.filter(emp => {
+    let filteredData = data.filter(emp => {
       return filterOptions.personList.employees.includes(emp.employee)
     })
     store.dispatch({
       type: 'SET_BAR_DATA',
-      payload: data,
+      payload: filteredData,
     })
     store.dispatch({
       type: 'SET_MAP_DATA',
-      payload: data,
+      payload: filteredData,
     })
   }
 }
