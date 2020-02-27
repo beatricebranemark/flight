@@ -186,12 +186,14 @@ const Map = ({data, filter}) => {
     ></svg>
   )
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  console.log(state.getMap.data)
   let newData =
     state.getMap.data.length == 0 ? state.getData : state.getMap
+  console.log(newData)
   return {
     data: newData.data,
-    filter: state.getFilterOptions.data,
+    filter: ownProps.filter,
   }
 }
 export default connect(mapStateToProps)(Map)

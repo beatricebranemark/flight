@@ -18,14 +18,12 @@ const PersonList = ({data, filter}) => {
         employee_list.push(d.employee)
       }
     } else {
-      console.log('#N/A employee: ' + d.employee)
       na_list.push(d.employee)
     }
   })
 
   //Click function, chosen employee är från början hela employee list
   const chosen_employees_list = []
-  console.log(chosen_employees_list)
 
   function chosenEmployee(evt, id) {
     //=inactive by default
@@ -35,7 +33,6 @@ const PersonList = ({data, filter}) => {
       evt.target.className = 'person_active'
       if (chosen_employees_list.includes(id) === false) {
         //om personen inte finns i listan, lägg till
-        console.log(evt.target.className)
         chosen_employees_list.push(id)
       }
     } else {
@@ -43,13 +40,11 @@ const PersonList = ({data, filter}) => {
       evt.target.className = 'person_inactive'
       if (chosen_employees_list.includes(id) === true) {
         //om personen finns i listan, ta bort
-        console.log(evt.target.className)
         const index = chosen_employees_list.indexOf(id)
         chosen_employees_list.splice(index, 1)
       }
     }
     //send list to model here
-    console.log(chosen_employees_list)
     filter.personList.filter = true
     filter.personList.employees = chosen_employees_list
     Model(filter)
@@ -70,12 +65,12 @@ const PersonList = ({data, filter}) => {
   )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   let newData =
     state.getPerson.data.length == 0 ? state.getData : state.getPerson
   return {
     data: newData.data,
-    filter: state.getFilterOptions.data,
+    filter: ownProps.filter,
   }
 }
 

@@ -7,11 +7,10 @@ import './BarChart.css'
 const BarChart = ({data, filter}) => {
   // Data
   let organisation_trips = data
-
   const d3Container = useRef(null)
   const airportData = require('../../../../data/airports.json')
   const filteredTravels = []
-
+  console.log(data)
   const [active, setActive] = useState(false)
 
   /*let groupByOrganisation = d3
@@ -60,7 +59,7 @@ const BarChart = ({data, filter}) => {
     let date = trip.departure_time
     date = date.split('/')
     for (let j = 17; j < 20; j++) {
-      if (date[2].slice(0, 2) === j.toString()) {
+      if (date[2].slice(2, 4) === j.toString()) {
         for (let i = 0; i < 13; i++) {
           if (date[0] == i + 1) {
             if (trip.travel_type === 'Enkel') {
@@ -155,6 +154,7 @@ const BarChart = ({data, filter}) => {
     //  var vals = '[{"State":"CA","Under 5 Years":2704659,"5 to 13 Years":4499890,"14 to 17 Years":2159981,"18 to 24 Years":3853788,"25 to 44 Years":10604510,"45 to 64 Years":8819342,"65 Years and Over":4114496},{"State":"TX","Under 5 Years":2027307,"5 to 13 Years":3277946,"14 to 17 Years":1420518,"18 to 24 Years":2454721,"25 to 44 Years":7017731,"45 to 64 Years":5656528,"65 Years and Over":2472223},{"State":"NY","Under 5 Years":1208495,"5 to 13 Years":2141490,"14 to 17 Years":1058031,"18 to 24 Years":1999120,"25 to 44 Years":5355235,"45 to 64 Years":5120254,"65 Years and Over":2607672},{"State":"FL","Under 5 Years":1140516,"5 to 13 Years":1938695,"14 to 17 Years":925060,"18 to 24 Years":1607297,"25 to 44 Years":4782119,"45 to 64 Years":4746856,"65 Years and Over":3187797},{"State":"IL","Under 5 Years":894368,"5 to 13 Years":1558919,"14 to 17 Years":725973,"18 to 24 Years":1311479,"25 to 44 Years":3596343,"45 to 64 Years":3239173,"65 Years and Over":1575308},{"State":"PA","Under 5 Years":737462,"5 to 13 Years":1345341,"14 to 17 Years":679201,"18 to 24 Years":1203944,"25 to 44 Years":3157759,"45 to 64 Years":3414001,"65 Years and Over":1910571}]';
 
     var data = data_list
+
     var keys = Object.keys(data[3]).slice(0, 3)
 
     var divTooltip = d3
@@ -324,12 +324,12 @@ const BarChart = ({data, filter}) => {
     </div>
     */
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   let newData =
     state.getBar.data.length == 0 ? state.getData : state.getBar
   return {
     data: newData.data,
-    filter: state.getFilterOptions.data,
+    filter: ownProps.filter,
   }
 }
 export default connect(mapStateToProps)(BarChart)
