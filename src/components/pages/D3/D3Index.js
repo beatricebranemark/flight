@@ -6,10 +6,11 @@ import store from '../../../reducers'
 import NavBar from './NavBar/NavBar'
 import HomeScreen from './HomeScreen'
 import {Provider} from 'react-redux'
+import Filter from './../../Filter'
 
 const D3Index = () => {
   const [data, setData] = useState(store.getState().getData.data)
-
+  const filter = Filter()
   store.subscribe(() => {
     setData(store.getState().getData.data)
   })
@@ -27,11 +28,11 @@ const D3Index = () => {
         ) : (
           <div className='row'>
             <div className='col-sm-8'>
-              <BarChart />
-              <Map />
+              <BarChart filter={filter} />
+              <Map filter={filter} />
             </div>
             <div className='col-sm-4'>
-              <PersonList />
+              <PersonList filter={filter} />
             </div>
           </div>
         )}
