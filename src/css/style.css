@@ -65,6 +65,9 @@ h1 {
     text-align: center;
     font-family: "Arial"; }
 
+#chart {
+  color: white; }
+
 .NavBar {
   height: 20%;
   text-align: center;
@@ -83,3 +86,11 @@ h1 {
   padding: 15px; }
   .homepage__heading .homepage__heading__title {
     font-family: 'Patua One', cursive; }
+
+#schoolButton {
+  margin: 10px;
+  width: 90px;
+  height: 50px; }
+
+#selectSchoolOrg {
+  margin-top: 50px; }
