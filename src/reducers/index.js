@@ -41,6 +41,16 @@ const getPersonDataReducer = (state = {}, action) => {
   return state
 }
 
+const getHoverReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_HOVER_DATA': {
+      return {...state, data: action.payload}
+    }
+    default:
+  }
+  return state
+}
+
 const getOrgsReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_ORGANISATIONS': {
@@ -76,6 +86,7 @@ const reducers = combineReducers({
   getBar: getBarDataReducer,
   getMap: getMapDataReducer,
   getPerson: getPersonDataReducer,
+  getHover: getHoverReducer,
   getOrgs: getOrgsReducer,
   getSchools: getSchoolReducer,
   getFilterOptions: getFilterOptionsReducer,
@@ -85,6 +96,11 @@ const store = createStore(reducers)
 
 store.dispatch({
   type: 'SET_DATA',
+  payload: [],
+})
+
+store.dispatch({
+  type: 'SET_HOVER_DATA',
   payload: [],
 })
 
