@@ -103,15 +103,16 @@ const BarChart = ({data, filter}) => {
         let ans = getKeyByValue(months, clickedBar.month)
         if (month_int == ans) {
           if (cl == 'bar_active') {
-            filteredTravels.push(trip.employee)
+            filteredTravels.push(trip)
           }
           if (cl == 'bar_inactive') {
-            const index = filteredTravels.indexOf(trip.employee)
+            const index = filteredTravels.indexOf(trip)
             filteredTravels.splice(index, 1)
           }
         }
       }
     })
+    console.log(filteredTravels)
     filter.barChart.filter = true
     filter.barChart.employees = filteredTravels
     Model(filter)

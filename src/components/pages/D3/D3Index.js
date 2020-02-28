@@ -43,6 +43,7 @@ const D3Index = () => {
         <h1 className='homepage__heading__title'>Flight</h1>
       </div>
       <Provider store={store}>
+
       <NavBar data={data} />
 
         {data.length == 0 ? (
@@ -51,6 +52,7 @@ const D3Index = () => {
 
           <>
                   
+
 
             <Button onClick={showSideBar}>Click Here</Button>
             <Sidebar.Pushable as={Segment}>

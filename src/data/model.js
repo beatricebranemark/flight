@@ -19,16 +19,17 @@ export default function Model(filterOptions) {
   }
 
   if (filterOptions.barChart.filter) {
-    let filteredData = data.filter(emp => {
-      return filterOptions.barChart.employees.includes(emp.employee)
+    store.dispatch({
+      type: 'SET_MAP_DATA',
+      payload: {},
     })
     store.dispatch({
       type: 'SET_MAP_DATA',
-      payload: filteredData,
+      payload: filterOptions.barChart.employees,
     })
     store.dispatch({
       type: 'SET_PERSON_DATA',
-      payload: filteredData,
+      payload: filterOptions.barChart.employees,
     })
   }
 
