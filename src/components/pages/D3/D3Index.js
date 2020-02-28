@@ -6,7 +6,7 @@ import store from '../../../reducers'
 import NavBar from './NavBar/NavBar'
 import HomeScreen from './HomeScreen'
 import {Provider} from 'react-redux'
-
+import HoverBox from './HoverBox/hoverBox'
 import SideChart from './SideChart/SideChart'
 
 import Filter from './../../Filter'
@@ -73,6 +73,7 @@ const D3Index = () => {
                 <Segment basic>
                   <BarChart filter={filter} />
                   <Map filter={filter} />
+                  <HoverBox />
                 </Segment>
               </Sidebar.Pusher>
             </Sidebar.Pushable>

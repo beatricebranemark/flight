@@ -3,7 +3,7 @@ import Model from '../../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './index.css'
-
+import store from '../../../../reducers/'
 const Map = ({data, filter}) => {
   let d3Container = useRef(null)
   let countries = require('./csvjson.json')
@@ -27,7 +27,7 @@ const Map = ({data, filter}) => {
 
       var scale = d3
         .scaleSqrt()
-        .domain([10, 1])
+        .domain([1, 10])
         .range([2, 10])
       // A path generator
       let path = d3.geoPath().projection(projection)
@@ -36,6 +36,7 @@ const Map = ({data, filter}) => {
         .geoPath()
         .projection(projection)
         .pointRadius(function(d) {
+          console.log(scale(d.scale))
           return scale(d.scale)
         })
 
@@ -139,7 +140,7 @@ const Map = ({data, filter}) => {
               chosenCountry(d.properties.name)
             })
             .style('stroke', '#fff')
-            .style('stroke-width', 0)
+            .style('stroke-width', 0.2)
 
           // Create data: coordinates of start and end
           data.map(function(flight) {
@@ -162,7 +163,7 @@ const Map = ({data, filter}) => {
               let link2 = {
                 type: 'Point',
                 coordinates: coordinates[1],
-                scale: 5,
+                scale: 1,
               }
               // Add the path
               svg
@@ -170,9 +171,19 @@ const Map = ({data, filter}) => {
                 .attr('d', path(link))
                 .attr('class', 'line')
                 .style('fill', 'none')
-                .style('stroke', 'purple')
+                .style('stroke', function(d) {
+                  if (flight.travel_type === 'Enkel') {
+                    return 'blue'
+                  } else if (flight.travel_type === 'Tur och retur') {
+                    return 'orange'
+                  } else if (
+                    flight.travel_type === 'Flera destinationer'
+                  ) {
+                    return 'red'
+                  }
+                })
                 .style('opacity', 0.5)
-                .style('stroke-width', 5)
+                .style('stroke-width', 2)
 
               svg
                 .append('path')
@@ -182,6 +193,16 @@ const Map = ({data, filter}) => {
                 .style('stroke', 'purple')
                 .style('opacity', 1)
                 .style('stroke-width', 0.5)
+                .on('mouseover', function() {
+                  d3.select(this).style('fill', 'blue')
+                  store.dispatch({
+                    type: 'SET_HOVER_DATA',
+                    payload: [flight],
+                  })
+                })
+                .on('mouseout', function() {
+                  d3.select(this).style('fill', 'red')
+                })
             } catch (TypeError) {
               console.log(TypeError)
             }
