@@ -11,8 +11,16 @@ import SideChart from './SideChart/SideChart'
 
 import Filter from './../../Filter'
 
-import { useBooleanKnob } from 'retoggle'
-import { Header, Icon, Image,Button, Menu, Segment, Sidebar } from 'semantic-ui-react'
+import {useBooleanKnob} from 'retoggle'
+import {
+  Header,
+  Icon,
+  Image,
+  Button,
+  Menu,
+  Segment,
+  Sidebar,
+} from 'semantic-ui-react'
 
 const D3Index = () => {
   const [data, setData] = useState(store.getState().getData.data)
@@ -22,35 +30,29 @@ const D3Index = () => {
   })
 
   function showSideBar() {
-
-    if (visible == false){
-      
+    if (visible == false) {
       setVisible(true)
+    } else {
+      setVisible(false)
     }
-    else {setVisible(false)}
   }
-  const [visible, setVisible] = useBooleanKnob({ name: 'visible' })
+  const [visible, setVisible] = useBooleanKnob({name: 'visible'})
   return (
     <div className='homepage'>
       <div className='homepage__heading'>
         <h1 className='homepage__heading__title'>Flight</h1>
       </div>
-        <Provider store={store}>
+      <Provider store={store}>
+      <NavBar data={data} />
 
-          <NavBar data={data} />
-            {data.length == 0 ? (
-          <HomeScreen />
-              ) : (
-          <div className='row'>
-            <div className='col-sm-8'>
-              <BarChart filter={filter} />
-              <Map filter={filter} />
-            </div>
-            <div className='col-sm-4'>
-              <PersonList filter={filter} />
-            </div>
-          </div>
-              <Button onClick={showSideBar}>Click Here</Button>
+        {data.length == 0 ? (
+          <HomeScreen></HomeScreen>
+        ) : (
+
+          <>
+                  
+
+            <Button onClick={showSideBar}>Click Here</Button>
             <Sidebar.Pushable as={Segment}>
               <Sidebar
                 as={Menu}
@@ -62,18 +64,17 @@ const D3Index = () => {
                 visible={visible}
                 width='wide'
               >
-              <h1>heeej</h1>
-              <SideChart></SideChart>
-
-            </Sidebar>
-      <Sidebar.Pusher>
-        <Segment basic>
-        <BarChart />
-              <Map />
-        </Segment>
-      </Sidebar.Pusher>
-    </Sidebar.Pushable>
-  </div>
+                <h1>heeej</h1>
+                <SideChart></SideChart>
+              </Sidebar>
+              <Sidebar.Pusher>
+                <Segment basic>
+                  <BarChart filter={filter} />
+                  <Map filter={filter} />
+                </Segment>
+              </Sidebar.Pusher>
+            </Sidebar.Pushable>
+          </>
         )}
       </Provider>
     </div>
