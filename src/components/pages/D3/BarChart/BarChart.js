@@ -10,7 +10,6 @@ const BarChart = ({data, filter}) => {
   const d3Container = useRef(null)
   const airportData = require('../../../../data/airports.json')
   const filteredTravels = []
-  console.log(data)
   const [active, setActive] = useState(false)
 
   /*let groupByOrganisation = d3
