@@ -318,15 +318,22 @@ const BarChart = ({data, filter}) => {
   })
 
   return <svg width={width} height={height} ref={d3Container}></svg>
-  /*
-    <div className='barChart'>
-      <p>BarChart</p>
-    </div>
-    */
 }
 const mapStateToProps = (state, ownProps) => {
-  let newData =
-    state.getBar.data.length == 0 ? state.getData : state.getBar
+  let newData
+  if (
+    ownProps.type === 'firstView' &&
+    state.getSelectedOrg.data.length === 0
+  ) {
+    if (state.getSelectedSchool.data.length > 0) {
+      newData = state.getSelectedSchool
+    } else {
+      newData = state.getData
+    }
+  } else {
+    newData =
+      state.getBar.data.length == 0 ? state.getData : state.getBar
+  }
   return {
     data: newData.data,
     filter: ownProps.filter,
