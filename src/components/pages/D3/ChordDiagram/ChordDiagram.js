@@ -1,47 +1,148 @@
 import React, {useEffect, useRef, useState} from 'react'
-import Model from '../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
+import Model from '../../../../data/model'
 import "./ChordDiagram.css"
 import $ from "jquery"
 
 const ChordDiagram = ({data,filter}) => {
-/*
-    console.log(data);
-    var unique_cities = []
 
-    for(var i = 0;i<data.length();i++){
-        var departure = data[i].departure_city.split(",");
-        var city = departure[0];
-        if(unique_cities.includes(city)){
-            unique_cities.push(city);
-        }
+  let organisation_trips = data;
+
+  //ta bort enkelresa med arrival city = stockholm
+
+  let filtered_trips = [];
+  let deleted_trips = [];
+  organisation_trips.forEach(trip =>{
+    if(trip.travel_type == "Enkel" && trip.arrival_city.split(",")[0] == "Stockholm"){
+      deleted_trips.push(trip);
+      filtered_trips = filtered_trips;
     }
+    else{
+      filtered_trips.push(trip);
+    }
+  })
 
-    console.log(unique_cities);
-*/
-  
+  console.log("Org trips: "+ organisation_trips.length);
+  console.log("Filtered trips: " + filtered_trips.length);
+  console.log(deleted_trips);
+
+
+  const [active, setActive] = useState(false)
 
     const d3Container = useRef(null)
     //const airportData = require('../../../../data/airports.json')
     const filteredTravels = []
 
     var margin = {left:90, top:90, right:90, bottom:90},
-    width =  1000 - margin.left - margin.right, // more flexibility: Math.min(window.innerWidth, 1000)
-    height =  1000 - margin.top - margin.bottom, // same: Math.min(window.innerWidth, 1000)
+    width =  Math.min(window.innerWidth,1000) - margin.left - margin.right, // more flexibility: Math.min(window.innerWidth, 1000)
+    height =  Math.min(window.innerWidth, 1000) - margin.top - margin.bottom, // same: Math.min(window.innerWidth, 1000)
     innerRadius = Math.min(width, height) * .39,
-    outerRadius = innerRadius * 1.1;
+    outerRadius = innerRadius +20;
 
-    console.log("chorddiagram");
   
     useEffect(()=>{
+
+      var chord_diagram = d3.select('.chord');
+      chord_diagram.remove();
+  
+      
+      var unique_departure_cities = [];
+      var unique_arrival_cities = [];
+      var unique_cities = [];
+      var mat = [];
+
+      const createArrays = ()=>{
+      filtered_trips.forEach(trip => {
+          var departure = trip.departure_city.split(",");
+          var arrival = trip.arrival_city.split(",");
+          var departure_city = departure[0];
+          var arrival_city = arrival[0];
+          if(unique_departure_cities.includes(departure_city) == false){
+            unique_departure_cities.push(departure_city);
+              }
+            if (unique_arrival_cities.includes(arrival_city) == false){
+              unique_arrival_cities.push(arrival_city);      
+                }
+          
+      })
+    }
+
+    const createUnique = () =>{
+      if(unique_departure_cities.length > unique_arrival_cities){
+        unique_cities = unique_departure_cities;
+        for(var i=0;i<unique_arrival_cities.length;i++){
+
+          if(unique_cities.includes(unique_arrival_cities[i])== false){
+              console.log(unique_arrival_cities[i]);
+              unique_cities.push(unique_arrival_cities[i]);
+              
+          }
+        }
+      }
+      else{
+        for(var i=0;i<unique_departure_cities.length;i++){
+          unique_cities = unique_arrival_cities;
+
+          if(unique_cities.includes(unique_departure_cities[i])== false){
+              console.log(unique_departure_cities[i]);
+              unique_cities.push(unique_departure_cities[i]);
+              
+          }
+        }
+      }
+    }
+
+    createArrays();
+    //console.log("Departure: " + unique_departure_cities);
+    //console.log("Arrival: " + unique_arrival_cities);
+
+    createUnique();
+     console.log("Cities: " + unique_cities);
+      //console.log("Matrix: " + mat);
+
+
+    ////////////////////////////////////////////////////////////
+    //////////////////////// Create-Matrix /////////////////////
+    ////////////////////////////////////////////////////////////
+
+    const createEmptyMatrix = () =>{
+      for(var i = 0; i<unique_cities.length;i++){
+        mat.push([]);
+      }
+    }
+    createEmptyMatrix();
+
+    const countOccurrences = (from, to) => {
+      var count = 0;
+      for(var i = 0; i < filtered_trips.length; i++){
+            if(filtered_trips[i].departure_city.split(',')[0] == from && filtered_trips[i].arrival_city.split(',')[0] == to){
+              count += 1;
+            }
+        }
+      return count
+    }
+
+        const createMatrix = () =>{
+        for(var i = 0; i < unique_cities.length; i++){
+          for(var j = 0; j < unique_cities.length; j++){
+            mat[i][j] = countOccurrences(unique_cities[i],unique_cities[j]) 
+          }
+        }
+      }
+// filtered_trips[j].arrival_city.split(',')[0]
+      createMatrix();
+     console.log(mat);
+
+
+
     ////////////////////////////////////////////////////////////
     //////////////////////// Set-Up ////////////////////////////
     ////////////////////////////////////////////////////////////
 
 
-        var names = ["Test1","Test2","AMO-DB","YouTube","Twitter", "Google+", "Pflegeratgeber" ,"O-Mag","RuV"],
-        colors = ["#301E1E", "#083E77", "#342350", "#567235", "#8B161C", "#DF7C00"],
+        var names = unique_cities,
+        colors = ["#301E1E", "#083E77", "#342350", "#567235", "#8B161C", "#DF7C00", "#301E1E", "#083E77", "#342350", "#567235", "#8B161C", "#DF7C00", "#301E1E", "#083E77", "#342350", "#567235", "#8B161C", "#DF7C00", "#301E1E", "#083E77", "#342350", "#567235", "#8B161C", "#DF7C00", "#301E1E", "#083E77", "#342350", "#567235", "#8B161C", "#DF7C00"],
         opacityDefault = 0.8;
 
     /*Computes the chord layout for the specified square matrix of size n×n, 
@@ -50,6 +151,8 @@ const ChordDiagram = ({data,filter}) => {
     where each matrix[i][j] represents the flow from the ith node in the network to the jth node. 
     Each number matrix[i][j] must be nonnegative, though it can be zero if there is no flow from node i to node j.
     */
+
+
         var matrix = [
         [0,1,1,1,1,1,1,1,1], //Test1
         [0,0,1,1,1,1,1,0,1], //Test2
@@ -64,13 +167,7 @@ const ChordDiagram = ({data,filter}) => {
         
 
 
-       /* var mat = [];
-        var names = [];
-        n=30;
-        for (var i = 0;i<n;i++){
-
-
-        }*/
+        
 
     ////////////////////////////////////////////////////////////
     /////////// Create scale and layout functions //////////////
@@ -80,11 +177,11 @@ const ChordDiagram = ({data,filter}) => {
     .range(colors);
 
     var chord = d3.chord()
-    .padAngle(.15)
+    .padAngle(0)
     .sortChords(d3.descending)
 
     var arc = d3.arc()
-    .innerRadius(innerRadius*1.01)
+    .innerRadius(innerRadius)
     .outerRadius(outerRadius);
 
     var path = d3.ribbon()
@@ -98,8 +195,11 @@ const ChordDiagram = ({data,filter}) => {
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
+    .attr('class', 'chord')
     .attr("transform", "translate(" + (width/2 + margin.left) + "," + (height/2 + margin.top) + ")")
-    .datum(chord(matrix));
+    .datum(chord(mat));
+
+
 
   ////////////////////////////////////////////////////////////
   ////////////////// Draw outer Arcs /////////////////////////
@@ -116,7 +216,6 @@ const ChordDiagram = ({data,filter}) => {
           : d3.select(this).attr('class', 'group_inactive')
 
         if(d3.select(this).attr('class') == "group_inactive"){
-            console.log("tja")
           svg.selectAll("path.chord")
               .filter(function(d) { return d.source.index != i && d.target.index != i; })
           .transition()
@@ -145,7 +244,7 @@ const ChordDiagram = ({data,filter}) => {
 
  outerArcs.append("text")
          .attr("x", 6)
-         .attr("dx", 60)
+         .attr("dx",10)
         .attr("dy", 18)
       .append("textPath")
         .attr("href", function(d) { return "#group" + d.index;})
@@ -240,4 +339,12 @@ svg.selectAll("path.chord")
     return <svg width={width} height={height} ref={d3Container}></svg>
 }
 
-export default ChordDiagram
+const mapStateToProps = (state, ownProps) => {
+  let newData =
+    state.getMap.data.length == 0 ? state.getData : state.getMap
+  return {
+    data: newData.data,
+    filter: ownProps.filter,
+  }
+}
+export default connect(mapStateToProps)(ChordDiagram)

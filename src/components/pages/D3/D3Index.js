@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import BarChart from './BarChart/BarChart'
+import ChordDiagram from './ChordDiagram/ChordDiagram'
 import Map from './Map/Map'
 import PersonList from './PersonList/PersonList'
 import store from '../../../reducers'
@@ -67,6 +68,7 @@ const D3Index = () => {
                 <Segment basic>
                   <BarChart filter={filter} />
                   <Map filter={filter} />
+                  <ChordDiagram filter={filter}/>
                 </Segment>
               </Sidebar.Pusher>
             </Sidebar.Pushable>

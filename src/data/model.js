@@ -19,10 +19,7 @@ export default function Model(filterOptions) {
   }
 
   if (filterOptions.barChart.filter) {
-    store.dispatch({
-      type: 'SET_MAP_DATA',
-      payload: {},
-    })
+   
     store.dispatch({
       type: 'SET_MAP_DATA',
       payload: filterOptions.barChart.employees,
