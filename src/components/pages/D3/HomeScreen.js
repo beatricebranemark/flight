@@ -10,12 +10,17 @@ const HomeScreen = props => {
   const [schools, setSchools] = useState(
     store.getState().getSchools.data.map(schools => schools)
   )
+
   const [currentSchool, setCurrentSchool] = useState(
     store.getState().getSelectedSchool.data
   )
+
   const [currentOrg, setCurrentOrg] = useState(
     store.getState().getSelectedOrg.data
   )
+
+  const [orgSelected, setSelectOrg] = useState(false)
+
   let filter = Filter()
   let organisationsList = React.createRef()
   let schoolsList = React.createRef()
@@ -63,6 +68,7 @@ const HomeScreen = props => {
 
   function handleSelectedOrg(e) {
     setCurrentOrg(e.target.value)
+    setSelectOrg(true)
     FilterScoolAndOrg.setOrg(e.target.value)
   }
   return (
@@ -111,7 +117,7 @@ const HomeScreen = props => {
             </select>
           </div>
         )}
-        {currentOrg.length < 1 || currentSchool === 'kth' ? null : (
+        {!orgSelected ? null : (
           <button
             className='btn btn-success'
             id='schoolButton'
