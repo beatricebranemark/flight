@@ -2,15 +2,21 @@ import React, {useState, useEffect} from 'react'
 import store from '../../../reducers'
 import FilterScoolAndOrg from '../../../data/FilterScoolAndOrg'
 import BarChart from './BarChart/BarChart'
+import {Provider} from 'react-redux'
+import Filter from './../../Filter'
 
-
-const HomeScreen = () => {
-  const [orgs, setOrgs] = useState([])
+const HomeScreen = props => {
+  const [orgs, setOrgs] = useState(store.getState().getOrgs.data)
   const [schools, setSchools] = useState(
     store.getState().getSchools.data.map(schools => schools)
   )
-  const [currentSchool, setCurrentSchool] = useState('')
-
+  const [currentSchool, setCurrentSchool] = useState(
+    store.getState().getSelectedSchool.data
+  )
+  const [currentOrg, setCurrentOrg] = useState(
+    store.getState().getSelectedOrg.data
+  )
+  let filter = Filter()
   let organisationsList = React.createRef()
   let schoolsList = React.createRef()
 
@@ -19,69 +25,102 @@ const HomeScreen = () => {
     //setSchools(store.getState().getSchools.data)
   })
 
-  useEffect(() => {
-    let schoolNode = schoolsList.current.children
-    if (schoolNode.length < 1) {
-      schools.map(school => {
-        let optionTag = document.createElement('button')
-        optionTag.setAttribute('value', school.key)
-        optionTag.setAttribute('class', 'btn btn-dark')
-        optionTag.setAttribute('id', 'schoolButton')
-        optionTag.setAttribute('onclick', function (d){handleSelectedSchool(d)})
-        optionTag.innerHTML = school.key
-        schoolsList.current.appendChild(optionTag)
-      })
-    }
-
-    if (currentSchool == '') {
-      let orgNode = organisationsList.current
-      while (orgNode.firstChild) {
-        orgNode.removeChild(orgNode.lastChild)
-      }
-      orgs.map(org => {
-        let optionTag = document.createElement('option')
-        optionTag.setAttribute('value', org.key)
-        optionTag.innerHTML = org.key
-        organisationsList.current.appendChild(optionTag)
-      })
-    }
+  const schoolsButton = schools.map(school => {
+    return (
+      <button
+        key={school.key}
+        value={school.key}
+        className='btn btn-dark'
+        id='schoolButton'
+        onClick={handleSelectedSchool}
+      >
+        {school.key}
+      </button>
+    )
+  })
+  const orgTags = orgs.map(org => {
+    return (
+      <option
+        key={org.key}
+        value={org.key}
+        selected={
+          currentOrg.length > 0
+            ? currentOrg[0].key === org.key
+              ? true
+              : false
+            : null
+        }
+      >
+        {org.key}
+      </option>
+    )
   })
 
-
-  function renderOrganisations() {}
-
   function handleSelectedSchool(e) {
-    setCurrentSchool('')
-    alert("hej")
+    setCurrentSchool(e.target.value)
     FilterScoolAndOrg.setSchool(e.target.value)
-    renderOrganisations()
   }
 
   function handleSelectedOrg(e) {
-    setCurrentSchool('org')
+    setCurrentOrg(e.target.value)
     FilterScoolAndOrg.setOrg(e.target.value)
   }
-  function submitGroup() {}
-
   return (
     <div className='NavBar'>
-      <BarChart></BarChart>
-      <div id="selectSchoolOrg">
+      <Provider store={store}>
+        <BarChart filter={filter} type={'firstView'} />
+      </Provider>
+      <div id='selectSchoolOrg'>
         <h2>Select your school</h2>
         <div
           className='buttonContainer'
           id='schools'
           onChange={handleSelectedSchool}
           ref={schoolsList}
-        ></div>
-        <h2>Select your org</h2>
-        <select
-          className='browser-default custom-select'
-          id='organisations'
-          onChange={handleSelectedOrg}
-          ref={organisationsList}
-        ></select>
+        >
+          <button
+            key='kth'
+            value='kth'
+            className='btn btn-dark'
+            id='schoolButton'
+            onClick={handleSelectedSchool}
+          >
+            All Schools
+          </button>
+          {schoolsButton}
         </div>
+        {currentSchool.length === 0 ||
+        currentSchool === 'kth' ? null : (
+          <div>
+            <h2>Select your org</h2>
+            <select
+              className='browser-default custom-select'
+              id='organisations'
+              onChange={handleSelectedOrg}
+              ref={organisationsList}
+            >
+              <option
+                key='Select an organisation'
+                selected={true}
+                disabled={true}
+                value=''
+              >
+                Select an organisation
+              </option>
+              {orgs.length > 0 ? orgTags : null}
+            </select>
+          </div>
+        )}
+        {currentOrg.length < 1 || currentSchool === 'kth' ? null : (
+          <button
+            className='btn btn-success'
+            id='schoolButton'
+            onClick={() => props.history.push('/seeOrg')}
+          >
+            See Details
+          </button>
+        )}
+      </div>
     </div>
   )
 }

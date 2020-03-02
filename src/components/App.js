@@ -14,7 +14,8 @@ function App() {
 
   let selectedSchool = 'ECS'
   let selectedOrg = 'TEORETISK DATOLOGI'
-  filterSchoolAndOrg.setSchool(selectedSchool) //Initziating Model
+  //filterSchoolAndOrg.setSchool(selectedSchool) //Initziating Model
+  filterSchoolAndOrg.setAllData()
   //filterSchoolAndOrg.setOrg(selectedOrg)
   return (
     <BrowserRouter>

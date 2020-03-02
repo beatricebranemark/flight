@@ -61,9 +61,29 @@ const getOrgsReducer = (state = {}, action) => {
   return state
 }
 
+const getSelectedOrgsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_SELECTED_ORGANISATION': {
+      return {...state, data: action.payload}
+    }
+    default:
+  }
+  return state
+}
+
 const getSchoolReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_SCHOOLS': {
+      return {...state, data: action.payload}
+    }
+    default:
+  }
+  return state
+}
+
+const getSelectedSchoolReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_SELECTED_SCHOOL': {
       return {...state, data: action.payload}
     }
     default:
@@ -88,7 +108,9 @@ const reducers = combineReducers({
   getPerson: getPersonDataReducer,
   getHover: getHoverReducer,
   getOrgs: getOrgsReducer,
+  getSelectedOrg: getSelectedOrgsReducer,
   getSchools: getSchoolReducer,
+  getSelectedSchool: getSelectedSchoolReducer,
   getFilterOptions: getFilterOptionsReducer,
 })
 
@@ -134,4 +156,13 @@ store.dispatch({
   payload: Filter(),
 })
 
+store.dispatch({
+  type: 'SET_SELECTED_SCHOOL',
+  payload: [],
+})
+
+store.dispatch({
+  type: 'SET_SELECTED_ORGANISATION',
+  payload: [],
+})
 export default store
