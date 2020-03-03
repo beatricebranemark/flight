@@ -41,6 +41,16 @@ const getPersonDataReducer = (state = {}, action) => {
   return state
 }
 
+const getHoverReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_HOVER_DATA': {
+      return {...state, data: action.payload}
+    }
+    default:
+  }
+  return state
+}
+
 const getOrgsReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_ORGANISATIONS': {
@@ -51,9 +61,29 @@ const getOrgsReducer = (state = {}, action) => {
   return state
 }
 
+const getSelectedOrgsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_SELECTED_ORGANISATION': {
+      return {...state, data: action.payload}
+    }
+    default:
+  }
+  return state
+}
+
 const getSchoolReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_SCHOOLS': {
+      return {...state, data: action.payload}
+    }
+    default:
+  }
+  return state
+}
+
+const getSelectedSchoolReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_SELECTED_SCHOOL': {
       return {...state, data: action.payload}
     }
     default:
@@ -76,8 +106,11 @@ const reducers = combineReducers({
   getBar: getBarDataReducer,
   getMap: getMapDataReducer,
   getPerson: getPersonDataReducer,
+  getHover: getHoverReducer,
   getOrgs: getOrgsReducer,
+  getSelectedOrg: getSelectedOrgsReducer,
   getSchools: getSchoolReducer,
+  getSelectedSchool: getSelectedSchoolReducer,
   getFilterOptions: getFilterOptionsReducer,
 })
 
@@ -85,6 +118,11 @@ const store = createStore(reducers)
 
 store.dispatch({
   type: 'SET_DATA',
+  payload: [],
+})
+
+store.dispatch({
+  type: 'SET_HOVER_DATA',
   payload: [],
 })
 
@@ -118,4 +156,13 @@ store.dispatch({
   payload: Filter(),
 })
 
+store.dispatch({
+  type: 'SET_SELECTED_SCHOOL',
+  payload: [],
+})
+
+store.dispatch({
+  type: 'SET_SELECTED_ORGANISATION',
+  payload: [],
+})
 export default store

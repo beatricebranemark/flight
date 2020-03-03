@@ -5,7 +5,10 @@ import filterSchoolAndOrg from './FilterScoolAndOrg'
 export default function Model(filterOptions) {
   //Get the data
 
-  let data = filterSchoolAndOrg.getOrg()[0].values
+  let data =
+    filterSchoolAndOrg.getOrg().length > 0
+      ? filterSchoolAndOrg.getOrg()[0].values
+      : filterSchoolAndOrg.getAllData()
 
   if (
     !filterOptions.barChart.filter &&

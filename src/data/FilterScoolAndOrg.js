@@ -12,6 +12,29 @@ class FilterSchoolAndOrg {
     this.data = []
     this.selectedSchool = ''
     this.selectedOrg = ''
+    this.schools = []
+  }
+
+  setAllData() {
+    this.data = Data()
+    let filter = getFilter()
+    //Group by school
+    this.schools = d3
+      .nest()
+      .key(function(d) {
+        return d.school
+      })
+      .entries(this.data)
+
+    store.dispatch({
+      type: 'SET_SCHOOLS',
+      payload: this.schools,
+    })
+    Model(filter)
+  }
+
+  getAllData() {
+    return this.data
   }
 
   setSchool(selectedSchool) {
@@ -20,36 +43,38 @@ class FilterSchoolAndOrg {
 
     this.selectedSchool = selectedSchool
 
-    //Group by school
-    let schools = d3
-      .nest()
-      .key(function(d) {
-        return d.school
-      })
-      .entries(this.data)
-
     //Filter out selected school
-    this.school = schools.filter(school => {
+    this.school = this.schools.filter(school => {
       return school.key === this.selectedSchool
     })
-
-    //Group by organisation in the selected school
-    this.organisationsInSelectedSchool = d3
-      .nest()
-      .key(function(d) {
-        return d.org_name
+    store.dispatch({
+      type: 'SET_SELECTED_ORGANISATION',
+      payload: [],
+    })
+    if (this.selectedSchool === 'kth') {
+      store.dispatch({
+        type: 'SET_SELECTED_SCHOOL',
+        payload: this.data,
       })
-      .entries(this.school[0].values)
+    } else {
+      store.dispatch({
+        type: 'SET_SELECTED_SCHOOL',
+        payload: this.school[0].values,
+      })
 
-    store.dispatch({
-      type: 'SET_SCHOOLS',
-      payload: schools,
-    })
+      //Group by organisation in the selected school
+      this.organisationsInSelectedSchool = d3
+        .nest()
+        .key(function(d) {
+          return d.org_name
+        })
+        .entries(this.school[0].values)
 
-    store.dispatch({
-      type: 'SET_ORGANISATIONS',
-      payload: this.organisationsInSelectedSchool,
-    })
+      store.dispatch({
+        type: 'SET_ORGANISATIONS',
+        payload: this.organisationsInSelectedSchool,
+      })
+    }
   }
 
   getSchool() {
@@ -65,6 +90,10 @@ class FilterSchoolAndOrg {
         return org.key === this.selectedOrg
       }
     )
+    store.dispatch({
+      type: 'SET_SELECTED_ORGANISATION',
+      payload: this.organisation,
+    })
     let filter = getFilter()
     Model(filter)
   }

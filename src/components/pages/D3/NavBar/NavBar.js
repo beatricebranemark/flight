@@ -2,12 +2,18 @@ import React, {useState, useEffect} from 'react'
 import store from '../../../../reducers'
 import FilterScoolAndOrg from '../../../../data/FilterScoolAndOrg'
 
-const NavBar = () => {
-  const [orgs, setOrgs] = useState([])
+const NavBar = props => {
+  console.log(props)
+  const [orgs, setOrgs] = useState(store.getState().getOrgs.data)
   const [schools, setSchools] = useState(
     store.getState().getSchools.data.map(schools => schools)
   )
-  const [currentSchool, setCurrentSchool] = useState('')
+  const [currentSchool, setCurrentSchool] = useState(
+    store.getState().getSelectedSchool.data
+  )
+  const [currentOrg, setCurrentOrg] = useState(
+    store.getState().getSelectedOrg.data
+  )
 
   let organisationsList = React.createRef()
   let schoolsList = React.createRef()
@@ -16,45 +22,42 @@ const NavBar = () => {
     setOrgs(store.getState().getOrgs.data)
     //setSchools(store.getState().getSchools.data)
   })
-
-  useEffect(() => {
-    let schoolNode = schoolsList.current.children
-    if (schoolNode.length < 1) {
-      schools.map(school => {
-        let optionTag = document.createElement('option')
-        optionTag.setAttribute('value', school.key)
-        optionTag.innerHTML = school.key
-        schoolsList.current.appendChild(optionTag)
-      })
-    }
-
-    if (currentSchool == '') {
-      let orgNode = organisationsList.current
-      while (orgNode.firstChild) {
-        orgNode.removeChild(orgNode.lastChild)
-      }
-      orgs.map(org => {
-        let optionTag = document.createElement('option')
-        optionTag.setAttribute('value', org.key)
-        optionTag.innerHTML = org.key
-        organisationsList.current.appendChild(optionTag)
-      })
-    }
+  const schoolTags = schools.map(school => {
+    return (
+      <option
+        key={school.key}
+        selected={
+          currentSchool[0].school === school.key ? true : false
+        }
+        value={school.key}
+      >
+        {school.key}
+      </option>
+    )
   })
 
-  function renderOrganisations() {}
+  const orgTags = orgs.map(org => {
+    return (
+      <option
+        key={org.key}
+        selected={currentOrg[0].key === org.key ? true : false}
+        value={org.key}
+      >
+        {org.key}
+      </option>
+    )
+  })
 
   function handleSelectedSchool(e) {
-    setCurrentSchool('')
+    setCurrentSchool(e.target.value)
+    setCurrentOrg([{key: ''}])
     FilterScoolAndOrg.setSchool(e.target.value)
-    renderOrganisations()
   }
 
   function handleSelectedOrg(e) {
-    setCurrentSchool('org')
+    setCurrentOrg(e.target.value)
     FilterScoolAndOrg.setOrg(e.target.value)
   }
-  function submitGroup() {}
 
   return (
     <div className='NavBar'>
@@ -63,14 +66,36 @@ const NavBar = () => {
         id='schools'
         onChange={handleSelectedSchool}
         ref={schoolsList}
-      ></select>
+      >
+        <option key='Select a school' disabled='true' value=''>
+          Select a school
+        </option>
+        {schoolTags}
+      </select>
 
       <select
         className='browser-default custom-select'
         id='organisations'
         onChange={handleSelectedOrg}
         ref={organisationsList}
-      ></select>
+      >
+        <option
+          key='Select an organisation'
+          selected={currentOrg[0].key === '' ? true : false}
+          disabled={true}
+          value=''
+        >
+          Select an organisation
+        </option>
+        {orgs.length > 0 ? orgTags : null}
+      </select>
+      <button
+        className='btn btn-success'
+        id='schoolButton'
+        onClick={() => props.props.history.push('/')}
+      >
+        Go Back
+      </button>
     </div>
   )
 }

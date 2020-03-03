@@ -9,7 +9,9 @@ const BarChart = ({data, filter}) => {
   let organisation_trips = data
   const d3Container = useRef(null)
   const airportData = require('../../../../data/airports.json')
+
   var filteredTravels = []
+
   const [active, setActive] = useState(false)
 
   /*let groupByOrganisation = d3
@@ -446,6 +448,7 @@ const BarChart = ({data, filter}) => {
       .attr('font-weight', 'bold')
   })
 
+
   return <React.Fragment><svg width={width} height={height} ref={d3Container}></svg>
     <button onClick={(e) => showAll(e)}>Select all</button>
     </React.Fragment>
@@ -455,10 +458,23 @@ const BarChart = ({data, filter}) => {
       <p>BarChart</p>
     </div>
     */
+
 }
 const mapStateToProps = (state, ownProps) => {
-  let newData =
-    state.getBar.data.length == 0 ? state.getData : state.getBar
+  let newData
+  if (
+    ownProps.type === 'firstView' &&
+    state.getSelectedOrg.data.length === 0
+  ) {
+    if (state.getSelectedSchool.data.length > 0) {
+      newData = state.getSelectedSchool
+    } else {
+      newData = state.getData
+    }
+  } else {
+    newData =
+      state.getBar.data.length == 0 ? state.getData : state.getBar
+  }
   return {
     data: newData.data,
     filter: ownProps.filter,
