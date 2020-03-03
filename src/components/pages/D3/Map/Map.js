@@ -36,7 +36,6 @@ const Map = ({data, filter}) => {
         .geoPath()
         .projection(projection)
         .pointRadius(function(d) {
-          console.log(scale(d.scale))
           return scale(d.scale)
         })
 
@@ -243,7 +242,6 @@ const Map = ({data, filter}) => {
 const mapStateToProps = (state, ownProps) => {
   let newData =
     state.getMap.data.length == 0 ? state.getData : state.getMap
-  console.log(ownProps)
   return {
     data: newData.data,
     filter: ownProps.filter,
