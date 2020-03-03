@@ -18,13 +18,6 @@ const BarChart = ({data, filter}) => {
 
   let data_list = countTrips(organisation_trips)
 
-  const getKeyByValue = (object, value) => {
-    for (var prop in object) {
-      if (object.hasOwnProperty(prop)) {
-        if (object[prop] === value) return prop
-      }
-    }
-  }
   let months = {
     1: 'january',
     2: 'february',
