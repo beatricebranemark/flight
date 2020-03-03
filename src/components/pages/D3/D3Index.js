@@ -19,6 +19,7 @@ import {
   Segment,
   Sidebar,
 } from 'semantic-ui-react'
+import TopTen from './TopTen/TopTen'
 
 const D3Index = props => {
   const [data, setData] = useState(store.getState().getSchools.data)
@@ -53,11 +54,13 @@ const D3Index = props => {
               <Segment basic>
                 <BarChart type={'secondView'} filter={filter} />
                 <Map filter={filter} />
+                <TopTen/>
                 <HoverBox />
               </Segment>
             </Sidebar.Pusher>
           </Sidebar.Pushable>
         </>
+
       </Provider>
     </div>
   )
