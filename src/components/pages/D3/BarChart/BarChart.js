@@ -76,7 +76,7 @@ const BarChart = ({data, filter}) => {
   }
 
   const sendData = (clickedBar) => {
-
+    //legend-filter
     if(clickedBar.month == '-'){
         let filterByYear = [];
         organisation_trips.forEach(trip =>{
@@ -86,6 +86,7 @@ const BarChart = ({data, filter}) => {
         })
         filteredTravels = filterByYear;
       }
+    //bar-filter
     else{
     organisation_trips.forEach(trip => {
       
@@ -237,7 +238,6 @@ const BarChart = ({data, filter}) => {
           ? d3.select(this).attr('class', 'bar_active')
           : d3.select(this).attr('class', 'bar_inactive')*/
           if(d3.select(this).attr('class').split(' ')[0] == 'bar_active'){
-            console.log(d.key)
             var bars_inactive = document.getElementsByClassName("bar_inactive")
             var bars_active = document.getElementsByClassName("bar_active")
             if(bars_inactive.length == 0){ // if no bars are inactive
@@ -311,7 +311,6 @@ const BarChart = ({data, filter}) => {
         //var active_bars = document.getElementsByClassName('bar_active')
         var rects = document.getElementsByClassName("bar_rect");
         var barsByYear = document.getElementsByClassName(d)
-        console.log(barsByYear)
         for(var i = 0; i < rects.length; i++){ // set all bars to inactive
           let fullClassactive = rects[i].className.baseVal
           rects[i].className.baseVal = 'bar_inactive '+fullClassactive.split(' ')[1]+' bar_rect'
