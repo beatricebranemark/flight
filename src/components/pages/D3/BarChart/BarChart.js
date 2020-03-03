@@ -9,7 +9,11 @@ const BarChart = ({data, filter}) => {
   let organisation_trips = data
   const d3Container = useRef(null)
 
-  const filteredTravels = []
+  const legendContainer = useRef(null)
+  const airportData = require('../../../../data/airports.json')
+
+  var filteredTravels = []
+
   const [active, setActive] = useState(false)
 
   let data_list = countTrips(organisation_trips)
@@ -36,27 +40,99 @@ const BarChart = ({data, filter}) => {
     12: 'december',
   }
 
-  const sendData = (clickedBar, cl) => {
+
+  organisation_trips.forEach(trip => {
+    let date = trip.departure_time
+    date = date.split('/')
+    for (let j = 17; j < 20; j++) {
+      if (date[2].slice(2, 4) === j.toString()) {
+        for (let i = 0; i < 13; i++) {
+          if (date[0] == i + 1) {
+            if (trip.travel_type === 'Enkel') {
+              data_list[i][20 + j.toString()] += 1
+            } else if (trip.travel_type === 'Tur och retur') {
+              data_list[i][20 + j.toString()] += 2
+            } else {
+              let path = trip.path.split('/')
+              let firstDestination = path[0]
+              let lastDestination = path[path.length - 1]
+              airportData.forEach(airport => {
+                if (airport.IATA === firstDestination) {
+                  firstDestination = airport.City
+                }
+                if (airport.IATA === lastDestination) {
+                  lastDestination = airport.City
+                }
+              })
+              firstDestination === lastDestination
+                ? (data_list[i][20 + j.toString()] += 2)
+                : (data_list[i][20 + j.toString()] += 1)
+            }
+          }
+        }
+      }
+    }
+  })
+
+  const getKeyByValue = (object, value) => {
+    for (var prop in object) {
+      if (object.hasOwnProperty(prop)) {
+        if (object[prop] === value) return prop
+      }
+    }
+  }
+
+  const sendData = (clickedBar) => {
+
+    if(clickedBar.month == '-'){
+        let filterByYear = [];
+        organisation_trips.forEach(trip =>{
+          if(trip.year == clickedBar.year){
+            filterByYear.push(trip)
+          }
+        })
+        filteredTravels = filterByYear;
+      }
+    else{
     organisation_trips.forEach(trip => {
+      
       if (trip.year == clickedBar.year) {
         let departure = trip.departure_time.split('/')
         let month_int = parseInt(departure[0])
         let ans = getKeyByValue(months, clickedBar.month)
+
+        
         if (month_int == ans) {
-          if (cl == 'bar_active') {
+          if (clickedBar.class == 'bar_active') {
             filteredTravels.push(trip)
           }
-          if (cl == 'bar_inactive') {
+          if (clickedBar.class == 'bar_inactive') {
             const index = filteredTravels.indexOf(trip)
             filteredTravels.splice(index, 1)
           }
         }
       }
-    })
-    console.log(filteredTravels)
+    })}
     filter.barChart.filter = true
     filter.barChart.employees = filteredTravels
     Model(filter)
+  }
+
+  const showAll = () => {
+      //document.getElementsByClassName('bar_inactive').className = "bar_active";
+      filteredTravels = []
+      filter.barChart.filter = true
+      filter.barChart.employees = filteredTravels
+      Model(filter)
+      setClass()
+    }
+
+  const  setClass = () => {
+    var bars = document.getElementsByClassName("bar_rect")
+    for(var i = 0; i < bars.length; i++){
+      let fullClassName = bars[i].className.baseVal.split(' ')
+      bars[i].className.baseVal = 'bar_active ' +fullClassName[1]+ ' bar_rect' 
+    }
   }
 
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -150,9 +226,7 @@ const BarChart = ({data, filter}) => {
       .attr('fill', function(d) {
         return z(d.key)
       })
-      .attr('id', function(d) {
-        return d.key
-      })
+      
       .on('mousemove', function(d) {
         divTooltip.style('left', d3.event.pageX + 10 + 'px')
         divTooltip.style('top', d3.event.pageY - 25 + 'px')
@@ -162,20 +236,47 @@ const BarChart = ({data, filter}) => {
       .on('mouseout', function(d) {
         divTooltip.style('display', 'none')
       })
-      .attr('class', 'bar_inactive')
+      .attr('class', function(d){return 'bar_active ' +d.key+' bar_rect'})
       //.on('click', function(d) {changeClass()})
       .on('click', function(d) {
         // console.log(d3.select(this).attr('class'))
-        d3.select(this).attr('class') == 'bar_inactive'
+       /* d3.select(this).attr('class') == 'bar_inactive'
           ? d3.select(this).attr('class', 'bar_active')
-          : d3.select(this).attr('class', 'bar_inactive')
+          : d3.select(this).attr('class', 'bar_inactive')*/
+          if(d3.select(this).attr('class').split(' ')[0] == 'bar_active'){
+            console.log(d.key)
+            var bars_inactive = document.getElementsByClassName("bar_inactive")
+            var bars_active = document.getElementsByClassName("bar_active")
+            if(bars_inactive.length == 0){ // if no bars are inactive
+              for(var i = 0; i < bars_active.length; i++){
+                let fullClassName = d3.select(bars_active[i]).attr('class')
+                bars_active[i].className.baseVal = 'bar_inactive '+fullClassName.split(' ')[1]+' bar_rect'
+              }
+              d3.select(this).attr('class', function(d){return 'bar_active ' +d3.select(this).attr('class').split(' ')[1]+' bar_rect'})
+            }
+            else if(bars_active.length == 1){
+              //for(var i = 0; i < bars_inactive.length; i++){
+                //bars_inactive[i].className.baseVal = 'bar_active'
+             // }      
+             showAll()      
+            }
+            else {
+              d3.select(this).attr('class', function(d){return 'bar_inactive ' +d3.select(this).attr('class').split(' ')[1]+' bar_rect'})
+            }
+          }
+          //else if(d3.select(this).attr('class').split(' ')[0] == 'bar_inactive'){
+            else{
+            d3.select(this).attr('class', function(d){return 'bar_active ' +d3.select(this).attr('class').split(' ')[1]+' bar_rect'})
+          }
+
         let obj = {
           month: d.month,
           year: d.key,
-          class: d3.select(this).attr('class'),
+          class: d3.select(this).attr('class').split(' ')[0],
         }
         // console.log({month: d.month, year:d.key, class: d3.select(this).attr('class')})
-        sendData(obj, d3.select(this).attr('class'))
+
+        sendData(obj)
       })
 
     g.append('g')
@@ -195,42 +296,59 @@ const BarChart = ({data, filter}) => {
       .attr('text-anchor', 'start')
       .text('Number of travels')
 
-    var legend = g
+    
+    var legendContainerSVG = d3.select(legendContainer.current)
+
+    var legend = legendContainerSVG
       .append('g')
       .attr('font-family', 'sans-serif')
       .attr('font-size', 10)
       .attr('text-anchor', 'end')
       .selectAll('g')
+      
       .data(keys.slice())
       .enter()
       .append('g')
       .attr('transform', function(d, i) {
-        return 'translate(0,' + i * 20 + ')'
+        return 'translate(' + (i*55) + ',' + 0 + ')'
       })
-      .attr('class', 'bar_inactive')
-      .on('click', function(d) {
-        d3.select(this).attr('class') == 'bar_inactive'
-          ? d3.select(this).attr('class', 'bar_active')
-          : d3.select(this).attr('class', 'bar_inactive')
+      .attr('class', 'legend_active')
+      .on('click', function(d){
+        //d3.selectAll('rect')
+        //var active_bars = document.getElementsByClassName('bar_active')
+        var rects = document.getElementsByClassName("bar_rect");
+        var barsByYear = document.getElementsByClassName(d)
+        console.log(barsByYear)
+        for(var i = 0; i < rects.length; i++){ // set all bars to inactive
+          let fullClassactive = rects[i].className.baseVal
+          rects[i].className.baseVal = 'bar_inactive '+fullClassactive.split(' ')[1]+' bar_rect'
+        }
+        for(var i = 0; i < barsByYear.length; i++){ // set all bars with right year to active
+          let fullClassyear = barsByYear[i].className.baseVal
+          barsByYear[i].className.baseVal = 'bar_active '+fullClassyear.split(' ')[1]+' bar_rect'
+        }
         let obj = {
           month: '-',
           year: d,
-          class: d3.select(this).attr('class'),
+          class: d3.select(this).attr('class').split(' ')[0],
         }
-        sendData(obj, d3.select(this).attr('class'))
+        sendData(obj)
       })
+
 
     legend
       .append('rect')
-      .attr('x', width - 19)
+      .attr('x', 40)
+      .attr('cursor', 'pointer')
       .attr('width', 19)
       .attr('height', 19)
       .attr('fill', z)
 
+
     legend
       .append('text')
-      .attr('x', width - 24)
-      .attr('y', 9.5)
+      .attr('x', 35)
+      .attr('y', 10.5)
       .attr('dy', '0.32em')
       .text(function(d) {
         return d
@@ -258,7 +376,29 @@ const BarChart = ({data, filter}) => {
       .attr('font-weight', 'bold')
   })
 
-  return <svg width={width} height={height} ref={d3Container}></svg>
+
+
+  return <React.Fragment>
+    <div className="row" id="barChart">
+      
+        <svg width={width} height={height} ref={d3Container}></svg>
+     
+        <div id="legendChart">
+        <svg id="legendContainer" width={170} height={30} ref={legendContainer}></svg>
+
+        <button id="legendButton" className="btn btn-dark" onClick={(e) => showAll(e)}>Select all</button>
+        </div>
+      
+    </div>
+    </React.Fragment>
+    
+
+  /*
+    <div className='barChart'>
+      <p>BarChart</p>
+    </div>
+    */
+
 }
 const mapStateToProps = (state, ownProps) => {
   let newData

@@ -19,6 +19,7 @@ import {
   Segment,
   Sidebar,
 } from 'semantic-ui-react'
+import TopTen from './TopTen/TopTen'
 
 const D3Index = props => {
   const [data, setData] = useState(store.getState().getSchools.data)
@@ -27,14 +28,7 @@ const D3Index = props => {
     setData(store.getState().getSchools.data)
   })
 
-  function showSideBar() {
-    if (visible == false) {
-      setVisible(true)
-    } else {
-      setVisible(false)
-    }
-  }
-  const [visible, setVisible] = useBooleanKnob({name: 'visible'})
+
   return (
     <div className='homepage'>
       <div className='homepage__heading'>
@@ -43,16 +37,14 @@ const D3Index = props => {
       <Provider store={store}>
         <>
           <NavBar props={props} />
-          <Button onClick={showSideBar}>Click Here</Button>
           <Sidebar.Pushable as={Segment}>
             <Sidebar
               as={Menu}
               animation='push'
               icon='labeled'
               inverted
-              onHide={() => setVisible(true)}
               vertical
-              visible={visible}
+              visible
               width='wide'
             >
               <h1>heeej</h1>
@@ -62,11 +54,13 @@ const D3Index = props => {
               <Segment basic>
                 <BarChart type={'secondView'} filter={filter} />
                 <Map filter={filter} />
+                <TopTen/>
                 <HoverBox />
               </Segment>
             </Sidebar.Pusher>
           </Sidebar.Pushable>
         </>
+
       </Provider>
     </div>
   )

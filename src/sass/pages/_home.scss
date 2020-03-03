@@ -55,6 +55,29 @@
     }
 }
 
-#chart{
-  color:white;
+#barChart {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+
 }
+
+#legendChart {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    margin-left: 580px;
+    
+}
+
+#legendChart{
+    border:1px solid grey;
+    height:50px;
+    
+}
+
+#legendContainer{
+    margin:10px;
+    margin-top: 20px;
+    margin-left: 0px;
+  }
