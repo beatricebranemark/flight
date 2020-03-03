@@ -48,7 +48,7 @@ const D3Index = props => {
               width='wide'
             >
               <h1>heeej</h1>
-              <SideChart></SideChart>
+              <SideChart filter={filter} ></SideChart>
             </Sidebar>
             <Sidebar.Pusher>
               <Segment basic>

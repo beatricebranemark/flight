@@ -3,44 +3,20 @@ import Model from '../../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './BarChart.css'
-
+import countTrips from '../CountTrips'
 const BarChart = ({data, filter}) => {
   // Data
   let organisation_trips = data
   const d3Container = useRef(null)
+
   const legendContainer = useRef(null)
   const airportData = require('../../../../data/airports.json')
-
+//TESTAR HALLÅ HEJ
   var filteredTravels = []
 
   const [active, setActive] = useState(false)
 
-  /*let groupByOrganisation = d3
-    .nest()
-    .key(function(d) {
-      return d.org_name
-    })
-    .entries(dataset)
-
-  groupByOrganisation = groupByOrganisation.filter(organisation => {
-    return organisation.key === 'ELEKTROTEKN TEORI & KONSTRUKT'
-  })
-  console.log(groupByOrganisation)*/
-
-  let data_list = [
-    {month: 'january', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'february', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'march', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'april', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'may', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'june', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'july', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'august', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'september', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'october', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'november', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'december', 2017: 0, 2018: 0, 2019: 0},
-  ]
+  let data_list = countTrips(organisation_trips)
 
   let months = {
     1: 'january',
@@ -56,6 +32,7 @@ const BarChart = ({data, filter}) => {
     11: 'november',
     12: 'december',
   }
+
 
   organisation_trips.forEach(trip => {
     let date = trip.departure_time
@@ -99,7 +76,7 @@ const BarChart = ({data, filter}) => {
   }
 
   const sendData = (clickedBar) => {
-
+    //legend-filter
     if(clickedBar.month == '-'){
         let filterByYear = [];
         organisation_trips.forEach(trip =>{
@@ -109,6 +86,7 @@ const BarChart = ({data, filter}) => {
         })
         filteredTravels = filterByYear;
       }
+    //bar-filter
     else{
     organisation_trips.forEach(trip => {
       
@@ -260,7 +238,6 @@ const BarChart = ({data, filter}) => {
           ? d3.select(this).attr('class', 'bar_active')
           : d3.select(this).attr('class', 'bar_inactive')*/
           if(d3.select(this).attr('class').split(' ')[0] == 'bar_active'){
-            console.log(d.key)
             var bars_inactive = document.getElementsByClassName("bar_inactive")
             var bars_active = document.getElementsByClassName("bar_active")
             if(bars_inactive.length == 0){ // if no bars are inactive
@@ -334,7 +311,6 @@ const BarChart = ({data, filter}) => {
         //var active_bars = document.getElementsByClassName('bar_active')
         var rects = document.getElementsByClassName("bar_rect");
         var barsByYear = document.getElementsByClassName(d)
-        console.log(barsByYear)
         for(var i = 0; i < rects.length; i++){ // set all bars to inactive
           let fullClassactive = rects[i].className.baseVal
           rects[i].className.baseVal = 'bar_inactive '+fullClassactive.split(' ')[1]+' bar_rect'

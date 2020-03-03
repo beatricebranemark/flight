@@ -4,10 +4,11 @@ import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './index.css'
 import store from '../../../../reducers/'
+import countTrips from './../CountTrips'
 const Map = ({data, filter}) => {
   let d3Container = useRef(null)
   let countries = require('./csvjson.json')
-
+  console.log(data)
   useEffect(() => {
     if (data.length > 0) {
       d3.select(d3Container.current)
@@ -16,6 +17,12 @@ const Map = ({data, filter}) => {
 
       let svg = d3.select(d3Container.current)
 
+      let countedData = d3
+        .nest()
+        .key(function(d) {
+          return d.arrival_city
+        })
+        .entries(data)
       // The svg
       // Map and projection
       let projection = d3
@@ -27,8 +34,8 @@ const Map = ({data, filter}) => {
 
       var scale = d3
         .scaleSqrt()
-        .domain([1, 10])
-        .range([2, 10])
+        .domain([1, 100])
+        .range([2, 30])
       // A path generator
       let path = d3.geoPath().projection(projection)
 
@@ -38,6 +45,10 @@ const Map = ({data, filter}) => {
         .pointRadius(function(d) {
           return scale(d.scale)
         })
+      /* .pointRadius(function(d) {
+          let scaling = scale(d.scale)
+          return scaling
+        })*/
 
       let g = svg.append('g')
 
@@ -51,15 +62,20 @@ const Map = ({data, filter}) => {
       function zoomed() {
         g.selectAll('path') // To prevent stroke width from scaling
           .attr('transform', d3.event.transform)
+
         svg
           .selectAll('.line')
           .attr('transform', d3.event.transform)
           .style('stroke-width', 1 / d3.event.transform.k)
 
         svg
-          .selectAll('.dot')
+          .selectAll('circle') // To prevent stroke width from scaling
           .attr('transform', d3.event.transform)
-          .style('stroke-width', 0.1 / d3.event.transform.k)
+          .attr('r', function(d) {
+            let newScale =
+              d3.select(this).attr('r') / d3.event.transform.k
+            return newScale
+          })
       }
       function chosenCountry(country) {
         for (let i = 0; i < countries.length; i++) {
@@ -158,11 +174,14 @@ const Map = ({data, filter}) => {
                 type: 'LineString',
                 coordinates: coordinates,
               }
+              let cityCounts = countedData.filter(city => {
+                return city.key === flight.arrival_city
+              })
 
               let link2 = {
                 type: 'Point',
                 coordinates: coordinates[1],
-                scale: 1,
+                scale: cityCounts[0].values.length,
               }
               // Add the path
               svg
@@ -185,10 +204,30 @@ const Map = ({data, filter}) => {
                 .style('stroke-width', 2)
 
               svg
-                .append('path')
-                .attr('d', pathDot(link2))
+
+                .append('circle')
+                .attr('cx', function() {
+                  return projection(link2.coordinates)[0]
+                })
+                .attr('cy', function() {
+                  return projection(link2.coordinates)[1]
+                })
+                .attr('r', function() {
+                  return scale(link2.scale)
+                })
                 .attr('class', 'dot')
-                .style('fill', 'red')
+                //.attr('d', pathDot(link2))
+                .style('fill', function(d) {
+                  if (flight.travel_type === 'Enkel') {
+                    return 'blue'
+                  } else if (flight.travel_type === 'Tur och retur') {
+                    return 'orange'
+                  } else if (
+                    flight.travel_type === 'Flera destinationer'
+                  ) {
+                    return 'red'
+                  }
+                })
                 .style('stroke', 'purple')
                 .style('opacity', 1)
                 .style('stroke-width', 0.5)
