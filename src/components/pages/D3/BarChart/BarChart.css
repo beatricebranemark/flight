@@ -29,14 +29,7 @@
   justify-content: center;
   border-bottom: 2px solid grey
 }
-#legendChart{
-border:1px solid grey;
-height:80px;
-margin:10px;
-}
-#legendContainer{
-  margin:10px;
-}
+
 #legendButton{
   margin:10px;
 }
