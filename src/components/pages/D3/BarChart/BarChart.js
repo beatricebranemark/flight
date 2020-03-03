@@ -11,7 +11,7 @@ const BarChart = ({data, filter}) => {
 
   const legendContainer = useRef(null)
   const airportData = require('../../../../data/airports.json')
-
+//TESTAR HALLÅ HEJ
   var filteredTravels = []
 
   const [active, setActive] = useState(false)
