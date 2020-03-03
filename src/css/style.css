@@ -85,6 +85,20 @@ h1 {
   margin-top: 20px;
   margin-left: 0px; }
 
+#secondViewBarChart {
+  margin-left: -350px; }
+
+.map {
+  float: left; }
+
+#topTen {
+  position: absolute;
+  background-color: #f9f7f7;
+  margin-left: -1rem;
+  width: 15%;
+  border-bottom: 2px solid grey;
+  border-right: 2px solid grey; }
+
 #chart {
   margin: .2rem;
   min-height: 300px; }

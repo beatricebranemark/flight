@@ -99,10 +99,10 @@ const TopTen = ({data, filter}) => {
 
   ////////CREATE TABLE///////
 
-  return (
-    <div className='table'>
-      <table id='table'>
-        <thead>
+    return (
+      <div className="table" id="topTen">
+        <table id="table">
+          <thead>
           <tr>
             <th>Destination</th>
             <th>Number of arrivals</th>
