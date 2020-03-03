@@ -136,7 +136,7 @@ const BarChart = ({data, filter}) => {
 
   const showAll = () => {
       //document.getElementsByClassName('bar_inactive').className = "bar_active";
-      let filteredTravels = organisation_trips
+      filteredTravels = []
       filter.barChart.filter = true
       filter.barChart.employees = filteredTravels
       Model(filter)
@@ -315,8 +315,6 @@ const BarChart = ({data, filter}) => {
     
     var legendContainerSVG = d3.select(legendContainer.current)
 
-    
-
     var legend = legendContainerSVG
       .append('g')
       .attr('font-family', 'sans-serif')
@@ -328,7 +326,7 @@ const BarChart = ({data, filter}) => {
       .enter()
       .append('g')
       .attr('transform', function(d, i) {
-        return 'translate(0,' + i * 20 + ')'
+        return 'translate(' + (i*55) + ',' + 0 + ')'
       })
       .attr('class', 'legend_active')
       .on('click', function(d){
@@ -365,8 +363,8 @@ const BarChart = ({data, filter}) => {
 
     legend
       .append('text')
-      .attr('x', 30)
-      .attr('y', 9.5)
+      .attr('x', 35)
+      .attr('y', 10.5)
       .attr('dy', '0.32em')
       .text(function(d) {
         return d
@@ -402,7 +400,7 @@ const BarChart = ({data, filter}) => {
         <svg width={width} height={height} ref={d3Container}></svg>
      
         <div id="legendChart">
-        <svg id="legendContainer" width={70} height={70} ref={legendContainer}></svg>
+        <svg id="legendContainer" width={170} height={30} ref={legendContainer}></svg>
 
         <button id="legendButton" className="btn btn-dark" onClick={(e) => showAll(e)}>Select all</button>
         </div>
