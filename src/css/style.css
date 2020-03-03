@@ -9,7 +9,8 @@ html {
   font-size: 62.5%; }
 
 body {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  fill: none; }
 
 p {
   color: red;
@@ -68,6 +69,46 @@ h1 {
 #chart {
   color: white; }
 
+#chart {
+  margin: .2rem;
+  min-height: 300px; }
+  #chart text {
+    color: white;
+    fill: white;
+    font-size: 1.2rem; }
+  #chart .tick line {
+    color: transparent; }
+  #chart .domain {
+    color: transparent; }
+  #chart .sideChartRect .line {
+    position: absolute;
+    width: 100px;
+    margin-top: -.2rem;
+    height: .2rem;
+    background-color: #1b1c1d; }
+
+.totalText {
+  color: white; }
+
+.labels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  width: 80%;
+  padding: 0 1rem 0 1rem;
+  margin-bottom: -1rem;
+  fill: white;
+  color: white; }
+  .labels > * {
+    margin: 0 .5rem .5rem .5rem;
+    display: flex; }
+
+.labelBox {
+  width: 14px;
+  height: 14px;
+  margin-left: .5rem; }
+
 .NavBar {
   height: 20%;
   text-align: center;
@@ -87,10 +128,6 @@ h1 {
   .homepage__heading .homepage__heading__title {
     font-family: 'Patua One', cursive; }
 
-
-.HoverBox {
-
-}
 #schoolButton {
   margin: 10px;
   width: 90px;

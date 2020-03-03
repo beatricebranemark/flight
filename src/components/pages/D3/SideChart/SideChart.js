@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react'
 import Model from '../../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
-import './SideChart.css'
 
 
 const SideChart = ({data,filter}) => {
@@ -49,7 +48,6 @@ ost.forEach(d => {
 
 })
 
-console.log(employee_list)
 
 //Click function, chosen employee är från början hela employee list
 const chosen_employees_list = []
@@ -83,34 +81,45 @@ function chosenEmployee(evt, id) {
         .selectAll('*')
         .remove()
         var svg = d3.select("#chart"),
-    margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom,
-    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      margin = {top: 20, right: 20, bottom: 30, left: 42},
+      width = +svg.attr("width") - margin.left - margin.right,
+      height = +svg.attr("height") + margin.top,
+      g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var y = d3.scaleBand()			// x = d3.scaleBand()	
-    .rangeRound([0, height])	// .rangeRound([0, width])
-    .paddingInner(0.05)
+    .rangeRound([0, height - 32])	// .rangeRound([0, width])
+    .padding(0.2)
     .align(0.1);
 
+
 var x = d3.scaleLinear()		// y = d3.scaleLinear()
-    .rangeRound([0, width]);	// .rangeRound([height, 0]);
+    .rangeRound([0, width])	// .rangeRound([height, 0]);
 
-var z = d3.scaleOrdinal()
-    .range(["#7fc99a", "#e9d52d", "#eb9638", "#e01b16", "#a05d56"]);
+var z = d3
+.scaleOrdinal()
+.range(['#7fc99a', '#e9d52d', '#eb9638', '#e01b16', '#a05d56'])
 
-
-    var keys = ['EkonomiKlass','EkonomiPremium', 'Business', 'FirstClass', 'Unknown']
+var keys = [
+  'EkonomiKlass',
+  'EkonomiPremium',
+  'Business',
+  'FirstClass',
+  'Unknown',
+]
 
   data.sort(function(a, b) { return b.total - a.total; });
   y.domain(data.map(function(d) { return d.employee; }));					// x.domain...
   x.domain([0, d3.max(data, function(d) { return d.total; })]).nice();	// y.domain...
   z.domain(keys);
 
+
   let bar = g.append("g")
     .selectAll("g")
     .data(d3.stack().keys(keys)(data))
     .enter()
+    
+        
+    var divTooltip = d3.select('#sideChartToolTip');
     
     bar.append("g")
       .attr("fill", function(d) { return z(d.key); })
@@ -120,26 +129,37 @@ var z = d3.scaleOrdinal()
       .attr("y", function(d) { return y(d.data.employee); })	    //.attr("x", function(d) { return x(d.data.State); })
       .attr("x", function(d) { return x(d[0]); })			    //.attr("y", function(d) { return y(d[1]); })	
       .attr("width", function(d) { return x(d[1]) - x(d[0]); })	//.attr("height", function(d) { return y(d[0]) - y(d[1]); })
-      .attr("height", y.bandwidth())
+      .attr("height", 20)
+      .attr("class", 'sideChartRect')
+      .on('mouseover', function(d) {
+        divTooltip.style('left', d3.event.pageX + 10 + 'px')
+        divTooltip.style('top', d3.event.pageY - 150 + 'px')
+        divTooltip.style('display', 'block')
+        divTooltip.style('background-color', 'white')
+        divTooltip.html(d.data.total)
+      })
+      .on('mouseout', function(d) {
+        divTooltip.style('display', 'none')
+      })
 
-      bar.append("g").selectAll("text")
+      /*bar.append("g").selectAll("text")
       .data(function(d) { return d; })
       .enter().append("text")
         .attr("class", "totalText")
         .attr("y", function(d) { return y(d.data.employee); })	
-       .attr('dy', y.bandwidth() / 2)     //.attr("x", function(d) { return x(d.data.State); })
-        .attr("x", function(d) { return x(d.data.total+5); })
+       .attr('dy', y.bandwidth() / 1.4)     //.attr("x", function(d) { return x(d.data.State); })
+        .attr("x", function(d) { return x(d.data.total+2); })
         .text(function(d){return d.data.total} )
-        .attr('fill', 'white');						    //.attr("width", x.bandwidth());	
+        .attr('fill', 'white');						    //.attr("width", x.bandwidth());	*/
 
   g.append("g")
       .attr("class", "axis")
-      .attr("transform", "translate(0,0)") 						//  .attr("transform", "translate(0," + height + ")")
+      .attr("transform", "translate(0,0)")						//  .attr("transform", "translate(0," + height + ")")
       .call(d3.axisLeft(y));									//   .call(d3.axisBottom(x));
 
-  g.append("g")
+  /*g.append("g")
       .attr("class", "axis")
-	  .attr("transform", "translate(0,"+height+")")				// New line
+	  .attr("transform", "translate(0,"+data.length*20+")")				// New line
       .call(d3.axisBottom(x).ticks(null, "s"))					//  .call(d3.axisLeft(y).ticks(null, "s"))
     .append("text")
       .attr("y", 2)												//     .attr("y", 2)
@@ -151,17 +171,18 @@ var z = d3.scaleOrdinal()
       .attr("text-anchor", "start")
 	  .attr("transform", "translate("+ (-width) +",-10)");   	// Newline
 
-  var legend = g.append("g")
+  /*var legend = g.append("g")
       .attr("font-family", "sans-serif")
       .attr("font-size", 10)
       .attr("text-anchor", "end")
       .attr("color", "white")
+      .attr("class", "ticketType")
 
     .selectAll("g")
     .data(keys.slice().reverse())
     .enter().append("g")
     //.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-	 .attr("transform", function(d, i) { return "translate(-50," + (300 + i * 20) + ")"; });
+	 //.attr("transform", function(d, i) { return "translate(-50," + (data.length*10 + i * 20) + ")"; });
 
   legend.append("rect")
       .attr("x", width - 19)
@@ -170,16 +191,37 @@ var z = d3.scaleOrdinal()
       .attr("fill", z);
 
   legend.append("text")
-      .attr("x", width - 24)
+      /*.attr("x", width - 24)
       .attr("y", 9.5)
-      .attr("dy", "0.32em")
+      .attr("dy", "0.32em")*/
+      /*
+      .attr("color", "#ffffff")
       .text(function(d) { return d; });
+    */
 
       })
 
+return <React.Fragment>
+  <div className="labels">
+    <div className="label">Economy
+    <div className="labelBox" style={{backgroundColor:"#7fc99a"}}></div>
+    </div>
     
-
-return <React.Fragment><svg id="chart" width="400" height="600"></svg>
+    <div className="label">Economy Premium
+    <div className="labelBox" style={{backgroundColor:"#e9d52d"}}></div></div>
+    
+    <div className="label">Business
+    <div className="labelBox" style={{backgroundColor:"#eb9638"}}></div></div>
+    
+    <div className="label">First Class
+    <div className="labelBox" style={{backgroundColor:"#e01b16"}}></div></div>
+    
+    <div className="label">Unknown
+    <div className="labelBox" style={{backgroundColor:"#a05d56"}}></div></div>
+    
+  </div>
+  <svg id="chart" width="320" height={employee_list.length * 22 + 20}></svg>
+<div id="sideChartToolTip" style={{position: 'absolute',backgroundColor:'transparent',padding:5+'px',fontSize:12+'px'}}></div>
     </React.Fragment>
 
 
