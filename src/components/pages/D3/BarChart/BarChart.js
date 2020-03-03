@@ -9,8 +9,7 @@ const BarChart = ({data, filter}) => {
   let organisation_trips = data
   const d3Container = useRef(null)
   const airportData = require('../../../../data/airports.json')
-  const filteredTravels = []
-  console.log(data)
+  var filteredTravels = []
   const [active, setActive] = useState(false)
 
   /*let groupByOrganisation = d3
@@ -96,27 +95,57 @@ const BarChart = ({data, filter}) => {
     }
   }
 
-  const sendData = (clickedBar, cl) => {
+  const sendData = (clickedBar) => {
+
+    if(clickedBar.month == '-'){
+        let filterByYear = [];
+        organisation_trips.forEach(trip =>{
+          if(trip.year == clickedBar.year){
+            filterByYear.push(trip)
+          }
+        })
+        filteredTravels = filterByYear;
+      }
+    else{
     organisation_trips.forEach(trip => {
+      
       if (trip.year == clickedBar.year) {
         let departure = trip.departure_time.split('/')
         let month_int = parseInt(departure[0])
         let ans = getKeyByValue(months, clickedBar.month)
+
+        
         if (month_int == ans) {
-          if (cl == 'bar_active') {
+          if (clickedBar.class == 'bar_active') {
             filteredTravels.push(trip)
           }
-          if (cl == 'bar_inactive') {
+          if (clickedBar.class == 'bar_inactive') {
             const index = filteredTravels.indexOf(trip)
             filteredTravels.splice(index, 1)
           }
         }
       }
-    })
-    console.log(filteredTravels)
+    })}
     filter.barChart.filter = true
     filter.barChart.employees = filteredTravels
     Model(filter)
+  }
+
+  const showAll = () => {
+      //document.getElementsByClassName('bar_inactive').className = "bar_active";
+      let filteredTravels = organisation_trips
+      filter.barChart.filter = true
+      filter.barChart.employees = filteredTravels
+      Model(filter)
+      setClass()
+    }
+
+  const  setClass = () => {
+    var bars = document.getElementsByClassName("bar_rect")
+    for(var i = 0; i < bars.length; i++){
+      let fullClassName = bars[i].className.baseVal.split(' ')
+      bars[i].className.baseVal = 'bar_active ' +fullClassName[1]+ ' bar_rect' 
+    }
   }
 
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -210,9 +239,7 @@ const BarChart = ({data, filter}) => {
       .attr('fill', function(d) {
         return z(d.key)
       })
-      .attr('id', function(d) {
-        return d.key
-      })
+      
       .on('mousemove', function(d) {
         divTooltip.style('left', d3.event.pageX + 10 + 'px')
         divTooltip.style('top', d3.event.pageY - 25 + 'px')
@@ -222,20 +249,47 @@ const BarChart = ({data, filter}) => {
       .on('mouseout', function(d) {
         divTooltip.style('display', 'none')
       })
-      .attr('class', 'bar_inactive')
+      .attr('class', function(d){return 'bar_active ' +d.key+' bar_rect'})
       //.on('click', function(d) {changeClass()})
       .on('click', function(d) {
         // console.log(d3.select(this).attr('class'))
-        d3.select(this).attr('class') == 'bar_inactive'
+       /* d3.select(this).attr('class') == 'bar_inactive'
           ? d3.select(this).attr('class', 'bar_active')
-          : d3.select(this).attr('class', 'bar_inactive')
+          : d3.select(this).attr('class', 'bar_inactive')*/
+          if(d3.select(this).attr('class').split(' ')[0] == 'bar_active'){
+            console.log(d.key)
+            var bars_inactive = document.getElementsByClassName("bar_inactive")
+            var bars_active = document.getElementsByClassName("bar_active")
+            if(bars_inactive.length == 0){ // if no bars are inactive
+              for(var i = 0; i < bars_active.length; i++){
+                let fullClassName = d3.select(bars_active[i]).attr('class')
+                bars_active[i].className.baseVal = 'bar_inactive '+fullClassName.split(' ')[1]+' bar_rect'
+              }
+              d3.select(this).attr('class', function(d){return 'bar_active ' +d3.select(this).attr('class').split(' ')[1]+' bar_rect'})
+            }
+            else if(bars_active.length == 1){
+              //for(var i = 0; i < bars_inactive.length; i++){
+                //bars_inactive[i].className.baseVal = 'bar_active'
+             // }      
+             showAll()      
+            }
+            else {
+              d3.select(this).attr('class', function(d){return 'bar_inactive ' +d3.select(this).attr('class').split(' ')[1]+' bar_rect'})
+            }
+          }
+          //else if(d3.select(this).attr('class').split(' ')[0] == 'bar_inactive'){
+            else{
+            d3.select(this).attr('class', function(d){return 'bar_active ' +d3.select(this).attr('class').split(' ')[1]+' bar_rect'})
+          }
+
         let obj = {
           month: d.month,
           year: d.key,
-          class: d3.select(this).attr('class'),
+          class: d3.select(this).attr('class').split(' ')[0],
         }
         // console.log({month: d.month, year:d.key, class: d3.select(this).attr('class')})
-        sendData(obj, d3.select(this).attr('class'))
+
+        sendData(obj)
       })
 
     g.append('g')
@@ -267,11 +321,83 @@ const BarChart = ({data, filter}) => {
       .attr('transform', function(d, i) {
         return 'translate(0,' + i * 20 + ')'
       })
-      .attr('class', 'bar_inactive')
+      .attr('class', 'legend_active')
+      .on('click', function(d){
+        //d3.selectAll('rect')
+        //var active_bars = document.getElementsByClassName('bar_active')
+        var rects = document.getElementsByClassName("bar_rect");
+        var barsByYear = document.getElementsByClassName(d)
+        console.log(barsByYear)
+        for(var i = 0; i < rects.length; i++){ // set all bars to inactive
+          let fullClassactive = rects[i].className.baseVal
+          rects[i].className.baseVal = 'bar_inactive '+fullClassactive.split(' ')[1]+' bar_rect'
+        }
+        for(var i = 0; i < barsByYear.length; i++){ // set all bars with right year to active
+          let fullClassyear = barsByYear[i].className.baseVal
+          barsByYear[i].className.baseVal = 'bar_active '+fullClassyear.split(' ')[1]+' bar_rect'
+        }
+        let obj = {
+          month: '-',
+          year: d,
+          class: d3.select(this).attr('class').split(' ')[0],
+        }
+        sendData(obj)
+      })
+      /*
       .on('click', function(d) {
-        d3.select(this).attr('class') == 'bar_inactive'
-          ? d3.select(this).attr('class', 'bar_active')
-          : d3.select(this).attr('class', 'bar_inactive')
+        if(d3.select(this).attr('class') == 'legend_active'){ //if clicked active bars
+        
+          var legend_inactive = document.getElementsByClassName("legend_inactive")
+        var legend_active = document.getElementsByClassName("legend_active")
+        if(legend_inactive.length == 0){ // if no bars are inactive
+          for(var i = 0; i < legend_active.length; i++){ // set all bars to active
+            legend_active[i].className.baseVal = 'legend_inactive'
+          }
+          d3.select(this).attr('class', 'legend_active') // set clicked to active
+          var bar_active = document.getElementsByClassName("bar_active")
+          var barsByYear = document.getElementsByClassName(d)
+          for(var i = 0; i < bar_active.length; i++){ // set all bars to inactive
+            let fullClass = bar_active[i].className.baseVal
+            bar_active[i].className.baseVal = 'bar_inactive '+fullClass.split(' ')[1]
+            
+          }
+          for(var i = 0; i < barsByYear.length; i++){ // set all bars with right year to active
+            let fullClass = barsByYear[i].className.baseVal
+            if(d3.select(this).attr('id') == fullClass.split(' ')[1])
+            barsByYear[i].className.baseVal = 'bar_active '+fullClass.split(' ')[1]
+            
+          }
+        } 
+        else if(legend_active.length == 1){
+          for(var i = 0; i < legend_inactive.length; i++){
+            legend_inactive[i].className.baseVal = 'legend_active'
+         }
+         showAll()
+        }
+        else {
+          //var bar_inactive = document.getElementsByClassName("bar_active")
+          var barsByYear = document.getElementsByClassName(d)
+          for(var i = 0; i < barsByYear.length; i++){
+            let fullClass = barsByYear[i].className.baseVal
+            barsByYear[i].className.baseVal = 'bar_inactive '+fullClass.split(' ')[1]
+            
+          }
+          d3.select(this).attr('class', 'legend_inactive')
+        }
+         //showAll()      
+       }
+      
+       else if(d3.select(this).attr('class') == 'legend_inactive'){
+        var barsByYear = document.getElementsByClassName(d)
+        for(var i = 0; i < barsByYear.length; i++){
+          let fullClass = barsByYear[i].className.baseVal
+          barsByYear[i].className.baseVal = 'bar_active '+fullClass.split(' ')[1]
+          
+        }
+        d3.select(this).attr('class', 'legend_active')
+
+      }
+      
         let obj = {
           month: '-',
           year: d,
@@ -279,6 +405,8 @@ const BarChart = ({data, filter}) => {
         }
         sendData(obj, d3.select(this).attr('class'))
       })
+*/
+      
 
     legend
       .append('rect')
@@ -318,7 +446,10 @@ const BarChart = ({data, filter}) => {
       .attr('font-weight', 'bold')
   })
 
-  return <svg width={width} height={height} ref={d3Container}></svg>
+  return <React.Fragment><svg width={width} height={height} ref={d3Container}></svg>
+    <button onClick={(e) => showAll(e)}>Select all</button>
+    </React.Fragment>
+
   /*
     <div className='barChart'>
       <p>BarChart</p>
