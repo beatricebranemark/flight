@@ -8,6 +8,7 @@ const BarChart = ({data, filter}) => {
   // Data
   let organisation_trips = data
   const d3Container = useRef(null)
+  const legendContainer = useRef(null)
   const airportData = require('../../../../data/airports.json')
 
   var filteredTravels = []
@@ -311,12 +312,18 @@ const BarChart = ({data, filter}) => {
       .attr('text-anchor', 'start')
       .text('Number of travels')
 
-    var legend = g
+    
+    var legendContainerSVG = d3.select(legendContainer.current)
+
+    
+
+    var legend = legendContainerSVG
       .append('g')
       .attr('font-family', 'sans-serif')
       .attr('font-size', 10)
       .attr('text-anchor', 'end')
       .selectAll('g')
+      
       .data(keys.slice())
       .enter()
       .append('g')
@@ -345,81 +352,20 @@ const BarChart = ({data, filter}) => {
         }
         sendData(obj)
       })
-      /*
-      .on('click', function(d) {
-        if(d3.select(this).attr('class') == 'legend_active'){ //if clicked active bars
-        
-          var legend_inactive = document.getElementsByClassName("legend_inactive")
-        var legend_active = document.getElementsByClassName("legend_active")
-        if(legend_inactive.length == 0){ // if no bars are inactive
-          for(var i = 0; i < legend_active.length; i++){ // set all bars to active
-            legend_active[i].className.baseVal = 'legend_inactive'
-          }
-          d3.select(this).attr('class', 'legend_active') // set clicked to active
-          var bar_active = document.getElementsByClassName("bar_active")
-          var barsByYear = document.getElementsByClassName(d)
-          for(var i = 0; i < bar_active.length; i++){ // set all bars to inactive
-            let fullClass = bar_active[i].className.baseVal
-            bar_active[i].className.baseVal = 'bar_inactive '+fullClass.split(' ')[1]
-            
-          }
-          for(var i = 0; i < barsByYear.length; i++){ // set all bars with right year to active
-            let fullClass = barsByYear[i].className.baseVal
-            if(d3.select(this).attr('id') == fullClass.split(' ')[1])
-            barsByYear[i].className.baseVal = 'bar_active '+fullClass.split(' ')[1]
-            
-          }
-        } 
-        else if(legend_active.length == 1){
-          for(var i = 0; i < legend_inactive.length; i++){
-            legend_inactive[i].className.baseVal = 'legend_active'
-         }
-         showAll()
-        }
-        else {
-          //var bar_inactive = document.getElementsByClassName("bar_active")
-          var barsByYear = document.getElementsByClassName(d)
-          for(var i = 0; i < barsByYear.length; i++){
-            let fullClass = barsByYear[i].className.baseVal
-            barsByYear[i].className.baseVal = 'bar_inactive '+fullClass.split(' ')[1]
-            
-          }
-          d3.select(this).attr('class', 'legend_inactive')
-        }
-         //showAll()      
-       }
-      
-       else if(d3.select(this).attr('class') == 'legend_inactive'){
-        var barsByYear = document.getElementsByClassName(d)
-        for(var i = 0; i < barsByYear.length; i++){
-          let fullClass = barsByYear[i].className.baseVal
-          barsByYear[i].className.baseVal = 'bar_active '+fullClass.split(' ')[1]
-          
-        }
-        d3.select(this).attr('class', 'legend_active')
 
-      }
-      
-        let obj = {
-          month: '-',
-          year: d,
-          class: d3.select(this).attr('class'),
-        }
-        sendData(obj, d3.select(this).attr('class'))
-      })
-*/
-      
 
     legend
       .append('rect')
-      .attr('x', width - 19)
+      .attr('x', 40)
+      .attr('cursor', 'pointer')
       .attr('width', 19)
       .attr('height', 19)
       .attr('fill', z)
 
+
     legend
       .append('text')
-      .attr('x', width - 24)
+      .attr('x', 30)
       .attr('y', 9.5)
       .attr('dy', '0.32em')
       .text(function(d) {
@@ -449,9 +395,21 @@ const BarChart = ({data, filter}) => {
   })
 
 
-  return <React.Fragment><svg width={width} height={height} ref={d3Container}></svg>
-    <button onClick={(e) => showAll(e)}>Select all</button>
+
+  return <React.Fragment>
+    <div className="row" id="barChart">
+      
+        <svg width={width} height={height} ref={d3Container}></svg>
+     
+        <div id="legendChart">
+        <svg id="legendContainer" width={70} height={70} ref={legendContainer}></svg>
+
+        <button id="legendButton" className="btn btn-dark" onClick={(e) => showAll(e)}>Select all</button>
+        </div>
+      
+    </div>
     </React.Fragment>
+    
 
   /*
     <div className='barChart'>
