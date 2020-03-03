@@ -3,42 +3,24 @@ import Model from '../../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './BarChart.css'
-
+import countTrips from '../CountTrips'
 const BarChart = ({data, filter}) => {
   // Data
   let organisation_trips = data
   const d3Container = useRef(null)
-  const airportData = require('../../../../data/airports.json')
+
   const filteredTravels = []
   const [active, setActive] = useState(false)
 
-  /*let groupByOrganisation = d3
-    .nest()
-    .key(function(d) {
-      return d.org_name
-    })
-    .entries(dataset)
+  let data_list = countTrips(organisation_trips)
 
-  groupByOrganisation = groupByOrganisation.filter(organisation => {
-    return organisation.key === 'ELEKTROTEKN TEORI & KONSTRUKT'
-  })
-  console.log(groupByOrganisation)*/
-
-  let data_list = [
-    {month: 'january', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'february', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'march', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'april', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'may', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'june', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'july', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'august', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'september', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'october', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'november', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'december', 2017: 0, 2018: 0, 2019: 0},
-  ]
-
+  const getKeyByValue = (object, value) => {
+    for (var prop in object) {
+      if (object.hasOwnProperty(prop)) {
+        if (object[prop] === value) return prop
+      }
+    }
+  }
   let months = {
     1: 'january',
     2: 'february',
@@ -52,47 +34,6 @@ const BarChart = ({data, filter}) => {
     10: 'october',
     11: 'november',
     12: 'december',
-  }
-
-  organisation_trips.forEach(trip => {
-    let date = trip.departure_time
-    date = date.split('/')
-    for (let j = 17; j < 20; j++) {
-      if (date[2].slice(2, 4) === j.toString()) {
-        for (let i = 0; i < 13; i++) {
-          if (date[0] == i + 1) {
-            if (trip.travel_type === 'Enkel') {
-              data_list[i][20 + j.toString()] += 1
-            } else if (trip.travel_type === 'Tur och retur') {
-              data_list[i][20 + j.toString()] += 2
-            } else {
-              let path = trip.path.split('/')
-              let firstDestination = path[0]
-              let lastDestination = path[path.length - 1]
-              airportData.forEach(airport => {
-                if (airport.IATA === firstDestination) {
-                  firstDestination = airport.City
-                }
-                if (airport.IATA === lastDestination) {
-                  lastDestination = airport.City
-                }
-              })
-              firstDestination === lastDestination
-                ? (data_list[i][20 + j.toString()] += 2)
-                : (data_list[i][20 + j.toString()] += 1)
-            }
-          }
-        }
-      }
-    }
-  })
-
-  const getKeyByValue = (object, value) => {
-    for (var prop in object) {
-      if (object.hasOwnProperty(prop)) {
-        if (object[prop] === value) return prop
-      }
-    }
   }
 
   const sendData = (clickedBar, cl) => {
