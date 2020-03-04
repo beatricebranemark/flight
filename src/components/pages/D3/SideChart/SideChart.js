@@ -115,7 +115,7 @@ const dropdownChange = (e) => {
 const getPositions = (employees) =>{
   var positions =[]
   employees.forEach(employee =>{
-    if(positions.includes(employee.position)==false )
+    if(positions.includes(employee.position)===false )
     positions.push(employee.position)
   })
   return positions
@@ -161,15 +161,6 @@ var keys = [
 'FirstClass',
 'Unknown',
 ]
-
-d3.select('#titleSelector')
-.selectAll("option")
-.data(getPositions(data))
-.enter().append("option")
-.text(function(d) { return d; })
-.attr("value", function (d) {
-return d;
-});
 
 
 data.sort(function(a, b) { return b.total - a.total; });
@@ -260,6 +251,22 @@ g.append("g")
     useEffect(() => {
         loadData('none');
 
+        let data = employee_list;
+        console.log(employee_list)
+        console.log(getPositions(data))
+        
+        d3.selectAll(".SideChartOption")
+          .remove()
+
+        d3.select('#titleSelector')
+          .selectAll(".SideChartOption")
+          .data(getPositions(data))
+          .enter().append("option")
+          .attr("class", "SideChartOption")
+          .text(function(d) { return d; })
+          .attr("value", function (d) {
+            return d;
+          });
     })
 
 return (<React.Fragment>
