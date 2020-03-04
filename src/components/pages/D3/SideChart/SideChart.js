@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import Model from '../../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
+import './SideChart.css'
 
 const SideChart = ({data, filter}) => {
   let organisation_trips = data
@@ -9,6 +10,8 @@ const SideChart = ({data, filter}) => {
   //Lista med employees
   const employee_list = []
   const na_list = []
+
+  var filterByEmployee = []
 
   let ost = d3
 
@@ -76,6 +79,33 @@ function chosenEmployee(evt, id) {
   Model(filter)
 }
 
+const sendData = (clickedBar) => {
+  organisation_trips.forEach(trip => {
+    if(trip.employee == clickedBar.emp){
+      if(clickedBar.cla == 'person_inactive'){
+        filterByEmployee.push(trip)
+      }
+      else{
+        const index = filterByEmployee.indexOf(trip)
+        filterByEmployee.splice(index, 1)
+      }
+    }
+  })
+  filter.personList.filter = true
+  filter.personList.employees = filterByEmployee
+  Model(filter)
+}
+
+const showAll = () => {
+  filterByEmployee = []
+
+  var bars = document.getElementsByClassName('sideChartRect')
+  for(var i = 0; i < bars.length; i++){
+    let fullClassName = bars[i].className.baseVal.split(' ')
+    bars[i].className.baseVal = 'sideChartRect person_active ' +fullClassName[2]
+  }
+}
+
     useEffect(() => {
         let data = employee_list
         d3.select('svg')
@@ -131,16 +161,72 @@ var keys = [
       .attr("x", function(d) { return x(d[0]); })			    //.attr("y", function(d) { return y(d[1]); })	
       .attr("width", function(d) { return x(d[1]) - x(d[0]); })	//.attr("height", function(d) { return y(d[0]) - y(d[1]); })
       .attr("height", 20)
-      .attr("class", 'sideChartRect')
+      .attr("class", function(d){ return 'sideChartRect person_active '+d.data.employee})
       .on('mouseover', function(d) {
         divTooltip.style('left', d3.event.pageX + 10 + 'px')
         divTooltip.style('top', d3.event.pageY - 150 + 'px')
         divTooltip.style('display', 'block')
         divTooltip.style('background-color', 'white')
-        divTooltip.html(d.data.total)
+        divTooltip.html(d.data.position+' has traveld '+d.data.total+ ' times')
       })
       .on('mouseout', function(d) {
         divTooltip.style('display', 'none')
+      })
+      .on('click', function(d){
+        var allStacked = document.getElementsByClassName(d.data.employee)
+        if(d3.select(this).attr('class').split(' ')[1]=='person_active'){
+        
+        var allActive = document.getElementsByClassName('person_active')
+        var AllInactive = document.getElementsByClassName('person_inactive')
+        if(AllInactive.length==0){
+          
+          for(var i=0; i <allActive.length; i++){
+            let fullClassName = d3.select(allActive[i]).attr('class')
+            allActive[i].className.baseVal = 'sideChartRect person_inactive '+fullClassName.split(' ')[2]
+            /*
+            for(var j = 0; j < allStacked.length; j++){
+              let fullClassName = d3.select(allStacked[j]).attr('class')
+              allStacked[j].className.baseVal = 'sideChartRect person_inactive '+fullClassName.split(' ')[2]
+            }
+          }
+          */
+        }
+        for(var j = 0; j < allStacked.length; j++){
+          let fullClassName = d3.select(allStacked[j]).attr('class')
+          allStacked[j].className.baseVal = 'sideChartRect person_active '+fullClassName.split(' ')[2]
+        }
+      }
+      else if(allActive.length==5){
+        showAll()
+      }
+      else{
+        for(var j = 0; j < allStacked.length; j++){
+          let fullClassName = d3.select(allStacked[j]).attr('class')
+          allStacked[j].className.baseVal = 'sideChartRect person_inactive '+fullClassName.split(' ')[2]
+        }
+      }
+    }
+    else{
+      for(var j = 0; j < allStacked.length; j++){
+        let fullClassName = d3.select(allStacked[j]).attr('class')
+        allStacked[j].className.baseVal = 'sideChartRect person_active '+fullClassName.split(' ')[2]
+      }
+    }
+
+        //console.log(allStacked[0].className.baseVal)
+       
+        /*
+        d3.select(this).attr('class') == 'sideChartRect person_active '+ d.data.employee
+          ? d3.selectAll(.).attr('class', function(d){ return 'sideChartRect person_inactive '+d.data.employee})
+          : d3.select(this).attr('class', function(d){ return 'sideChartRect person_active '+d.data.employee})
+        */
+        let obj = {
+          class: d3.select(this).attr('class'),
+          emp: d.data.employee,
+          cla: d3.select(this).attr('class').split(' ')[1]
+        }
+        
+        sendData(obj)
       })
 
       /*bar.append("g").selectAll("text")

@@ -15,6 +15,7 @@ body {
   fill: none; 
   font-family:Roboto}
 
+
 p {
   color: red;
   font-size: 3rem; }
@@ -69,8 +70,39 @@ h1 {
     text-align: center;
     font-family: "Arial"; }
 
-#chart {
-  color: white; }
+#barChart {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center; }
+
+#legendChart {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin-left: 580px; }
+
+#legendChart {
+  border: 1px solid grey;
+  height: 50px; }
+
+#legendContainer {
+  margin: 10px;
+  margin-top: 20px;
+  margin-left: 0px; }
+
+#secondViewBarChart {
+  margin-left: -350px; }
+
+.map {
+  float: left; }
+
+#topTen {
+  position: absolute;
+  background-color: #f9f7f7;
+  margin-left: -1rem;
+  width: 15%;
+  border-bottom: 2px solid grey;
+  border-right: 2px solid grey; }
 
 #chart {
   margin: .2rem;

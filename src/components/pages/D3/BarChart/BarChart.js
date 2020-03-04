@@ -3,44 +3,20 @@ import Model from '../../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './BarChart.css'
-
+import countTrips from '../CountTrips'
 const BarChart = ({data, filter}) => {
   // Data
   let organisation_trips = data
   const d3Container = useRef(null)
+
   const legendContainer = useRef(null)
   const airportData = require('../../../../data/airports.json')
-
+//TESTAR HALLÅ HEJ
   var filteredTravels = []
 
   const [active, setActive] = useState(false)
 
-  /*let groupByOrganisation = d3
-    .nest()
-    .key(function(d) {
-      return d.org_name
-    })
-    .entries(dataset)
-
-  groupByOrganisation = groupByOrganisation.filter(organisation => {
-    return organisation.key === 'ELEKTROTEKN TEORI & KONSTRUKT'
-  })
-  console.log(groupByOrganisation)*/
-
-  let data_list = [
-    {month: 'january', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'february', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'march', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'april', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'may', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'june', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'july', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'august', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'september', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'october', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'november', 2017: 0, 2018: 0, 2019: 0},
-    {month: 'december', 2017: 0, 2018: 0, 2019: 0},
-  ]
+  let data_list = countTrips(organisation_trips)
 
   let months = {
     1: 'january',
@@ -56,6 +32,7 @@ const BarChart = ({data, filter}) => {
     11: 'november',
     12: 'december',
   }
+
 
   organisation_trips.forEach(trip => {
     let date = trip.departure_time
@@ -99,7 +76,7 @@ const BarChart = ({data, filter}) => {
   }
 
   const sendData = (clickedBar) => {
-
+    //legend-filter
     if(clickedBar.month == '-'){
         let filterByYear = [];
         organisation_trips.forEach(trip =>{
@@ -109,6 +86,7 @@ const BarChart = ({data, filter}) => {
         })
         filteredTravels = filterByYear;
       }
+    //bar-filter
     else{
     organisation_trips.forEach(trip => {
       
@@ -136,7 +114,7 @@ const BarChart = ({data, filter}) => {
 
   const showAll = () => {
       //document.getElementsByClassName('bar_inactive').className = "bar_active";
-      let filteredTravels = organisation_trips
+      filteredTravels = []
       filter.barChart.filter = true
       filter.barChart.employees = filteredTravels
       Model(filter)
@@ -182,7 +160,8 @@ const BarChart = ({data, filter}) => {
 
     var y = d3.scaleLinear().rangeRound([height, 0])
 
-    var z = d3.scaleOrdinal().range(['#5394d0', '#70a788', '#7b6888'])
+   // var z = d3.scaleOrdinal().range(['#5394d0', '#70a788', '#7b6888'])
+    var z = d3.scaleOrdinal().range(['#813783', '#3D5F83', '#C99254'])
 
     //  var vals = '[{"State":"CA","Under 5 Years":2704659,"5 to 13 Years":4499890,"14 to 17 Years":2159981,"18 to 24 Years":3853788,"25 to 44 Years":10604510,"45 to 64 Years":8819342,"65 Years and Over":4114496},{"State":"TX","Under 5 Years":2027307,"5 to 13 Years":3277946,"14 to 17 Years":1420518,"18 to 24 Years":2454721,"25 to 44 Years":7017731,"45 to 64 Years":5656528,"65 Years and Over":2472223},{"State":"NY","Under 5 Years":1208495,"5 to 13 Years":2141490,"14 to 17 Years":1058031,"18 to 24 Years":1999120,"25 to 44 Years":5355235,"45 to 64 Years":5120254,"65 Years and Over":2607672},{"State":"FL","Under 5 Years":1140516,"5 to 13 Years":1938695,"14 to 17 Years":925060,"18 to 24 Years":1607297,"25 to 44 Years":4782119,"45 to 64 Years":4746856,"65 Years and Over":3187797},{"State":"IL","Under 5 Years":894368,"5 to 13 Years":1558919,"14 to 17 Years":725973,"18 to 24 Years":1311479,"25 to 44 Years":3596343,"45 to 64 Years":3239173,"65 Years and Over":1575308},{"State":"PA","Under 5 Years":737462,"5 to 13 Years":1345341,"14 to 17 Years":679201,"18 to 24 Years":1203944,"25 to 44 Years":3157759,"45 to 64 Years":3414001,"65 Years and Over":1910571}]';
 
@@ -260,7 +239,6 @@ const BarChart = ({data, filter}) => {
           ? d3.select(this).attr('class', 'bar_active')
           : d3.select(this).attr('class', 'bar_inactive')*/
           if(d3.select(this).attr('class').split(' ')[0] == 'bar_active'){
-            console.log(d.key)
             var bars_inactive = document.getElementsByClassName("bar_inactive")
             var bars_active = document.getElementsByClassName("bar_active")
             if(bars_inactive.length == 0){ // if no bars are inactive
@@ -315,8 +293,6 @@ const BarChart = ({data, filter}) => {
     
     var legendContainerSVG = d3.select(legendContainer.current)
 
-    
-
     var legend = legendContainerSVG
       .append('g')
       .attr('font-family', 'sans-serif')
@@ -328,7 +304,7 @@ const BarChart = ({data, filter}) => {
       .enter()
       .append('g')
       .attr('transform', function(d, i) {
-        return 'translate(0,' + i * 20 + ')'
+        return 'translate(' + (i*55) + ',' + 0 + ')'
       })
       .attr('class', 'legend_active')
       .on('click', function(d){
@@ -336,7 +312,6 @@ const BarChart = ({data, filter}) => {
         //var active_bars = document.getElementsByClassName('bar_active')
         var rects = document.getElementsByClassName("bar_rect");
         var barsByYear = document.getElementsByClassName(d)
-        console.log(barsByYear)
         for(var i = 0; i < rects.length; i++){ // set all bars to inactive
           let fullClassactive = rects[i].className.baseVal
           rects[i].className.baseVal = 'bar_inactive '+fullClassactive.split(' ')[1]+' bar_rect'
@@ -365,8 +340,8 @@ const BarChart = ({data, filter}) => {
 
     legend
       .append('text')
-      .attr('x', 30)
-      .attr('y', 9.5)
+      .attr('x', 35)
+      .attr('y', 10.5)
       .attr('dy', '0.32em')
       .text(function(d) {
         return d
@@ -402,7 +377,7 @@ const BarChart = ({data, filter}) => {
         <svg width={width} height={height} ref={d3Container}></svg>
      
         <div id="legendChart">
-        <svg id="legendContainer" width={70} height={70} ref={legendContainer}></svg>
+        <svg id="legendContainer" width={170} height={30} ref={legendContainer}></svg>
 
         <button id="legendButton" className="btn btn-dark" onClick={(e) => showAll(e)}>Select all</button>
         </div>

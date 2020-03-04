@@ -47,11 +47,13 @@ const D3Index = props => {
               width='wide'
             >
               <h1>heeej</h1>
-              <SideChart></SideChart>
+              <SideChart filter={filter} ></SideChart>
             </Sidebar>
             <Sidebar.Pusher>
               <Segment basic>
-                <BarChart type={'secondView'} filter={filter} />
+                <div id="secondViewBarChart">
+                  <BarChart type={'secondView'} filter={filter}/>
+                </div>
                 <Map filter={filter} />
                 <TopTen/>
                 <HoverBox />
