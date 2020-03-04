@@ -6,7 +6,7 @@ import NavBar from './NavBar/NavBar'
 import {Provider} from 'react-redux'
 import HoverBox from './HoverBox/hoverBox'
 import SideChart from './SideChart/SideChart'
-
+import TopMenu from '../TopMenu/TopMenu'
 import Filter from './../../Filter'
 
 import {useBooleanKnob} from 'retoggle'
@@ -30,10 +30,9 @@ const D3Index = props => {
 
 
   return (
-    <div className='homepage'>
-      <div className='homepage__heading'>
-        <h1 className='homepage__heading__title'>Flight</h1>
-      </div>
+    <React.Fragment>
+    <TopMenu></TopMenu>
+     
       <Provider store={store}>
         <>
           <NavBar props={props} />
@@ -62,7 +61,7 @@ const D3Index = props => {
         </>
 
       </Provider>
-    </div>
+      </React.Fragment>
   )
 }
 

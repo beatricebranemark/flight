@@ -3,17 +3,17 @@ import './index.css'
 import {connect} from 'react-redux'
 
 const HoverBox = ({data}) => {
+  
+
   let travel = data.data
   return travel.length > 0 ? (
-    <div className='HoverBox'>
-      <p>HoverBox</p>
-      <p>From: {travel[0].departure_city}</p>
-      <p>To: {travel[0].arrival_city}</p>
+    <div className='badge badge-secondary'>
+      <span id="hoverText">{travel[0].departure_city}</span>
+      <span  id="hoverText"><i class="fas fa-arrow-right"></i></span>
+      <span id="hoverText">{travel[0].arrival_city}</span>
     </div>
   ) : (
-    <div>
-      <p>HoverBox</p>
-    </div>
+   null
   )
 }
 const mapStateToProps = state => {

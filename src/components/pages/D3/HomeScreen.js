@@ -4,7 +4,7 @@ import FilterScoolAndOrg from '../../../data/FilterScoolAndOrg'
 import BarChart from './BarChart/BarChart'
 import {Provider} from 'react-redux'
 import Filter from './../../Filter'
-
+import TopMenu from '../TopMenu/TopMenu'
 const HomeScreen = props => {
   const [orgs, setOrgs] = useState(store.getState().getOrgs.data)
   const [schools, setSchools] = useState(
@@ -72,6 +72,8 @@ const HomeScreen = props => {
     FilterScoolAndOrg.setOrg(e.target.value)
   }
   return (
+    <React.Fragment>
+    <TopMenu props={props}></TopMenu>
     <div className='NavBar'>
       <Provider store={store}>
         <BarChart filter={filter} type={'firstView'} />
@@ -128,6 +130,7 @@ const HomeScreen = props => {
         )}
       </div>
     </div>
+    </React.Fragment>
   )
 }
 

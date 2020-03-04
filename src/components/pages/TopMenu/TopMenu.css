@@ -1,0 +1,18 @@
+#topMenuLeft{
+   margin-left:20px;
+   font-size:30px;
+   font-family: 'Patua One', cursive;
+   color:white;
+}
+
+#topMenuRight{
+    margin-right:20px;
+    
+}
+#menuButton{
+    font-size:20px;
+}
+
+#navBar{
+    background-color:#83be83 !important;
+}
