@@ -1,7 +1,6 @@
 import React from 'react'
 import {BrowserRouter} from 'react-router-dom'
 import firebaseConfig from '../config/firebase'
-
 import Router from './Router'
 import filterSchoolAndOrg from '../data/FilterScoolAndOrg'
 //import Filter from 'Filter.js'

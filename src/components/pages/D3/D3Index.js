@@ -8,6 +8,7 @@ import HoverBox from './HoverBox/hoverBox'
 import SideChart from './SideChart/SideChart'
 import TopMenu from '../TopMenu/TopMenu'
 import Filter from './../../Filter'
+import { withRouter } from "react-router-dom";
 
 import {useBooleanKnob} from 'retoggle'
 import {
@@ -31,7 +32,7 @@ const D3Index = props => {
 
   return (
     <React.Fragment>
-    <TopMenu></TopMenu>
+    <TopMenu props={props}></TopMenu>
      
       <Provider store={store}>
         <>
@@ -67,4 +68,4 @@ const D3Index = props => {
   )
 }
 
-export default D3Index
+export default withRouter(D3Index)

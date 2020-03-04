@@ -5,8 +5,8 @@
 }
 .ui.card>.image:not(.ui)>img{
     border-radius:50%;
-    max-width: 290px;
-    max-height:290px;
+    max-width: 200px;
+    max-height:200px;
     background-color:white;
     border:none !important
 }
@@ -24,6 +24,8 @@
 
 #ourTeam{
     text-align:center;
+    padding:20px;
+    
 }
 #teamContainer{
     background-color:grey;
