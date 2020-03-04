@@ -22,13 +22,18 @@ export default function Model(filterOptions) {
   }
 
   if (filterOptions.barChart.filter) {
+    console.log(filterOptions)
     store.dispatch({
       type: 'SET_MAP_DATA',
-      payload: {},
+      payload: [],
     })
     store.dispatch({
       type: 'SET_MAP_DATA',
       payload: filterOptions.barChart.employees,
+    })
+    store.dispatch({
+      type: 'SET_PERSON_DATA',
+      payload: [],
     })
     store.dispatch({
       type: 'SET_PERSON_DATA',
