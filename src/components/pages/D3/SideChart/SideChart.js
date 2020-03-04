@@ -91,7 +91,6 @@ const sendData = (clickedBar) => {
       }
     }
   })
-  console.log(filter)
   filter.personList.filter = true
   filter.personList.employees = filterByEmployee
   Model(filter)
@@ -168,7 +167,7 @@ var keys = [
         divTooltip.style('top', d3.event.pageY - 150 + 'px')
         divTooltip.style('display', 'block')
         divTooltip.style('background-color', 'white')
-        divTooltip.html(d.data.total)
+        divTooltip.html(d.data.position+' has traveld '+d.data.total+ ' times')
       })
       .on('mouseout', function(d) {
         divTooltip.style('display', 'none')
