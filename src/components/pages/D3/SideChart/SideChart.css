@@ -1,3 +1,7 @@
 .person_inactive{
     opacity: 0.5;
 }
+
+#legendButton{
+    margin:10px;
+  }

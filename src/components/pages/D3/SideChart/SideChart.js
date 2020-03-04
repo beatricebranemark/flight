@@ -51,6 +51,8 @@ const SideChart = ({data, filter}) => {
 })
 
 
+
+
 //Click function, chosen employee är från början hela employee list
 const chosen_employees_list = []
 
@@ -106,6 +108,15 @@ const showAll = () => {
   }
 }
 
+const getPositions = (employees) =>{
+  var positions =[]
+  employees.forEach(employee =>{
+    if(positions.includes(employee.position)==false )
+    positions.push(employee.position)
+  })
+  return positions
+}
+
     useEffect(() => {
         let data = employee_list
         d3.select('svg')
@@ -121,6 +132,7 @@ var y = d3.scaleBand()			// x = d3.scaleBand()
     .rangeRound([0, height - 32])	// .rangeRound([0, width])
     .padding(0.2)
     .align(0.1);
+
 
 
 var x = d3.scaleLinear()		// y = d3.scaleLinear()
@@ -143,7 +155,19 @@ var keys = [
   x.domain([0, d3.max(data, function(d) { return d.total; })]).nice();	// y.domain...
   z.domain(keys);
 
-
+  /*
+d3.select('.labels')
+		.append("select")
+		.attr("id", "cityselector")
+		.selectAll("option")
+		.data(getPositions(data))
+		.enter().append("option")
+		.text(function(d) { return d; })
+		.attr("value", function (d, i) {
+      return i;
+    });
+    
+*/
   let bar = g.append("g")
     .selectAll("g")
     .data(d3.stack().keys(keys)(data))
@@ -305,6 +329,9 @@ return (<React.Fragment>
     
     <div className="label">Unknown
     <div className="labelBox" style={{backgroundColor:"#a05d56"}}></div></div>
+
+    <button id="legendButton" className="btn btn-dark" onClick={(e) => showAll(e)}>Select all</button>
+
     
   </div>
   <svg id="chart" width="320" height={employee_list.length * 22 + 20}></svg>
