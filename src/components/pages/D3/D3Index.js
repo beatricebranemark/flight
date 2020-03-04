@@ -8,6 +8,7 @@ import HoverBox from './HoverBox/hoverBox'
 import SideChart from './SideChart/SideChart'
 import TopMenu from '../TopMenu/TopMenu'
 import Filter from './../../Filter'
+import PieChart from './PieChart/PieChart'
 
 import {useBooleanKnob} from 'retoggle'
 import {
@@ -61,6 +62,7 @@ const D3Index = props => {
             </Sidebar.Pusher>
           </Sidebar.Pushable>
         </>
+        <div><PieChart/></div>
 
       </Provider>
       </React.Fragment>
