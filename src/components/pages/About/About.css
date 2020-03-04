@@ -1,29 +1,29 @@
 #aboutContainer{
-    text-align:center;
+   
     font-family: 'roboto';
+    display: flex;
+  align-items: center;
+  justify-content: center;
     
 }
-.ui.card>.image:not(.ui)>img{
-    border-radius:50%;
-    max-width: 290px;
-    max-height:290px;
-    background-color:white;
-    border:none !important
+img{
+    border-style: none;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
 }
-.ui.card{
-    max-width:200px;
-    max-height:300px;
-    margin:10px;
-    border:none !important;
-    display:inline-block;
-}
+
+
 
 .ui.card>.content{
     border:none;
+    text-align:center;
 }
 
 #ourTeam{
     text-align:center;
+    padding:20px;
+    
 }
 #teamContainer{
     background-color:grey;
@@ -44,4 +44,11 @@
 #textTitle{
     color:black;
     font-size:48px;
+}
+
+.imageDiv{
+    text-align:center;
+    max-width:200px;
+    margin:10px;
+    color:white;
 }

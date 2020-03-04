@@ -73,16 +73,15 @@ const HomeScreen = props => {
   }
   return (
     <React.Fragment>
-    <TopMenu props={props}></TopMenu>
+  <TopMenu props={props}></TopMenu>
     <div className='NavBar'>
       <Provider store={store}>
         <BarChart filter={filter} type={'firstView'} />
       </Provider>
       <div id='selectSchoolOrg'>
-        <h2>Select your school</h2>
+        <h2>Select your school: {currentSchool}</h2>
         <div
           className='buttonContainer'
-          id='schools'
           onChange={handleSelectedSchool}
           ref={schoolsList}
         >
