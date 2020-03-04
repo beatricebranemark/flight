@@ -89,13 +89,7 @@ const NavBar = props => {
         </option>
         {orgs.length > 0 ? orgTags : null}
       </select>
-      <button
-        className='btn btn-success'
-        id='schoolButton'
-        onClick={() => props.props.history.push('/')}
-      >
-        Go Back
-      </button>
+ 
     </div>
   )
 }

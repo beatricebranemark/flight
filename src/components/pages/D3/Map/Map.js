@@ -3,12 +3,11 @@ import Model from '../../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './index.css'
-import store from '../../../../reducers/'
-import countTrips from './../CountTrips'
+
 const Map = ({data, filter}) => {
   let d3Container = useRef(null)
   let countries = require('./csvjson.json')
-  //console.log(data)
+
   useEffect(() => {
     if (data.length > 0) {
       d3.select(d3Container.current)
@@ -23,6 +22,7 @@ const Map = ({data, filter}) => {
           return d.arrival_city
         })
         .entries(data)
+
       // The svg
       // Map and projection
       let projection = d3
@@ -39,12 +39,12 @@ const Map = ({data, filter}) => {
       // A path generator
       let path = d3.geoPath().projection(projection)
 
-      let pathDot = d3
+      /*let pathDot = d3
         .geoPath()
         .projection(projection)
         .pointRadius(function(d) {
           return scale(d.scale)
-        })
+        })*/
       /* .pointRadius(function(d) {
           let scaling = scale(d.scale)
           return scaling
@@ -60,6 +60,7 @@ const Map = ({data, filter}) => {
       svg.call(zoom)
 
       function zoomed() {
+        g.attr('transform', 'translate(' + d3.event.transform.k + ')')
         g.selectAll('path') // To prevent stroke width from scaling
           .attr('transform', d3.event.transform)
 
@@ -72,11 +73,23 @@ const Map = ({data, filter}) => {
           .selectAll('circle') // To prevent stroke width from scaling
           .attr('transform', d3.event.transform)
           .attr('r', function(d) {
-            let newScale =
-              d3.select(this).attr('r') / d3.event.transform.k
+            let newScale = Math.abs(
+              scale(d.scale / (d3.event.transform.k + 1))
+            )
             return newScale
           })
       }
+
+      d3.select('#zoom_in').on('click', function() {
+        // Smooth zooming
+        zoom.scaleBy(svg.transition().duration(750), 1.3)
+      })
+
+      d3.select('#zoom_out').on('click', function() {
+        // Ordinal zooming
+        zoom.scaleBy(svg, 1 / 1.3)
+      })
+
       function chosenCountry(country) {
         for (let i = 0; i < countries.length; i++) {
           if (countries[i].english == country) {
@@ -107,8 +120,12 @@ const Map = ({data, filter}) => {
               let res = country.key.split(',')
               let swedish
               for (let i = 0; i < countries.length; i++) {
-                if (countries[i].english == d.properties.name) {
-                  swedish = countries[i].swedish
+                try {
+                  if (countries[i].english == d.properties.name) {
+                    swedish = countries[i].swedish
+                  }
+                } catch (TypeError) {
+                  console.log(TypeError)
                 }
               }
               if (res[0] == swedish) {
@@ -137,12 +154,16 @@ const Map = ({data, filter}) => {
               d3.select(this).attr('fill', 'rgba(112,128,144, 1)')
               let xPosition = d3.mouse(this)[0] - 30
               let yPosition = d3.mouse(this)[1] - 50
-              tooltip.attr(
-                'transform',
-                'translate(' + xPosition + ',' + yPosition + ')'
-              )
-              tooltip.select('text').text(d.properties.name)
-              tooltip.style('display', 'block')
+              try {
+                tooltip.attr(
+                  'transform',
+                  'translate(' + xPosition + ',' + yPosition + ')'
+                )
+                tooltip.select('text').text(d.properties.name)
+                tooltip.style('display', 'block')
+              } catch (TypeError) {
+                console.log(TypeError)
+              }
             })
             .on('mouseout', function(d) {
               let country = colorMap(d)
@@ -156,125 +177,147 @@ const Map = ({data, filter}) => {
             })
             .style('stroke', '#fff')
             .style('stroke-width', 0.2)
-
-          // Create data: coordinates of start and end
-          data.map(function(flight) {
-            try {
-              let coordinates = [
-                [
-                  parseInt(flight.departure_coord[1]),
-                  parseInt(flight.departure_coord[0]),
-                ],
-                [
-                  parseInt(flight.arrival_coord[1]),
-                  parseInt(flight.arrival_coord[0]),
-                ],
-              ]
-              let link = {
-                type: 'LineString',
-                coordinates: coordinates,
-              }
-              let cityCounts = countedData.filter(city => {
-                return city.key === flight.arrival_city
-              })
-
-              let link2 = {
-                type: 'Point',
-                coordinates: coordinates[1],
-                scale: cityCounts[0].values.length,
-              }
-              // Add the path
-              svg
-                .append('path')
-                .attr('d', path(link))
-                .attr('class', 'line')
-                .style('fill', 'none')
-                .style('stroke', function(d) {
-                  if (flight.travel_type === 'Enkel') {
-                    return 'blue'
-                  } else if (flight.travel_type === 'Tur och retur') {
-                    return 'orange'
-                  } else if (
-                    flight.travel_type === 'Flera destinationer'
-                  ) {
-                    return 'red'
-                  }
-                })
-                .style('opacity', 0.5)
-                .style('stroke-width', 2)
-
-              svg
-
-                .append('circle')
-                .attr('cx', function() {
-                  return projection(link2.coordinates)[0]
-                })
-                .attr('cy', function() {
-                  return projection(link2.coordinates)[1]
-                })
-                .attr('r', function() {
-                  return scale(link2.scale)
-                })
-                .attr('class', 'dot')
-                //.attr('d', pathDot(link2))
-                .style('fill', function(d) {
-                  if (flight.travel_type === 'Enkel') {
-                    return 'blue'
-                  } else if (flight.travel_type === 'Tur och retur') {
-                    return 'orange'
-                  } else if (
-                    flight.travel_type === 'Flera destinationer'
-                  ) {
-                    return 'red'
-                  }
-                })
-                .style('stroke', 'purple')
-                .style('opacity', 1)
-                .style('stroke-width', 0.5)
-                .on('mouseover', function() {
-                  d3.select(this).style('fill', 'blue')
-                  store.dispatch({
-                    type: 'SET_HOVER_DATA',
-                    payload: [flight],
-                  })
-                })
-                .on('mouseout', function() {
-                  d3.select(this).style('fill', 'red')
-                })
-            } catch (TypeError) {
-              console.log(TypeError)
-            }
+        })
+      let dotLinks = []
+      let pathLinks = []
+      // Create data: coordinates of start and end
+      data.map(function(flight) {
+        try {
+          let coordinates = [
+            [
+              parseInt(flight.departure_coord[1]),
+              parseInt(flight.departure_coord[0]),
+            ],
+            [
+              parseInt(flight.arrival_coord[1]),
+              parseInt(flight.arrival_coord[0]),
+            ],
+          ]
+          let link = {
+            type: 'LineString',
+            coordinates: coordinates,
+            arrival_code: flight.arrival_code,
+            departure_code: flight.departure_code,
+          }
+          pathLinks.push(link)
+          let cityCounts = countedData.filter(city => {
+            return city.key === flight.arrival_city
           })
 
-          let tooltip = svg
-            .append('g')
-            .attr('class', 'tooltip')
-            .style('display', 'none')
-
-          tooltip
-            .append('rect')
-            .attr('width', 120)
-            .attr('height', 30)
-            .attr('fill', 'white')
-            .style('opacity', 1)
-
-          tooltip
-            .append('text')
-            .attr('x', 60)
-            .attr('dy', '1.2em')
-            .style('text-anchor', 'middle')
-            .attr('font-size', '20px')
-            .attr('font-weight', 'bold')
+          let link2 = {
+            type: 'Point',
+            coordinates: coordinates[1],
+            scale: cityCounts[0].values.length,
+            arrival_code: flight.arrival_code,
+            departure_code: flight.departure_code,
+            departure_city: flight.departure_city,
+          }
+          dotLinks.push(link2)
+        } catch (TypeError) {
+          console.log(TypeError)
+        }
+      })
+      // Add the path
+      svg
+        .selectAll('path')
+        .data(pathLinks)
+        .enter()
+        .append('path')
+        .attr('d', function(d) {
+          return path(d)
         })
+        .attr('class', function(d) {
+          return 'line' + ' ' + d.arrival_code
+        })
+        .style('fill', 'none')
+        .style('stroke', 'none')
+        .style('opacity', 0.5)
+        .style('stroke-width', 2)
+
+      svg
+        .selectAll('circle')
+        .data(dotLinks)
+        .enter()
+        .append('circle')
+        .attr('cx', function(d) {
+          return projection(d.coordinates)[0]
+        })
+        .attr('cy', function(d) {
+          return projection(d.coordinates)[1]
+        })
+        .attr('r', function(d) {
+          return scale(d.scale)
+        })
+        .attr('class', function(d) {
+          return 'dot' + ' ' + d.arrival_code + '1'
+        })
+        //.attr('d', pathDot(link2))
+        .style('fill', function(d) {
+          /* if (flight.travel_type === 'Enkel') {
+                return 'blue'
+              } else if (flight.travel_type === 'Tur och retur') {
+                return 'orange'
+              } else if (
+                flight.travel_type === 'Flera destinationer'
+              ) {*/
+          return 'red'
+        })
+        .style('stroke', 'purple')
+        .style('opacity', 1)
+        .style('stroke-width', 0.5)
+        .on('mouseover', function(d) {
+          d3.select(this).style('fill', 'blue')
+          d3.selectAll('.' + d.arrival_code).style('stroke', 'blue')
+          /*d3.selectAll('.' + d.departure_code + '1').style(
+            'fill',
+            'blue'
+          )*/
+          /*store.dispatch({
+                type: 'SET_HOVER_DATA',
+                payload: [flight],
+              })*/
+        })
+        .on('mouseout', function(d) {
+          d3.select(this).style('fill', 'red')
+          d3.selectAll('.' + d.arrival_code).style('stroke', 'none')
+          /*d3.selectAll('.' + d.departure_code + '1').style(
+            'fill',
+            'red'
+          )*/
+        })
+
+      let tooltip = svg
+        .append('g')
+        .attr('class', 'tooltip')
+        .style('display', 'none')
+
+      tooltip
+        .append('rect')
+        .attr('width', 120)
+        .attr('height', 30)
+        .attr('fill', 'white')
+        .style('opacity', 1)
+
+      tooltip
+        .append('text')
+        .attr('x', 60)
+        .attr('dy', '1.2em')
+        .style('text-anchor', 'middle')
+        .attr('font-size', '20px')
+        .attr('font-weight', 'bold')
     }
   })
   return (
-    <svg
-      width={1100}
-      height={700}
-      ref={d3Container}
-      className='map'
-    ></svg>
+    <div>
+      <svg
+        width={1100}
+        height={700}
+        ref={d3Container}
+        className='map'
+      ></svg>
+      <button id='zoom_in'>+</button>
+      <button id='zoom_out'>-</button>
+    </div>
   )
 }
 

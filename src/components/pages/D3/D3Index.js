@@ -8,6 +8,7 @@ import HoverBox from './HoverBox/hoverBox'
 import SideChart from './SideChart/SideChart'
 import TopMenu from '../TopMenu/TopMenu'
 import Filter from './../../Filter'
+import { withRouter } from "react-router-dom";
 
 import {useBooleanKnob} from 'retoggle'
 import {
@@ -31,12 +32,12 @@ const D3Index = props => {
 
   return (
     <React.Fragment>
-    <TopMenu></TopMenu>
+    <TopMenu props={props}></TopMenu>
      
       <Provider store={store}>
         <>
           <NavBar props={props} />
-          <Sidebar.Pushable as={Segment}>
+          <Sidebar.Pushable id="sideBarChart" as={Segment}>
             <Sidebar
               as={Menu}
               animation='push'
@@ -47,6 +48,7 @@ const D3Index = props => {
               width='wide'
             >
               <h1>Employee Data</h1>
+
               <SideChart filter={filter} ></SideChart>
             </Sidebar>
             <Sidebar.Pusher>
@@ -67,4 +69,4 @@ const D3Index = props => {
   )
 }
 
-export default D3Index
+export default withRouter(D3Index)

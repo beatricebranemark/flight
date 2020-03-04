@@ -3,13 +3,14 @@
    font-size:30px;
    font-family: 'Patua One', cursive;
    color:white;
+   cursor:pointer;
 }
 
 #topMenuRight{
     margin-right:20px;
     
 }
-#menuButton{
+.menuButton{
     font-size:20px;
 }
 
