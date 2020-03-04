@@ -82,7 +82,6 @@ const HomeScreen = props => {
         <h2>Select your school</h2>
         <div
           className='buttonContainer'
-          id='schools'
           onChange={handleSelectedSchool}
           ref={schoolsList}
         >

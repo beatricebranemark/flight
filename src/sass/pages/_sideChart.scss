@@ -7,9 +7,15 @@
         fill: white;
         font-size: 1.2rem;
     }
-    .tick line {
-       color: transparent;
+    .tick {
+
+        text-transform: uppercase;
+
+        & line {
+            color: transparent;
+         }
     }
+
 
     .domain {
         color: transparent;
@@ -17,14 +23,9 @@
 
     .sideChartRect {
     
-        .line {
-            position: absolute;
-            width: 100px;
-            margin-top: -.2rem;
-            height: .2rem;
-            background-color: #1b1c1d;
-        }
+        cursor: pointer;
     }
+
 }
 .totalText{
     color:white;
@@ -47,7 +48,40 @@
 }
 
 .labelBox {
-    width: 14px;
-    height: 14px;
+    width: 1.4rem;
+    height: 1.4rem;
     margin-left: .5rem;
+}
+
+.person_inactive{
+    opacity: 0.5;
+}
+
+.sideChartFilters {
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -1rem;
+
+    & > * {
+        margin-top: 1.5rem;
+    }
+}
+
+#sideChartSelectAll  {
+    padding-bottom: .2rem;
+    margin-right: 1rem;
+}
+
+#titleSelector {
+    border: .15rem solid #71bf7e;
+    border-radius: 5rem;
+    width: auto;
+    text-transform: uppercase;
+    
 }

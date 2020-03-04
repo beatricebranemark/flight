@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 const TopTen = ({data, filter}) => {
   let organisation_trips = data
 
-  console.log(organisation_trips)
+  //console.log(organisation_trips)
   let filtered_trips = []
   let deleted_trips = []
   var unique_departure_cities = []

@@ -6,15 +6,10 @@
   box-sizing: inherit; }
 
 html {
-  font-size: 62.5%; 
-font-family: Roboto;
-}
+  font-size: 62.5%; }
 
 body {
-  box-sizing: border-box;
-  fill: none; 
-  font-family:Roboto}
-
+  box-sizing: border-box; }
 
 p {
   color: red;
@@ -111,16 +106,14 @@ h1 {
     color: white;
     fill: white;
     font-size: 1.2rem; }
-  #chart .tick line {
-    color: transparent; }
+  #chart .tick {
+    text-transform: uppercase; }
+    #chart .tick line {
+      color: transparent; }
   #chart .domain {
     color: transparent; }
-  #chart .sideChartRect .line {
-    position: absolute;
-    width: 100px;
-    margin-top: -.2rem;
-    height: .2rem;
-    background-color: #1b1c1d; }
+  #chart .sideChartRect {
+    cursor: pointer; }
 
 .totalText {
   color: white; }
@@ -140,15 +133,38 @@ h1 {
     display: flex; }
 
 .labelBox {
-  width: 14px;
-  height: 14px;
+  width: 1.4rem;
+  height: 1.4rem;
   margin-left: .5rem; }
 
+.person_inactive {
+  opacity: 0.5; }
+
+.sideChartFilters {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -1rem; }
+  .sideChartFilters > * {
+    margin-top: 1.5rem; }
+
+#sideChartSelectAll {
+  padding-bottom: .2rem;
+  margin-right: 1rem; }
+
+#titleSelector {
+  border: .15rem solid #71bf7e;
+  border-radius: 5rem;
+  width: auto;
+  text-transform: uppercase; }
+
 .NavBar {
-  height: 20%;
   text-align: center;
   background-color: #f9f7f7;
-  padding: 15px;
+  padding-top: 15px;
   position: relative;
   font-family: Arial; }
   .NavBar .custom-select {
@@ -164,9 +180,21 @@ h1 {
     font-family: 'Patua One', cursive; }
 
 #schoolButton {
-  margin: 10px;
-  width: 90px;
-  height: 50px; }
+  height: 45px;
+  margin: 2px;
+  margin-top: 10px;
+  flex: 0 0 13%;
+  font-size: 1.2rem; }
 
 #selectSchoolOrg {
-  margin-top: 50px; }
+  margin-top: 2.5rem;
+  min-height: 60vh; }
+
+.buttonContainer {
+  padding-bottom: 2rem;
+  width: 70%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  flex-basis: 30%; }

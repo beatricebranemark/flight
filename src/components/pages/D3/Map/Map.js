@@ -8,7 +8,7 @@ import countTrips from './../CountTrips'
 const Map = ({data, filter}) => {
   let d3Container = useRef(null)
   let countries = require('./csvjson.json')
-  console.log(data)
+  //console.log(data)
   useEffect(() => {
     if (data.length > 0) {
       d3.select(d3Container.current)
