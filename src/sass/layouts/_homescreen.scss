@@ -8,11 +8,24 @@
 }
 
 #schoolButton{
-    margin:10px;
-    width:90px;
-    height:50px;
+    height:45px;
+    margin: 2px;
+    margin-top: 10px;;
+    flex: 0 0 13%;
+    font-size: 1.2rem;
 }
 
 #selectSchoolOrg{
-    margin-top:50px;
+    margin-top:2.5rem;
+    min-height: 60vh;
+}
+
+.buttonContainer {
+    padding-bottom: 2rem;
+    width: 70%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-basis: 30%;
 }
