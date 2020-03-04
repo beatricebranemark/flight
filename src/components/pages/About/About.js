@@ -30,22 +30,22 @@ By answering theses questions, the stakeholders can start to analyse patterns to
         </div>
 <div id="teamContainer">
 <h1 id="ourTeam">Our Team</h1>
-<div  id="aboutContainer">
-  <Card>
-    <Image src={viktor} wrapped ui={false} />
+<div id="aboutContainer">
+  <div className="imageDiv">
+    <img src={viktor} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Victor Lémon</Card.Header>
       <Card.Meta>
         <span className='date'>vlemon@kth.se</span>
       </Card.Meta>
       <Card.Description>
-          Victor is a wizard kfkfkfkfkfkfkfkfjjkjkjkjkjjkjkjkjkjkjkjkjkjkj
+          Victor is a wizard 
       </Card.Description>
     </Card.Content>
+    </div>
   
-  </Card>
-    <Card>
-    <Image id="image" src={lovisa} wrapped ui={false} />
+    <div className="imageDiv">
+    <img id="image" src={lovisa} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Lovisa Forsberg</Card.Header>
       <Card.Meta>
@@ -55,9 +55,10 @@ By answering theses questions, the stakeholders can start to analyse patterns to
         Matthew is a musician living in Nashville.
       </Card.Description>
     </Card.Content>
-    
-  </Card>  <Card>
-    <Image src={elin} wrapped ui={false} />
+    </div>
+  
+    <div className="imageDiv">
+    <img src={elin} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Elin Forsberg</Card.Header>
       <Card.Meta>
@@ -67,9 +68,9 @@ By answering theses questions, the stakeholders can start to analyse patterns to
         Matthew is a musician living in Nashville.
       </Card.Description>
     </Card.Content>
-    
-  </Card>  <Card>
-    <Image id="image" src={philip} wrapped ui={false} />
+    </div>
+  <div className="imageDiv">
+    <img id="image" src={philip} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Philip Axelsson</Card.Header>
       <Card.Meta>
@@ -79,9 +80,9 @@ By answering theses questions, the stakeholders can start to analyse patterns to
         Matthew is a musician living in Nashville.
       </Card.Description>
     </Card.Content>
-  
-  </Card>  <Card>
-    <Image src={bea} wrapped ui={false} />
+    </div>
+    <div className="imageDiv">
+    <img src={bea} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Beatrice Brånemark</Card.Header>
       <Card.Meta>
@@ -91,8 +92,8 @@ By answering theses questions, the stakeholders can start to analyse patterns to
         Matthew is a musician living in Nashville.
       </Card.Description>
     </Card.Content>
-   
-  </Card>
+    </div>
+  
   </div>
   </div>
   </React.Fragment>
