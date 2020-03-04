@@ -1,10 +1,14 @@
 import React, {useState} from 'react'
+import { withRouter } from "react-router-dom";
 
 import { Card, Icon, Image } from 'semantic-ui-react'
 import './About.css'
 import TopMenu from '../TopMenu/TopMenu'
 var lovisa = require('./lovisa.png')
 var elin = require('./elin.png')
+var viktor = require('./viktor.png')
+var philip = require('./philip.png')
+var bea = require('./bea.png')
 const About = () => (
 
     <React.Fragment>
@@ -28,14 +32,14 @@ By answering theses questions, the stakeholders can start to analyse patterns to
 <h1 id="ourTeam">Our Team</h1>
 <div  id="aboutContainer">
   <Card>
-    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+    <Image src={viktor} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Victor Lémon</Card.Header>
       <Card.Meta>
         <span className='date'>vlemon@kth.se</span>
       </Card.Meta>
       <Card.Description>
-          Victor is a wizard
+          Victor is a wizard kfkfkfkfkfkfkfkfjjkjkjkjkjjkjkjkjkjkjkjkjkjkj
       </Card.Description>
     </Card.Content>
   
@@ -57,7 +61,7 @@ By answering theses questions, the stakeholders can start to analyse patterns to
     <Card.Content>
       <Card.Header>Elin Forsberg</Card.Header>
       <Card.Meta>
-        <span className='date'>Joined in 2015</span>
+        <span className='date'>elinfors@kth.se</span>
       </Card.Meta>
       <Card.Description>
         Matthew is a musician living in Nashville.
@@ -65,7 +69,7 @@ By answering theses questions, the stakeholders can start to analyse patterns to
     </Card.Content>
     
   </Card>  <Card>
-    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+    <Image id="image" src={philip} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Philip Axelsson</Card.Header>
       <Card.Meta>
@@ -77,7 +81,7 @@ By answering theses questions, the stakeholders can start to analyse patterns to
     </Card.Content>
   
   </Card>  <Card>
-    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+    <Image src={bea} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Beatrice Brånemark</Card.Header>
       <Card.Meta>
@@ -95,4 +99,4 @@ By answering theses questions, the stakeholders can start to analyse patterns to
   
 )
 
-export default About
+export default withRouter(About)
