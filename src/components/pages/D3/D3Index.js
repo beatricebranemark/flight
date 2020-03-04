@@ -37,7 +37,7 @@ const D3Index = props => {
       <Provider store={store}>
         <>
           <NavBar props={props} />
-          <Sidebar.Pushable as={Segment}>
+          <Sidebar.Pushable id="sideBarChart" as={Segment}>
             <Sidebar
               as={Menu}
               animation='push'
@@ -47,7 +47,6 @@ const D3Index = props => {
               visible
               width='wide'
             >
-              <h1>heeej</h1>
               <SideChart filter={filter} ></SideChart>
             </Sidebar>
             <Sidebar.Pusher>

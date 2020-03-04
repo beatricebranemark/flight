@@ -6,15 +6,10 @@
   box-sizing: inherit; }
 
 html {
-  font-size: 62.5%; 
-font-family: Roboto;
-}
+  font-size: 62.5%; }
 
 body {
-  box-sizing: border-box;
-  fill: none; 
-  font-family:Roboto}
-
+  box-sizing: border-box; }
 
 p {
   color: red;
