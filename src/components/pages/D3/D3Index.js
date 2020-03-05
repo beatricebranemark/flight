@@ -8,7 +8,9 @@ import HoverBox from './HoverBox/hoverBox'
 import SideChart from './SideChart/SideChart'
 import TopMenu from '../TopMenu/TopMenu'
 import Filter from './../../Filter'
-import {withRouter} from 'react-router-dom'
+import PieChart from './PieChart/PieChart'
+import { withRouter } from "react-router-dom";
+import './D3Index.css';
 
 import {useBooleanKnob} from 'retoggle'
 import {
@@ -29,7 +31,17 @@ const D3Index = props => {
   store.subscribe(() => {
     setData(store.getState().getSchools.data)
   })
+const [visible, setVisible] = useBooleanKnob({ name: 'visible' })
+let showSideBar = () => {
+  console.log(visible)
+  if (visible === false) {
+    setVisible(true)
+  }
+  else{
+    setVisible(false)
+  }
 
+}
   return (
     <React.Fragment>
       <TopMenu props={props}></TopMenu>
@@ -38,32 +50,37 @@ const D3Index = props => {
         <>
           <NavBar props={props} />
           <Sidebar.Pushable as={Segment}>
+          
             <Sidebar
               as={Menu}
               animation='push'
               icon='labeled'
               inverted
               vertical
-              visible
+              visible={visible}
               width='wide'
             >
-              <h1>heeej</h1>
-              <SideChart filter={filter}></SideChart>
+              <h1>Employee Data</h1>
+
+              <SideChart filter={filter} ></SideChart>
             </Sidebar>
-            <Sidebar.Pusher>
+            <Sidebar.Pusher id="sideBarChart">
+              <span onClick={showSideBar} className="badge badge-success" id="showButton"><i class="fas fa-angle-right"></i></span>         
               <Segment basic>
                 <div id='secondViewBarChart'>
                   <BarChart type={'secondView'} filter={filter} />
                 </div>
                 <Map filter={filter} />
-                <TopTen />
                 <HoverBox />
               </Segment>
             </Sidebar.Pusher>
           </Sidebar.Pushable>
         </>
+        <div><PieChart/></div>
+
       </Provider>
-    </React.Fragment>
+ 
+      </React.Fragment>
   )
 }
 

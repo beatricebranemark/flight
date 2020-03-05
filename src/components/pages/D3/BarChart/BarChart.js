@@ -107,6 +107,7 @@ const BarChart = ({data, filter}) => {
         }
       })
     }
+
     filter.barChart.filter = true
     filter.barChart.employees = filteredTravels
     Model(filter)
@@ -151,7 +152,7 @@ const BarChart = ({data, filter}) => {
           'transform',
           'translate(' + margin.left + ',' + margin.top + ')'
         )
-
+       
     var x0 = d3
       .scaleBand()
       .rangeRound([0, width])
@@ -169,7 +170,15 @@ const BarChart = ({data, filter}) => {
     var data = data_list
 
     var keys = Object.keys(data[3]).slice(0, 3)
-
+    g.append('g')
+    .attr('class', 'grid')
+    .attr('color', 'lightgrey')
+    .attr('opacity', 0.5)
+    .call(d3.axisLeft(y)
+    .ticks(null, 's')
+        .scale(y)
+        .tickSize(-width, 0, 0)
+        .tickFormat(''))
     var divTooltip = d3
       .select('body')
       .append('div')
@@ -324,14 +333,17 @@ const BarChart = ({data, filter}) => {
     g.append('g')
       .attr('class', 'axis')
       .attr('transform', 'translate(0,' + height + ')')
+      
       .call(d3.axisBottom(x0))
 
+      
+    
     g.append('g')
       .attr('class', 'axis')
       .call(d3.axisLeft(y).ticks(null, 's'))
       .append('text')
-      .attr('x', 2)
-      .attr('y', y(y.ticks().pop()) + 0.5)
+      .attr('x', -35)
+      .attr('y', -15)
       .attr('dy', '0.32em')
       .attr('fill', '#000')
       .attr('font-weight', 'bold')
