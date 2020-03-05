@@ -81,7 +81,7 @@ const SideChart = ({data, filter}) => {
     } else {
       organisation_trips.forEach(trip => {
         if (trip.employee == clickedBar.emp) {
-          if (filterByEmployee.includes(trip) === false) {
+          //if (filterByEmployee.includes(trip) === false) {
             if (clickedBar.class.split(' ')[1] == 'person_active') {
               filterByEmployee.push(trip)
             }
@@ -89,7 +89,7 @@ const SideChart = ({data, filter}) => {
               const index = filterByEmployee.indexOf(trip)
               filterByEmployee.splice(index, 1)
             }
-          }
+          //}
         }
       })
 
@@ -115,7 +115,15 @@ const SideChart = ({data, filter}) => {
 
   const dropdownChange = e => {
     loadData(e.target.value)
-    filterByEmployee = []
+    /*organisation_trips.forEach(trip => {
+      if (trip.position == e.target.value) {
+        filterByEmployee.push(trip)
+      }
+    })
+    filter.personList.filter = true
+    filter.personList.employees = filterByEmployee
+    Model(filter)*/
+
   }
 
   const getPositions = employees => {
@@ -127,7 +135,7 @@ const SideChart = ({data, filter}) => {
     return positions
   }
 
-  const testFunction = (data) => {
+  /*const testFunction = (data) => {
    
     filterByEmployee = []
     organisation_trips.forEach(trip => {
@@ -141,7 +149,7 @@ const SideChart = ({data, filter}) => {
     filter.personList.filter = true
     filter.personList.employees = filterByEmployee
     Model(filter)
-  }
+  }*/
 
   function loadData(filter) {
     let data = employee_list
@@ -157,7 +165,6 @@ const SideChart = ({data, filter}) => {
         }
       })
     }
-    testFunction(data);
 
     var svg = d3.select('#chart'),
       margin = {top: 20, right: 20, bottom: 30, left: 44},
@@ -336,7 +343,7 @@ const SideChart = ({data, filter}) => {
 
   useEffect(() => {
     loadData('none')
-    showAll()
+    //showAll()
     let data = employee_list
 
     d3.selectAll('.SideChartOption').remove()
@@ -406,7 +413,7 @@ const SideChart = ({data, filter}) => {
         >
           Select all
         </button>
-        <select
+        *<select
           className='browser-default custom-select'
           id='titleSelector'
           onChange={e => dropdownChange(e)}
