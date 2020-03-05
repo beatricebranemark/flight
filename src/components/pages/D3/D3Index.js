@@ -26,7 +26,8 @@ import TopTen from './TopTen/TopTen'
 
 const D3Index = props => {
   const [data, setData] = useState(store.getState().getSchools.data)
-  const filter = Filter()
+
+  let filter = Filter()
   store.subscribe(() => {
     setData(store.getState().getSchools.data)
   })
@@ -41,11 +42,10 @@ let showSideBar = () => {
   }
 
 }
-
   return (
     <React.Fragment>
-    <TopMenu props={props}></TopMenu>
-     
+      <TopMenu props={props}></TopMenu>
+
       <Provider store={store}>
         <>
           <NavBar props={props} />
@@ -67,8 +67,8 @@ let showSideBar = () => {
             <Sidebar.Pusher id="sideBarChart">
               <span onClick={showSideBar} className="badge badge-success" id="showButton"><i class="fas fa-angle-right"></i></span>         
               <Segment basic>
-                <div id="secondViewBarChart">
-                  <BarChart type={'secondView'} filter={filter}/>
+                <div id='secondViewBarChart'>
+                  <BarChart type={'secondView'} filter={filter} />
                 </div>
                 <Map filter={filter} />
                 <HoverBox />

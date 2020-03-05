@@ -203,7 +203,6 @@ const Map = ({data, filter}) => {
           let cityCounts = countedData.filter(city => {
             return city.key === flight.arrival_city
           })
-
           let link2 = {
             type: 'Point',
             coordinates: coordinates[1],

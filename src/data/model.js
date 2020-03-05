@@ -22,7 +22,6 @@ export default function Model(filterOptions) {
   }
 
   if (filterOptions.barChart.filter) {
-    console.log(filterOptions)
     store.dispatch({
       type: 'SET_MAP_DATA',
       payload: [],
