@@ -50,6 +50,18 @@ const Map = ({data, filter}) => {
         })
         .entries(data_show)
 
+      let min = d3.min(
+        countedData.map(value => {
+          return value.values.length
+        })
+      )
+
+      let max = d3.max(
+        countedData.map(value => {
+          return value.values.length
+        })
+      )
+
       // The svg
       // Map and projection
       let projection = d3
@@ -61,8 +73,8 @@ const Map = ({data, filter}) => {
 
       var scale = d3
         .scaleSqrt()
-        .domain([1, 100])
-        .range([2, 30])
+        .domain([min, max])
+        .range([2, 10])
       // A path generator
       let path = d3.geoPath().projection(projection)
 
