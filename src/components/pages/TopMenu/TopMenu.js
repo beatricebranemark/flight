@@ -1,8 +1,14 @@
 import React, {useState, useEffect} from 'react'
-import {withRouter, NavLink } from 'react-router-dom'
+import {withRouter, NavLink, Link } from 'react-router-dom'
+import store from '../../../reducers'
 
 import './TopMenu.css'
 const TopMenu = props => {
+  const [currentSchool, setCurrentSchool] = useState(
+    store.getState().getSelectedSchool.data.length > 0
+      ? store.getState().getSelectedSchool.data[0].key
+      : ''
+  )
   return (
     <nav
       id='navBar'
@@ -31,11 +37,13 @@ const TopMenu = props => {
       >
         <ul className='navbar-nav mr-auto'></ul>
         <div id='topMenuRight' className='form-inline'>
-          <NavLink to="/seeOrg"
-            className='menuButton'
-          >
-            Visualisation
-          </NavLink>
+          {currentSchool === '' ? <Link exact to="/" className='menuButton'>
+        Visualisation
+      </Link> :
+      <NavLink to="/seeOrg"
+        className='menuButton'>
+        Visualisation
+      </NavLink> }
           <NavLink to="/howitworks"
             className='menuButton'
           >
