@@ -8,10 +8,10 @@ const NavBar = props => {
     store.getState().getSchools.data.map(schools => schools)
   )
   const [currentSchool, setCurrentSchool] = useState(
-    store.getState().getSelectedSchool.data
+    store.getState().getSelectedSchool.data[0].key
   )
   const [currentOrg, setCurrentOrg] = useState(
-    store.getState().getSelectedOrg.data
+    store.getState().getSelectedOrg.data[0].key
   )
 
   let organisationsList = React.createRef()
@@ -23,13 +23,7 @@ const NavBar = props => {
   })
   const schoolTags = schools.map(school => {
     return (
-      <option
-        key={school.key}
-        selected={
-          currentSchool[0].school === school.key ? true : false
-        }
-        value={school.key}
-      >
+      <option key={school.key} value={school.key}>
         {school.key}
       </option>
     )
@@ -37,11 +31,7 @@ const NavBar = props => {
 
   const orgTags = orgs.map(org => {
     return (
-      <option
-        key={org.key}
-        selected={currentOrg[0].key === org.key ? true : false}
-        value={org.key}
-      >
+      <option key={org.key} value={org.key}>
         {org.key}
       </option>
     )
@@ -49,7 +39,7 @@ const NavBar = props => {
 
   function handleSelectedSchool(e) {
     setCurrentSchool(e.target.value)
-    setCurrentOrg([{key: ''}])
+    setCurrentOrg('')
     FilterScoolAndOrg.setSchool(e.target.value)
   }
 
@@ -65,8 +55,9 @@ const NavBar = props => {
         id='schools'
         onChange={handleSelectedSchool}
         ref={schoolsList}
+        defaultValue={currentSchool}
       >
-        <option key='Select a school' disabled='true' value=''>
+        <option key='Select a school' disabled={true} value={''}>
           Select a school
         </option>
         {schoolTags}
@@ -77,18 +68,17 @@ const NavBar = props => {
         id='organisations'
         onChange={handleSelectedOrg}
         ref={organisationsList}
+        defaultValue={currentOrg}
       >
         <option
           key='Select an organisation'
-          selected={currentOrg[0].key === '' ? true : false}
           disabled={true}
-          value=''
+          value={''}
         >
           Select an organisation
         </option>
-        {orgs.length > 0 ? orgTags : null}
+        {orgTags}
       </select>
- 
     </div>
   )
 }

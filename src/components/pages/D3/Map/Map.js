@@ -172,9 +172,7 @@ const Map = ({data, filter}) => {
                 country.length > 0 ? '#83be83' : '#b8b8b8'
               )
             })
-            .on('click', function(d) {
-              chosenCountry(d.properties.name)
-            })
+
             .style('stroke', '#fff')
             .style('stroke-width', 0.2)
         })
@@ -308,6 +306,7 @@ const Map = ({data, filter}) => {
   })
   return (
     <div>
+
       <button className="btn btn-dark m-2" id='zoom_in'><i className="fas fa-plus"></i></button>
       <button className="btn btn-dark m-2" id='zoom_out'><i className="fas fa-minus"></i></button>
       <svg
@@ -317,7 +316,6 @@ const Map = ({data, filter}) => {
         className='map'
       > 
       </svg>
-      
       
     </div>
   )
