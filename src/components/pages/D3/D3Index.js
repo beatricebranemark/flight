@@ -26,19 +26,35 @@ import TopTen from './TopTen/TopTen'
 
 const D3Index = props => {
   const [data, setData] = useState(store.getState().getSchools.data)
+  const [arrow, setArrow] = useState('fas fa-angle-right')
+  const [view, setView] = useState('map')
 
-  let filter = Filter()
+  const filter = Filter()
+
   store.subscribe(() => {
     setData(store.getState().getSchools.data)
   })
 const [visible, setVisible] = useBooleanKnob({ name: 'visible' })
+
+let showView = () => {
+  if (view === 'map'){
+    setView('pie')
+  }
+  else{
+    setView('map')
+  }
+
+}
 let showSideBar = () => {
   console.log(visible)
   if (visible === false) {
+
     setVisible(true)
+    setArrow("fas fa-angle-left")
   }
   else{
     setVisible(false)
+    setArrow("fas fa-angle-right")
   }
 
 }
@@ -49,7 +65,7 @@ let showSideBar = () => {
       <Provider store={store}>
         <>
           <NavBar props={props} />
-          <Sidebar.Pushable as={Segment}>
+          <Sidebar.Pushable id="mainPusher" as={Segment}>
           
             <Sidebar
               as={Menu}
@@ -59,18 +75,25 @@ let showSideBar = () => {
               vertical
               visible={visible}
               width='wide'
+              id="pushaSideBar"
             >
               <h1>Employee Data</h1>
 
               <SideChart filter={filter} ></SideChart>
             </Sidebar>
             <Sidebar.Pusher id="sideBarChart">
-              <span onClick={showSideBar} className="badge badge-success" id="showButton"><i class="fas fa-angle-right"></i></span>         
+              <span onClick={showSideBar} className="badge badge-success" id="showButton"><i class={arrow}></i></span>         
               <Segment basic>
                 <div id='secondViewBarChart'>
                   <BarChart type={'secondView'} filter={filter} />
                 </div>
-                <Map filter={filter} />
+                <div id="viewButtons">
+                <button id="mapViewButton" type="button" class="btn btn-dark"><i class="fas fa-globe-americas"></i></button>
+                <button id="pieViewButton" type="button" class="btn btn-dark"><i class="fas fa-chart-pie"></i></button>
+                </div>
+                <div id="viewToggleBar">
+                    <Map filter={filter} />
+                </div>
                 <HoverBox />
               </Segment>
             </Sidebar.Pusher>
