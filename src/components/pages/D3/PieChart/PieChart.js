@@ -6,6 +6,8 @@ import './PieChart.css'
 const PieChart = ({data, filter}) => {
     let organisation_trips = data
     const d3Container = useRef(null)
+    const legendContainer = useRef(null)
+
 
     var unique_departure_cities = []
     var unique_arrival_cities = []
@@ -141,6 +143,7 @@ const PieChart = ({data, filter}) => {
         .attr('d', arc)
         .attr('fill', function(d){ return(color(d.data.value[1])) })
         .attr("stroke", "white")
+        .attr('class', 'slice_inactive')
         .style("stroke-width", "2px")
         .style("opacity", 0.7)
         .on('mouseover', function(d) {
@@ -162,17 +165,55 @@ const PieChart = ({data, filter}) => {
             .attr('y', 42)
             .text(d.data.value[2])
 
+
           })
 
-       
-        
+      var legend_data = [{key: "Utrikes", value: '#876f91'}, {key: "Inrikes", value:'#274156'},{key:"Europa", value:'#BDC4A1'}, {key: "Norden", value:'#689FA3' }]
+      var legendContainerSVG = d3.select(legendContainer.current)
+
+      var legend = legendContainerSVG
+      .append('g')
+      .attr('font-family', 'sans-serif')
+      .attr('font-size', 12)
+      .attr('text-anchor', 'end')
+      .selectAll('g')
+      
+      .data(legend_data)
+      .enter()
+      .append('g')
+      .attr('transform', function(d, i) {
+        return 'translate(' + (i*65) + ',' + 0 + ')'
+      })
+      //.attr('class', 'legend_active')
+
+          legend
+          .append('rect')
+          .attr('x', 20)
+          .attr('cursor', 'pointer')
+          .attr('width', 23)
+          .attr('height', 23)
+          .attr('fill', function(d){return d.value})
+          .on('click', function(d){console.log(d.key)})
+
+    
+        legend
+          .append('text')
+          .attr('x', 35)
+          .attr('y', 10.5)
+          .attr('dy', '2em')
+          .text(function(d) {
+            return d.key
+          })
+
 
     })
     return(
         <React.Fragment>
+          
        <svg width={width} height={height} ref={d3Container}></svg>
+       <svg id="legendContainer" width={300} height={50} ref={legendContainer}></svg>
        <div>
-       <button onClick={() => clickedButton()}>Hide Stockholm</button>
+       <button id="hideButton" className="btn btn-dark" onClick={() => clickedButton()}>Hide Stockholm</button>
        </div>
        
        </React.Fragment>
