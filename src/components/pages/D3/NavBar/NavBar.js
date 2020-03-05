@@ -19,7 +19,7 @@ const NavBar = props => {
   const [currentOrg, setCurrentOrg] = useState(
     store.getState().getSelectedOrg.data.length > 0
       ? store.getState().getSelectedOrg.data[0].key
-      : ''
+      : 'default'
   )
 
   let organisationsList = React.createRef()
@@ -27,8 +27,8 @@ const NavBar = props => {
 
   store.subscribe(() => {
     setOrgs(store.getState().getOrgs.data)
-    //setSchools(store.getState().getSchools.data)
   })
+
   const schoolTags = schools.map(school => {
     return (
       <option key={school.key} value={school.key}>
@@ -47,7 +47,7 @@ const NavBar = props => {
 
   function handleSelectedSchool(e) {
     setCurrentSchool(e.target.value)
-    setCurrentOrg('')
+    setCurrentOrg('default')
     FilterScoolAndOrg.setSchool(e.target.value)
   }
 
@@ -81,7 +81,8 @@ const NavBar = props => {
         <option
           key='Select an organisation'
           disabled={true}
-          value={''}
+          value={'default'}
+          selected={currentOrg === 'default' ? true : false}
         >
           Select an organisation
         </option>
