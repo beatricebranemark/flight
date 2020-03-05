@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react'
+import React, {useRef, useEffect, useState} from 'react'
 import Model from '../../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
@@ -8,6 +8,26 @@ const Map = ({data, filter}) => {
   let d3Container = useRef(null)
   let countries = require('./csvjson.json')
 
+  const [showStockholm,setShowStockholm] = useState(true)
+  console.log(showStockholm)
+
+  var data_no_stockholm = []
+  data.forEach(trip =>{
+    var arrival = trip.arrival_city.split(',')
+    var arrival_city = arrival[0]
+    if(arrival_city != "Stockholm"){
+      data_no_stockholm.push(trip)
+    }
+  })
+
+  const clickedButton = () =>{
+    if(showStockholm == true){
+        setShowStockholm(false);
+    }
+    if(showStockholm == false){
+        setShowStockholm(true); 
+    }
+}
   useEffect(() => {
     if (data.length > 0) {
       d3.select(d3Container.current)
@@ -16,12 +36,19 @@ const Map = ({data, filter}) => {
 
       let svg = d3.select(d3Container.current)
 
+      var data_show;
+      if(showStockholm == true){
+          data_show = data
+      }
+      if(showStockholm == false){
+          data_show = data_no_stockholm
+      }
       let countedData = d3
         .nest()
         .key(function(d) {
           return d.arrival_city
         })
-        .entries(data)
+        .entries(data_show)
 
       // The svg
       // Map and projection
@@ -312,6 +339,9 @@ const Map = ({data, filter}) => {
       <button className='btn btn-dark m-2' id='zoom_out'>
         <i className='fas fa-minus'></i>
       </button>
+      <div>
+       <button onClick={() => clickedButton()}>Hide Stockholm</button>
+       </div>
       <svg
         width={1100}
         height={700}
