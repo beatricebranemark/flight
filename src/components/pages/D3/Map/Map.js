@@ -8,26 +8,26 @@ const Map = ({data, filter}) => {
   let d3Container = useRef(null)
   let countries = require('./csvjson.json')
 
-  const [showStockholm,setShowStockholm] = useState(true)
+  const [showStockholm, setShowStockholm] = useState(true)
   console.log(showStockholm)
 
   var data_no_stockholm = []
-  data.forEach(trip =>{
+  data.forEach(trip => {
     var arrival = trip.arrival_city.split(',')
     var arrival_city = arrival[0]
-    if(arrival_city != "Stockholm"){
+    if (arrival_city != 'Stockholm') {
       data_no_stockholm.push(trip)
     }
   })
 
-  const clickedButton = () =>{
-    if(showStockholm == true){
-        setShowStockholm(false);
+  const clickedButton = () => {
+    if (showStockholm == true) {
+      setShowStockholm(false)
     }
-    if(showStockholm == false){
-        setShowStockholm(true); 
+    if (showStockholm == false) {
+      setShowStockholm(true)
     }
-}
+  }
   useEffect(() => {
     if (data.length > 0) {
       d3.select(d3Container.current)
@@ -36,12 +36,12 @@ const Map = ({data, filter}) => {
 
       let svg = d3.select(d3Container.current)
 
-      var data_show;
-      if(showStockholm == true){
-          data_show = data
+      var data_show
+      if (showStockholm == true) {
+        data_show = data
       }
-      if(showStockholm == false){
-          data_show = data_no_stockholm
+      if (showStockholm == false) {
+        data_show = data_no_stockholm
       }
       let countedData = d3
         .nest()
@@ -353,6 +353,7 @@ const Map = ({data, filter}) => {
      
 
  
+
       <svg
       id="svgMap"
         width={1068}
