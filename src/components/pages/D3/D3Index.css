@@ -25,11 +25,11 @@
 
   #mapViewButton{
     font-size: 20px;
-    width: 529px;
+    width: 37%;
     margin: 5px;
     border-radius: 20px 20px 0px 0px;
     position: relative;
-    left: 175px;
+    left: 11.7%;
     top: 42px;
     z-index: 100;
   }
@@ -38,31 +38,31 @@
     font-size: 20px;
     margin: 5px;
     border-radius: 20px 20px 0px 0px;
-    left: -5px;
+    left: 0.3%;
     z-index: 100;
     position: relative;
     top: 6px;
-    width: 529px;
+    width: 37%;
   }
 
   #mapViewButtonPushed{
     font-size: 20px;
     margin: 5px;
     border-radius: 20px 20px 0px 0px;
-    left: -5px;
+    right: 0.3%;
     z-index: 100;
     position: relative;
     top: 6px;
-    width: 529px;
+    width: 37%;
   }
 
   #pieViewButton{
     font-size: 20px;
-    width: 529px;
+    width: 37%;
     margin: 5px;
     border-radius: 20px 20px 0px 0px;
     position: relative;
-    left: 175px;
+    left: 12.3%;
     top: 42px;
     z-index: 100;
   }
@@ -72,17 +72,18 @@
 
   .mapNotPushed{
     position: relative;
-    left: 108px;
+    left: 7%;
     top: 35px;
   }
 
   .barNotPushed{
     position: relative;
-    left: 171px;
+    left: 10%;
+   
   }
  .mapPushed{
-  
+  right: 5%;
   position: relative;
-  right: 72px;
+  
 
  }
