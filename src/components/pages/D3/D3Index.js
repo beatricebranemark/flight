@@ -32,6 +32,7 @@ const D3Index = props => {
   const [barClass, setBarClass] = useState('barNotPushed')
   const [mapButton, setMapButton] = useState('mapViewButton')
   const [pieButton, setPieButton] = useState('pieViewButton')
+  const [toggleBar, setToggleBar] = useState('viewToggleBar')
 
   const filter = Filter()
 
@@ -50,6 +51,7 @@ let showSideBar = () => {
     setBarClass("barPushed")
     setMapButton('mapViewButtonPushed')
     setPieButton('pieViewButtonPushed')
+    setToggleBar('viewToggleBarPushed')
   }
   else{
     setVisible(false)
@@ -58,6 +60,7 @@ let showSideBar = () => {
     setBarClass("barNotPushed")
     setMapButton('mapViewButton')
     setPieButton('pieViewButton')
+    setToggleBar('viewToggleBar')
   }
 
 }
@@ -90,12 +93,15 @@ let showSideBar = () => {
                 <div className={barClass}id='secondViewBarChart'>
                   <BarChart type={'secondView'} filter={filter} />
                 </div>
-               
+
+               <div id={toggleBar}>
+               <div id="viewButtons">
                 <button onClick={() => setView('map')} id={mapButton} type="button" class={view ==="map"?  "btn btn-dark mapPieActive": "btn btn-dark"  } ><i class="fas fa-globe-americas"></i></button>
                 <button onClick={() => setView('pie') }id={pieButton} type="button" class={view ==="pie"?  "btn btn-dark mapPieActive": "btn btn-dark"  }><i class="fas fa-chart-pie"></i></button>
+                </div>
                 
-                <div className={mapClass}>
                   {view === 'map' ? <Map filter={filter} /> : <PieChart/>}
+                
                 </div>
                 >
                 <HoverBox />
