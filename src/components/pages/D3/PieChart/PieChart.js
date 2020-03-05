@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react'
+import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './PieChart.css'
 import {connect} from 'react-redux'
@@ -140,44 +141,7 @@ const PieChart = ({data, filter}) => {
           })
 
        
-        // Add the polylines between chart and labels:
-      /* 
-        svg
-        .selectAll('allPolylines')
-        .data(data_ready)
-        .enter()
-        .append('polyline')
-        .attr("stroke", "black")
-        .style("fill", "none")
-        .attr("stroke-width", 1)
-        .attr('points', function(d) {
-        var posA = arc.centroid(d) // line insertion in the slice
-        var posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
-        var posC = outerArc.centroid(d); // Label position = almost the same as posB
-        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
-        posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
-        return [posA, posB, posC]
-        })
-
-        // Add the polylines between chart and labels:
-        svg
-        .selectAll('allLabels')
-        .data(data_ready)
-        .enter()
-        .append('text')
-        .text( function(d) { return d.data.key } )
-        .attr('class', 'text_pie')
-        .attr('transform', function(d) {
-            var pos = outerArc.centroid(d);
-            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-            pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
-            return 'translate(' + pos + ')';
-        })
-        .style('text-anchor', function(d) {
-            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-            return (midangle < Math.PI ? 'start' : 'end')
-        })
-*/
+        
 
     })
     return(
@@ -188,6 +152,7 @@ const PieChart = ({data, filter}) => {
     )
 }
 
+
 const mapStateToProps = (state, ownProps) => {
     let newData =
       state.getMap.data.length == 0 ? state.getData : state.getMap
@@ -196,5 +161,7 @@ const mapStateToProps = (state, ownProps) => {
       filter: ownProps.filter,
     }
   }
+
   
   export default connect(mapStateToProps)(PieChart)
+

@@ -203,7 +203,6 @@ const Map = ({data, filter}) => {
           let cityCounts = countedData.filter(city => {
             return city.key === flight.arrival_city
           })
-
           let link2 = {
             type: 'Point',
             coordinates: coordinates[1],
@@ -309,14 +308,18 @@ const Map = ({data, filter}) => {
   })
   return (
     <div>
+      <button className="btn btn-success m-2" id='zoom_in'><i className="fas fa-plus"></i></button>
+      <button className="btn btn-danger m-2" id='zoom_out'><i className="fas fa-minus"></i></button>
       <svg
         width={1100}
         height={700}
         ref={d3Container}
         className='map'
-      ></svg>
-      <button id='zoom_in'>+</button>
-      <button id='zoom_out'>-</button>
+        
+      >
+      
+      </svg>
+      
     </div>
   )
 }

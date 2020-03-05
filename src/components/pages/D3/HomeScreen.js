@@ -105,13 +105,15 @@ const HomeScreen = props => {
               id='organisations'
               onChange={handleSelectedOrg}
               ref={organisationsList}
-            >
+              
+
+>
               <option
                 key='Select an organisation'
                 selected={true}
                 disabled={true}
                 value=''
-              >
+                >
                 Select an organisation
               </option>
               {orgs.length > 0 ? orgTags : null}

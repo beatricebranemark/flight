@@ -46,66 +46,62 @@ const SideChart = ({data, filter}) => {
     ko['total'] =
       ko.EkonomiKlass + ko.EkonomiPremium + ko.Business + ko.Unknown
     employee_list.push(ko)
-
-})
-
-
-
-
-//Click function, chosen employee är från början hela employee list
-const chosen_employees_list = []
-
-function chosenEmployee(evt, id) {
-  //=inactive by default
-
-  if (evt.target.className == 'person_inactive') {
-    evt.target.className = 'person_active'
-    if (chosen_employees_list.includes(id) === false) {
-      //om personen inte finns i listan, lägg till
-      chosen_employees_list.push(id)
-    }
-  } else {
-    evt.target.className = 'person_inactive'
-    if (chosen_employees_list.includes(id) === true) {
-      //om personen finns i listan, ta bort
-      const index = chosen_employees_list.indexOf(id)
-      chosen_employees_list.splice(index, 1)
-
-  }
-}
-
-  //send list to model here
-  filter.personList.filter = true
-  filter.personList.employees = chosen_employees_list
-  Model(filter)
-}
-
-const sendData = (clickedBar) => {
-  organisation_trips.forEach(trip => {
-    if(trip.employee == clickedBar.emp){
-      if(clickedBar.cla == 'person_inactive'){
-        filterByEmployee.push(trip)
-      }
-      else{
-        const index = filterByEmployee.indexOf(trip)
-        filterByEmployee.splice(index, 1)
-      }
-    }
   })
-  filter.personList.filter = true
-  filter.personList.employees = filterByEmployee
-  Model(filter)
-}
 
-const showAll = () => {
-  filterByEmployee = []
+  //Click function, chosen employee är från början hela employee list
+  const chosen_employees_list = []
 
-  var bars = document.getElementsByClassName('sideChartRect')
-  for(var i = 0; i < bars.length; i++){
-    let fullClassName = bars[i].className.baseVal.split(' ')
-    bars[i].className.baseVal = 'sideChartRect person_active ' +fullClassName[2]
+  function chosenEmployee(evt, id) {
+    //=inactive by default
+
+    if (evt.target.className == 'person_inactive') {
+      evt.target.className = 'person_active'
+      if (chosen_employees_list.includes(id) === false) {
+        //om personen inte finns i listan, lägg till
+        chosen_employees_list.push(id)
+      }
+    } else {
+      evt.target.className = 'person_inactive'
+      if (chosen_employees_list.includes(id) === true) {
+        //om personen finns i listan, ta bort
+        const index = chosen_employees_list.indexOf(id)
+        chosen_employees_list.splice(index, 1)
+      }
+    }
+
+    //send list to model here
+    filter.personList.filter = true
+    filter.personList.employees = chosen_employees_list
+    Model(filter)
   }
-}
+
+  const sendData = clickedBar => {
+    organisation_trips.forEach(trip => {
+      if (trip.employee == clickedBar.emp) {
+        if (clickedBar.cla == 'person_inactive') {
+          filterByEmployee.push(trip)
+        } else {
+          const index = filterByEmployee.indexOf(trip)
+          filterByEmployee.splice(index, 1)
+        }
+      }
+    })
+    filter.personList.filter = true
+    filter.personList.employees = filterByEmployee
+    Model(filter)
+  }
+
+  const showAll = () => {
+    filterByEmployee = []
+
+    var bars = document.getElementsByClassName('sideChartRect')
+    for (var i = 0; i < bars.length; i++) {
+      let fullClassName = bars[i].className.baseVal.split(' ')
+      bars[i].className.baseVal =
+        'sideChartRect person_active ' + fullClassName[2]
+    }
+  }
+
 
 const dropdownChange = (e) => {
 

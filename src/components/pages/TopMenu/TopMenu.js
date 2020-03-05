@@ -18,9 +18,9 @@ const TopMenu = (props) => {
           <ul className="navbar-nav mr-auto">
           </ul>
           <form id="topMenuRight"className="form-inline">
-          <button onClick={() => props.history.push('/seeOrg')}id="menuButton" type="button" class="btn btn-outline-light btn-lg m-2 my-2 my-sm-0">Visualisation</button>
-            <button onClick={() => props.history.push('/howitworks')} id="menuButton" className="btn btn-outline-light btn-lg m-2 my-2 my-sm-0" type="submit">How it works</button>
-            <button onClick={() => props.props.history.push('/about')} id="menuButton" class="btn btn-outline-light btn-lg m-2 my-2 my-sm-0">About</button>
+          <a onClick={() => props.history.push('/seeOrg')}className="menuButton">Visualisation</a>
+            <a onClick={() => props.history.push('/howitworks')} className="menuButton">How it works</a>
+            <a onClick={() => props.props.history.push('/about')} className="menuButton">About</a>
           </form>
         </div>
       </nav>

@@ -22,7 +22,8 @@ export default function countTrip(organisation_trips) {
       if (date[0].slice(2, 4) === j.toString()) {
         for (let i = 0; i < 13; i++) {
           if (date[1] == i + 1) {
-            if (trip.travel_type === 'Enkel') {
+            data_list[i][20 + j.toString()] += 1
+            /*if (trip.travel_type === 'Enkel') {
               data_list[i][20 + j.toString()] += 1
             } else if (trip.travel_type === 'Tur och retur') {
               data_list[i][20 + j.toString()] += 2
@@ -41,7 +42,7 @@ export default function countTrip(organisation_trips) {
               firstDestination === lastDestination
                 ? (data_list[i][20 + j.toString()] += 2)
                 : (data_list[i][20 + j.toString()] += 1)
-            }
+            }*/
           }
         }
       }
