@@ -3,7 +3,6 @@ import store from '../../../../reducers'
 import FilterScoolAndOrg from '../../../../data/FilterScoolAndOrg'
 
 const NavBar = props => {
-  console.log(props)
   const [orgs, setOrgs] = useState(store.getState().getOrgs.data)
   const [schools, setSchools] = useState(
     store.getState().getSchools.data.map(schools => schools)

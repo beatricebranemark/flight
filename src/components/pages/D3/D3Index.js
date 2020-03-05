@@ -8,8 +8,10 @@ import HoverBox from './HoverBox/hoverBox'
 import SideChart from './SideChart/SideChart'
 import TopMenu from '../TopMenu/TopMenu'
 import Filter from './../../Filter'
+import PieChart from './PieChart/PieChart'
 import { withRouter } from "react-router-dom";
 import './D3Index.css';
+
 import {useBooleanKnob} from 'retoggle'
 import {
   Header,
@@ -28,6 +30,7 @@ const D3Index = props => {
   const [view, setView] = useState('map')
 
   const filter = Filter()
+
   store.subscribe(() => {
     setData(store.getState().getSchools.data)
   })
@@ -55,11 +58,10 @@ let showSideBar = () => {
   }
 
 }
-
   return (
     <React.Fragment>
-    <TopMenu props={props}></TopMenu>
-     
+      <TopMenu props={props}></TopMenu>
+
       <Provider store={store}>
         <>
           <NavBar props={props} />
@@ -75,13 +77,15 @@ let showSideBar = () => {
               width='wide'
               id="pushaSideBar"
             >
+              <h1>Employee Data</h1>
+
               <SideChart filter={filter} ></SideChart>
             </Sidebar>
             <Sidebar.Pusher id="sideBarChart">
               <span onClick={showSideBar} className="badge badge-success" id="showButton"><i class={arrow}></i></span>         
               <Segment basic>
-                <div id="secondViewBarChart">
-                  <BarChart type={'secondView'} filter={filter}/>
+                <div id='secondViewBarChart'>
+                  <BarChart type={'secondView'} filter={filter} />
                 </div>
                 <div id="viewButtons">
                 <button id="mapViewButton" type="button" class="btn btn-dark"><i class="fas fa-globe-americas"></i></button>
@@ -95,6 +99,7 @@ let showSideBar = () => {
             </Sidebar.Pusher>
           </Sidebar.Pushable>
         </>
+        <div><PieChart/></div>
 
       </Provider>
  
