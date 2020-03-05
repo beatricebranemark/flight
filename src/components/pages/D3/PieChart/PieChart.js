@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './PieChart.css'
-import {connect} from 'react-redux'
 
 const PieChart = ({data, filter}) => {
     let organisation_trips = data
