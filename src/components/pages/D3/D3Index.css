@@ -3,5 +3,27 @@
     background-color: #1b1c1d;
 }
 
-#sideBarChart{
-}
+
+  .ui.segment{
+    margin:0px !important;
+  }
+
+  #viewButtons{
+      margin:10px;
+      border-bottom:2px solid black;
+      
+  }
+
+  #mapViewButton{
+    font-size:30px;
+    width: 60px;
+    height:60px;
+    margin:5px;
+  }
+
+  #pieViewButton{
+      font-size:30px;
+      width:60px;
+      height:60px;
+      margin:5px;
+  }
