@@ -9,8 +9,8 @@ import SideChart from './SideChart/SideChart'
 import TopMenu from '../TopMenu/TopMenu'
 import Filter from './../../Filter'
 import PieChart from './PieChart/PieChart'
-import { withRouter } from "react-router-dom";
-import './D3Index.css';
+import {withRouter} from 'react-router-dom'
+import './D3Index.css'
 
 import {useBooleanKnob} from 'retoggle'
 import {
@@ -31,17 +31,15 @@ const D3Index = props => {
   store.subscribe(() => {
     setData(store.getState().getSchools.data)
   })
-const [visible, setVisible] = useBooleanKnob({ name: 'visible' })
-let showSideBar = () => {
-  console.log(visible)
-  if (visible === false) {
-    setVisible(true)
+  const [visible, setVisible] = useBooleanKnob({name: 'visible'})
+  let showSideBar = () => {
+    console.log(visible)
+    if (visible === false) {
+      setVisible(true)
+    } else {
+      setVisible(false)
+    }
   }
-  else{
-    setVisible(false)
-  }
-
-}
   return (
     <React.Fragment>
       <TopMenu props={props}></TopMenu>
@@ -50,7 +48,6 @@ let showSideBar = () => {
         <>
           <NavBar props={props} />
           <Sidebar.Pushable as={Segment}>
-          
             <Sidebar
               as={Menu}
               animation='push'
@@ -62,10 +59,16 @@ let showSideBar = () => {
             >
               <h1>Employee Data</h1>
 
-              <SideChart filter={filter} ></SideChart>
+              <SideChart filter={filter}></SideChart>
             </Sidebar>
-            <Sidebar.Pusher id="sideBarChart">
-              <span onClick={showSideBar} className="badge badge-success" id="showButton"><i class="fas fa-angle-right"></i></span>         
+            <Sidebar.Pusher id='sideBarChart'>
+              <span
+                onClick={showSideBar}
+                className='badge badge-success'
+                id='showButton'
+              >
+                <i className='fas fa-angle-right'></i>
+              </span>
               <Segment basic>
                 <div id='secondViewBarChart'>
                   <BarChart type={'secondView'} filter={filter} />
@@ -76,11 +79,11 @@ let showSideBar = () => {
             </Sidebar.Pusher>
           </Sidebar.Pushable>
         </>
-        <div><PieChart/></div>
-
+        <div>
+          <PieChart />
+        </div>
       </Provider>
- 
-      </React.Fragment>
+    </React.Fragment>
   )
 }
 
