@@ -33,11 +33,7 @@
     }
 }
 
-.map {
-    margin-left: -10rem;
-    grid-row: 2/3;
-    grid-column: 1/2;
-}
+
 
 .personlist {
     grid-row: 1/-1;
@@ -59,6 +55,7 @@
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
+    
 
 }
 
@@ -86,9 +83,7 @@
       margin-left: -350px;
   }
 
-.map {
-    float: left;
-}
+
 
 #topTen {
     position: absolute;

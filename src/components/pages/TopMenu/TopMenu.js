@@ -18,7 +18,7 @@ const TopMenu = (props) => {
           <ul className="navbar-nav mr-auto">
           </ul>
           <form id="topMenuRight"className="form-inline">
-          <a onClick={() => props.history.push('/seeOrg')}className="menuButton">Visualisation</a>
+          <a onClick={() => props.history.push('/')}className="menuButton">Visualisation</a>
             <a onClick={() => props.history.push('/howitworks')} className="menuButton">How it works</a>
             <a onClick={() => props.props.history.push('/about')} className="menuButton">About</a>
           </form>

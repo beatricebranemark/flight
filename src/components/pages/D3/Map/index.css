@@ -2,10 +2,18 @@
   opacity: 1 !important;
 }
 #zoom_in{
-position: relative;
-    left: -100px;
+  position: relative;
+  right: 100px;
+  left: 1030px;
+    top: -320px;
 }
 #zoom_out{
   position: relative;
-    left: -100px;
+  right: 100px;
+  left: 1030px;
+    top: -320px;
+}
+#svgMap{
+  border: 2px solid grey;
+  border-radius: 0px 0px 20px 20px;
 }
