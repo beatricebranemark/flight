@@ -6,6 +6,7 @@ import './index.css'
 
 const Map = ({data, filter}) => {
   let d3Container = useRef(null)
+  const legendContainer = useRef(null)
   let countries = require('./csvjson.json')
 
   const [showStockholm, setShowStockholm] = useState(true)
@@ -289,20 +290,20 @@ const Map = ({data, filter}) => {
         })
 
         .style('fill', function(d) {
-
           return '#4A7F91'
         })
         .style('opacity', 1)
         .style('stroke-width', 0.5)
         .on('mouseover', function(d) {
           d3.select(this).style('fill', '#274156')
-          d3.selectAll('.' + d.arrival_code).style('stroke', '#274156')
-
+          d3.selectAll('.' + d.arrival_code).style(
+            'stroke',
+            '#274156'
+          )
         })
         .on('mouseout', function(d) {
           d3.select(this).style('fill', '#4A7F91')
           d3.selectAll('.' + d.arrival_code).style('stroke', 'none')
-   
         })
 
       let tooltip = svg
@@ -310,7 +311,7 @@ const Map = ({data, filter}) => {
         .attr('class', 'tooltip')
         .style('display', 'none')
 
-     /* tooltip
+      /* tooltip
         .append('rect')
         .attr('width', 80)
         .attr('height', 20)
@@ -329,26 +330,23 @@ const Map = ({data, filter}) => {
   })
   return (
     <React.Fragment>
-     
       <button onClick={() => clickedButton()}>Hide Stockholm</button>
-      <button className="btn btn-dark m-2" id='zoom_in'><i className="fas fa-plus"></i></button>
-      <button className="btn btn-dark m-2" id='zoom_out'><i className="fas fa-minus"></i></button>
-      
-     
-
- 
+      <button className='btn btn-dark m-2' id='zoom_in'>
+        <i className='fas fa-plus'></i>
+      </button>
+      <button className='btn btn-dark m-2' id='zoom_out'>
+        <i className='fas fa-minus'></i>
+      </button>
 
       <svg
-      id="svgMap"
+        id='svgMap'
         width={1068}
         height={700}
         ref={d3Container}
         className='map'
-
-      > 
-      </svg>
-      </React.Fragment>
-
+      ></svg>
+      <p>Hover on a dot to see flights from a city</p>
+    </React.Fragment>
   )
 }
 
