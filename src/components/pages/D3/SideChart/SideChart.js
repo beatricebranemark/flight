@@ -115,6 +115,7 @@ const SideChart = ({data, filter}) => {
 
   const dropdownChange = e => {
     loadData(e.target.value)
+    filterByEmployee = []
   }
 
   const getPositions = employees => {
@@ -335,7 +336,7 @@ const SideChart = ({data, filter}) => {
 
   useEffect(() => {
     loadData('none')
-
+    showAll()
     let data = employee_list
 
     d3.selectAll('.SideChartOption').remove()
