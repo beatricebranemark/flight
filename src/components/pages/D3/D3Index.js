@@ -46,7 +46,6 @@ const D3Index = props => {
   const [pieButton, setPieButton] = useState('pieViewButton')
   const [toggleBar, setToggleBar] = useState('viewToggleBar')
 
-
   const filter = Filter()
 
   store.subscribe(() => {
@@ -55,34 +54,25 @@ const D3Index = props => {
 
   const [visible, setVisible] = useBooleanKnob({name: 'visible'})
 
-    setVisible(true)
-    setArrow("fas fa-angle-left")
-    setMapClass("mapPushed")
-    setBarClass("barPushed")
-    setMapButton('mapViewButtonPushed')
-    setPieButton('pieViewButtonPushed')
-    setToggleBar('viewToggleBarPushed')
-  }
-  else{
-    setVisible(false)
-    setArrow("fas fa-angle-right")
-    setMapClass("mapNotPushed")
-    setBarClass("barNotPushed")
-    setMapButton('mapViewButton')
-    setPieButton('pieViewButton')
-    setToggleBar('viewToggleBar')
-
-
   let showSideBar = () => {
     console.log(visible)
     if (visible === false) {
       setVisible(true)
       setArrow('fas fa-angle-left')
+      setMapClass('mapPushed')
+      setBarClass('barPushed')
+      setMapButton('mapViewButtonPushed')
+      setPieButton('pieViewButtonPushed')
+      setToggleBar('viewToggleBarPushed')
     } else {
       setVisible(false)
       setArrow('fas fa-angle-right')
+      setMapClass('mapNotPushed')
+      setBarClass('barNotPushed')
+      setMapButton('mapViewButton')
+      setPieButton('pieViewButton')
+      setToggleBar('viewToggleBar')
     }
-
   }
 
   if (currentOrg.length === 0) {
@@ -109,36 +99,61 @@ const D3Index = props => {
               >
                 <h1>Employee Data</h1>
 
-
-              <SideChart filter={filter} ></SideChart>
-            </Sidebar>
-            <Sidebar.Pusher id="sideBarChart">
-              <span onClick={showSideBar} className="badge badge-success" id="showButton"><i class={arrow}></i><span id="showButtonText">Show employees</span></span>         
-              <Segment basic>
-                <div className={barClass}id='secondViewBarChart'>
-                  <BarChart type={'secondView'} filter={filter} />
-                </div>
-
-               <div id={toggleBar}>
-               <div id="viewButtons">
-                <button onClick={() => setView('map')} id={mapButton} type="button" class={view ==="map"?  "btn btn-dark mapPieActive": "btn btn-dark"  } ><i class="fas fa-globe-americas"></i></button>
-                <button onClick={() => setView('pie') }id={pieButton} type="button" class={view ==="pie"?  "btn btn-dark mapPieActive": "btn btn-dark"  }><i class="fas fa-chart-pie"></i></button>
-                </div>
-                
-                  {view === 'map' ? <Map filter={filter} /> : <PieChart/>}
-                
-                </div>
+                <SideChart filter={filter}></SideChart>
+              </Sidebar>
+              <Sidebar.Pusher id='sideBarChart'>
+                <span
+                  onClick={showSideBar}
+                  className='badge badge-success'
+                  id='showButton'
                 >
-                <HoverBox />
-              </Segment>
-            </Sidebar.Pusher>
-          </Sidebar.Pushable>
-        </>
-        
+                  <i class={arrow}></i>
+                  <span id='showButtonText'>Show employees</span>
+                </span>
+                <Segment basic>
+                  <div className={barClass} id='secondViewBarChart'>
+                    <BarChart type={'secondView'} filter={filter} />
+                  </div>
+                  <div id={toggleBar}>
+                    <div id='viewButtons'>
+                      <button
+                        onClick={() => setView('map')}
+                        id={mapButton}
+                        type='button'
+                        class={
+                          view === 'map'
+                            ? 'btn btn-dark mapPieActive'
+                            : 'btn btn-dark'
+                        }
+                      >
+                        <i class='fas fa-globe-americas'></i>
+                      </button>
+                      <button
+                        onClick={() => setView('pie')}
+                        id={pieButton}
+                        type='button'
+                        class={
+                          view === 'pie'
+                            ? 'btn btn-dark mapPieActive'
+                            : 'btn btn-dark'
+                        }
+                      >
+                        <i class='fas fa-chart-pie'></i>
+                      </button>
+                    </div>
 
-
-        
-        
+                    {view === 'map' ? (
+                      <Map filter={filter} />
+                    ) : (
+                      <PieChart />
+                    )}
+                  </div>
+                  >
+                  <HoverBox />
+                </Segment>
+              </Sidebar.Pusher>
+            </Sidebar.Pushable>
+          </>
         </Provider>
       </React.Fragment>
     )
