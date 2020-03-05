@@ -19,6 +19,18 @@ export default function Model(filterOptions) {
       type: 'SET_DATA',
       payload: data,
     })
+    store.dispatch({
+      type: 'SET_MAP_DATA',
+      payload: [],
+    })
+    store.dispatch({
+      type: 'SET_PERSON_DATA',
+      payload: [],
+    })
+    store.dispatch({
+      type: 'SET_BAR_DATA',
+      payload: [],
+    })
   }
 
   if (filterOptions.barChart.filter) {
