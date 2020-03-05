@@ -8,8 +8,10 @@ import HoverBox from './HoverBox/hoverBox'
 import SideChart from './SideChart/SideChart'
 import TopMenu from '../TopMenu/TopMenu'
 import Filter from './../../Filter'
+import PieChart from './PieChart/PieChart'
 import { withRouter } from "react-router-dom";
 import './D3Index.css';
+
 import {useBooleanKnob} from 'retoggle'
 import {
   Header,
@@ -58,6 +60,8 @@ let showSideBar = () => {
               visible={visible}
               width='wide'
             >
+              <h1>Employee Data</h1>
+
               <SideChart filter={filter} ></SideChart>
             </Sidebar>
             <Sidebar.Pusher id="sideBarChart">
@@ -72,6 +76,7 @@ let showSideBar = () => {
             </Sidebar.Pusher>
           </Sidebar.Pushable>
         </>
+        <div><PieChart/></div>
 
       </Provider>
  
