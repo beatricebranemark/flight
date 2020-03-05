@@ -16,8 +16,6 @@ const Router = () => {
       <Route exact path ='/seeOrg' component={D3Index} />
       <Route exact path ='/about' component={About} />
       <Route path='/howitworks' component={HowItWorks} />
-      <Route path='/home' component={Home} />
-      <Route path='/selectschool' component={SelectSchool} />
     </Switch>
   )
 }
