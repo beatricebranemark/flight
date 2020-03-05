@@ -8,7 +8,7 @@ import HoverBox from './HoverBox/hoverBox'
 import SideChart from './SideChart/SideChart'
 import TopMenu from '../TopMenu/TopMenu'
 import Filter from './../../Filter'
-import { withRouter } from "react-router-dom";
+import {withRouter} from 'react-router-dom'
 
 import {useBooleanKnob} from 'retoggle'
 import {
@@ -24,16 +24,16 @@ import TopTen from './TopTen/TopTen'
 
 const D3Index = props => {
   const [data, setData] = useState(store.getState().getSchools.data)
-  const filter = Filter()
+
+  let filter = Filter()
   store.subscribe(() => {
     setData(store.getState().getSchools.data)
   })
 
-
   return (
     <React.Fragment>
-    <TopMenu props={props}></TopMenu>
-     
+      <TopMenu props={props}></TopMenu>
+
       <Provider store={store}>
         <>
           <NavBar props={props} />
@@ -48,23 +48,22 @@ const D3Index = props => {
               width='wide'
             >
               <h1>heeej</h1>
-              <SideChart filter={filter} ></SideChart>
+              <SideChart filter={filter}></SideChart>
             </Sidebar>
             <Sidebar.Pusher>
               <Segment basic>
-                <div id="secondViewBarChart">
-                  <BarChart type={'secondView'} filter={filter}/>
+                <div id='secondViewBarChart'>
+                  <BarChart type={'secondView'} filter={filter} />
                 </div>
                 <Map filter={filter} />
-                <TopTen/>
+                <TopTen />
                 <HoverBox />
               </Segment>
             </Sidebar.Pusher>
           </Sidebar.Pushable>
         </>
-
       </Provider>
-      </React.Fragment>
+    </React.Fragment>
   )
 }
 
