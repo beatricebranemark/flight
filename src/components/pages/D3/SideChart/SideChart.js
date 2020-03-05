@@ -81,23 +81,18 @@ const SideChart = ({data, filter}) => {
     } else {
       organisation_trips.forEach(trip => {
         if (trip.employee == clickedBar.emp) {
-          if (clickedBar.class.split(' ')[1] == 'person_active') {
-            filterByEmployee.push(trip)
+          if (filterByEmployee.includes(trip) === false) {
+            if (clickedBar.class.split(' ')[1] == 'person_active') {
+              filterByEmployee.push(trip)
+            }
+            if (clickedBar.class.split(' ')[1] == 'person_inactive') {
+              const index = filterByEmployee.indexOf(trip)
+              filterByEmployee.splice(index, 1)
+            }
           }
-          if (clickedBar.class.split(' ')[1] == 'person_inactive') {
-            const index = filterByEmployee.indexOf(trip)
-            filterByEmployee.splice(index, 1)
-          }
-          /*if (clickedBar.cla == 'person_inactive') {
-          filterByEmployee.push(trip)
-        } else {
-          const index = filterByEmployee.indexOf(trip)
-          filterByEmployee.splice(index, 1)
-        }*/
         }
       })
 
-      console.log(filterByEmployee)
       filter.personList.filter = true
       filter.personList.employees = filterByEmployee
       Model(filter)
@@ -108,7 +103,6 @@ const SideChart = ({data, filter}) => {
     filterByEmployee = []
     filter.personList.filter = false
     filter.personList.employees = filterByEmployee
-    console.log('2')
     Model(filter)
 
     var bars = document.getElementsByClassName('sideChartRect')
@@ -121,6 +115,7 @@ const SideChart = ({data, filter}) => {
 
   const dropdownChange = e => {
     loadData(e.target.value)
+    filterByEmployee = []
   }
 
   const getPositions = employees => {
@@ -130,6 +125,22 @@ const SideChart = ({data, filter}) => {
         positions.push(employee.position)
     })
     return positions
+  }
+
+  const testFunction = (data) => {
+   
+    filterByEmployee = []
+    organisation_trips.forEach(trip => {
+      data.forEach(employee => {
+        if (trip.employee == employee.employee) {
+          filterByEmployee.push(trip)
+        }
+      })
+    })      
+
+    filter.personList.filter = true
+    filter.personList.employees = filterByEmployee
+    Model(filter)
   }
 
   function loadData(filter) {
@@ -146,6 +157,7 @@ const SideChart = ({data, filter}) => {
         }
       })
     }
+    testFunction(data);
 
     var svg = d3.select('#chart'),
       margin = {top: 20, right: 20, bottom: 30, left: 44},
@@ -283,7 +295,6 @@ const SideChart = ({data, filter}) => {
                 fullClassName.split(' ')[2]
             }
           } else if (allActive.length == 5) {
-            //showAll()
             hide = true
           } else {
             for (var j = 0; j < allStacked.length; j++) {
@@ -325,10 +336,8 @@ const SideChart = ({data, filter}) => {
 
   useEffect(() => {
     loadData('none')
-
+    showAll()
     let data = employee_list
-    console.log(employee_list)
-    console.log(getPositions(data))
 
     d3.selectAll('.SideChartOption').remove()
 
