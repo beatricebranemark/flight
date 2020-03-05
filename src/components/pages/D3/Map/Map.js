@@ -344,25 +344,27 @@ const Map = ({data, filter}) => {
     }
   })
   return (
-    <div>
-      <button className='btn btn-dark m-2' id='zoom_in'>
-        <i className='fas fa-plus'></i>
-      </button>
-      <button className='btn btn-dark m-2' id='zoom_out'>
-        <i className='fas fa-minus'></i>
-      </button>
-      <div>
-        <button onClick={() => clickedButton()}>
-          Hide Stockholm
-        </button>
-      </div>
+    <React.Fragment>
+     
+      <button onClick={() => clickedButton()}>Hide Stockholm</button>
+      <button className="btn btn-dark m-2" id='zoom_in'><i className="fas fa-plus"></i></button>
+      <button className="btn btn-dark m-2" id='zoom_out'><i className="fas fa-minus"></i></button>
+      
+     
+
+ 
+
       <svg
-        width={1100}
+      id="svgMap"
+        width={1068}
         height={700}
         ref={d3Container}
         className='map'
-      ></svg>
-    </div>
+
+      > 
+      </svg>
+      </React.Fragment>
+
   )
 }
 

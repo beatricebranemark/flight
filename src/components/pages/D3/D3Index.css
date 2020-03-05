@@ -1,29 +1,88 @@
 #showButton{
     font-size: 20px;
     background-color: #1b1c1d;
+    border-radius:0px 20px 20px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 130px;
 }
 
-
+#showButtonText{
+  font-size:10px;
+  color:white;
+}
   .ui.segment{
     margin:0px !important;
   }
 
-  #viewButtons{
-      margin:10px;
-      border-bottom:2px solid black;
-      
-  }
+ .mapPieActive{
+   background-color:white !important;
+   border:2px solid grey !important;
+   color:grey !important;
+   border-bottom:white !important;
+ }
 
   #mapViewButton{
-    font-size:30px;
-    width: 60px;
-    height:60px;
-    margin:5px;
+    font-size: 20px;
+    width: 529px;
+    margin: 5px;
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    left: 175px;
+    top: 42px;
+    z-index: 100;
+  }
+
+  #pieViewButtonPushed{
+    font-size: 20px;
+    margin: 5px;
+    border-radius: 20px 20px 0px 0px;
+    left: -5px;
+    z-index: 100;
+    position: relative;
+    top: 6px;
+    width: 529px;
+  }
+
+  #mapViewButtonPushed{
+    font-size: 20px;
+    margin: 5px;
+    border-radius: 20px 20px 0px 0px;
+    left: -5px;
+    z-index: 100;
+    position: relative;
+    top: 6px;
+    width: 529px;
   }
 
   #pieViewButton{
-      font-size:30px;
-      width:60px;
-      height:60px;
-      margin:5px;
+    font-size: 20px;
+    width: 529px;
+    margin: 5px;
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    left: 175px;
+    top: 42px;
+    z-index: 100;
   }
+  
+
+
+
+  .mapNotPushed{
+    position: relative;
+    left: 108px;
+    top: 35px;
+  }
+
+  .barNotPushed{
+    position: relative;
+    left: 171px;
+  }
+ .mapPushed{
+  
+  position: relative;
+  right: 72px;
+
+ }
