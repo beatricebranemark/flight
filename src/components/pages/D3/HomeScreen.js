@@ -12,11 +12,14 @@ const HomeScreen = props => {
   )
 
   const [currentSchool, setCurrentSchool] = useState(
-    store.getState().getSelectedSchool.data
+    store.getState().getSelectedSchool.data.length > 0
+      ? store.getState().getSelectedSchool.data[0].school
+      : ''
   )
-
   const [currentOrg, setCurrentOrg] = useState(
-    store.getState().getSelectedOrg.data
+    store.getState().getSelectedOrg.data.length > 0
+      ? store.getState().getSelectedOrg.data[0].org
+      : ''
   )
 
   const [orgSelected, setSelectOrg] = useState(false)
@@ -45,17 +48,7 @@ const HomeScreen = props => {
   })
   const orgTags = orgs.map(org => {
     return (
-      <option
-        key={org.key}
-        value={org.key}
-        selected={
-          currentOrg.length > 0
-            ? currentOrg[0].key === org.key
-              ? true
-              : false
-            : null
-        }
-      >
+      <option key={org.key} value={org.key}>
         {org.key}
       </option>
     )
@@ -71,66 +64,65 @@ const HomeScreen = props => {
     setSelectOrg(true)
     FilterScoolAndOrg.setOrg(e.target.value)
   }
+
   return (
     <React.Fragment>
-  <TopMenu props={props}></TopMenu>
-    <div className='NavBar'>
-      <Provider store={store}>
-        <BarChart filter={filter} type={'firstView'} />
-      </Provider>
-      <div id='selectSchoolOrg'>
-        <h2>Select your school: {currentSchool}</h2>
-        <div
-          className='buttonContainer'
-          onChange={handleSelectedSchool}
-          ref={schoolsList}
-        >
-          <button
-            key='kth'
-            value='kth'
-            className='btn btn-dark'
-            id='schoolButton'
-            onClick={handleSelectedSchool}
+      <TopMenu props={props}></TopMenu>
+      <div className='NavBar'>
+        <Provider store={store}>
+          <BarChart filter={filter} type={'firstView'} />
+        </Provider>
+        <div id='selectSchoolOrg'>
+          <h2>Select your school: {currentSchool}</h2>
+          <div
+            className='buttonContainer'
+            onChange={handleSelectedSchool}
+            ref={schoolsList}
           >
-            All Schools
-          </button>
-          {schoolsButton}
-        </div>
-        {currentSchool.length === 0 ||
-        currentSchool === 'kth' ? null : (
-          <div>
-            <h2>Select your org</h2>
-            <select
-              className='browser-default custom-select'
-              id='organisations'
-              onChange={handleSelectedOrg}
-              ref={organisationsList}
-              
-
->
-              <option
-                key='Select an organisation'
-                selected={true}
-                disabled={true}
-                value=''
-                >
-                Select an organisation
-              </option>
-              {orgs.length > 0 ? orgTags : null}
-            </select>
+            <button
+              key='kth'
+              value='kth'
+              className='btn btn-dark'
+              id='schoolButton'
+              onClick={handleSelectedSchool}
+            >
+              All Schools
+            </button>
+            {schoolsButton}
           </div>
-        )}
-        {!orgSelected ? null : (
-          <button
-            className='btn btn-success'
-            id='schoolButton'
-            onClick={() => props.history.push('/seeOrg')}
-          >
-            See Details
-          </button>
-        )}
+          {currentSchool.length === 0 ||
+          currentSchool === 'kth' ? null : (
+            <div>
+              <h2>Select your org</h2>
+              <select
+                className='browser-default custom-select'
+                id='organisations'
+                onChange={handleSelectedOrg}
+                ref={organisationsList}
+                defaultValue={'DEFAULT'}
+              >
+                <option
+                  key='Select an organisation'
+                  value={'DEFAULT'}
+                  disabled={true}
+                >
+                  Select an organisation
+                </option>
+                {orgTags}
+              </select>
+            </div>
+          )}
+          {!orgSelected ? null : (
+            <button
+              className='btn btn-success'
+              id='schoolButton'
+              onClick={() => props.history.push('/seeOrg')}
+            >
+              See Details
+            </button>
+          )}
+        </div>
       </div>
-    </div>
     </React.Fragment>
   )
 }

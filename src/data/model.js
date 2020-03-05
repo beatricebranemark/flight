@@ -19,6 +19,18 @@ export default function Model(filterOptions) {
       type: 'SET_DATA',
       payload: data,
     })
+    store.dispatch({
+      type: 'SET_MAP_DATA',
+      payload: [],
+    })
+    store.dispatch({
+      type: 'SET_PERSON_DATA',
+      payload: [],
+    })
+    store.dispatch({
+      type: 'SET_BAR_DATA',
+      payload: [],
+    })
   }
 
   if (filterOptions.barChart.filter) {
@@ -55,16 +67,21 @@ export default function Model(filterOptions) {
   }
 
   if (filterOptions.personList.filter) {
-    let filteredData = data.filter(emp => {
-      return filterOptions.personList.employees.includes(emp.employee)
+    store.dispatch({
+      type: 'SET_BAR_DATA',
+      payload: [],
     })
     store.dispatch({
       type: 'SET_BAR_DATA',
-      payload: filteredData,
+      payload: filterOptions.personList.employees,
     })
     store.dispatch({
       type: 'SET_MAP_DATA',
-      payload: filteredData,
+      payload: [],
+    })
+    store.dispatch({
+      type: 'SET_MAP_DATA',
+      payload: filterOptions.personList.employees,
     })
   }
 }

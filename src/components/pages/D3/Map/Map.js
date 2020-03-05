@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react'
+import React, {useRef, useEffect, useState} from 'react'
 import Model from '../../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
@@ -8,6 +8,26 @@ const Map = ({data, filter}) => {
   let d3Container = useRef(null)
   let countries = require('./csvjson.json')
 
+  const [showStockholm,setShowStockholm] = useState(true)
+  console.log(showStockholm)
+
+  var data_no_stockholm = []
+  data.forEach(trip =>{
+    var arrival = trip.arrival_city.split(',')
+    var arrival_city = arrival[0]
+    if(arrival_city != "Stockholm"){
+      data_no_stockholm.push(trip)
+    }
+  })
+
+  const clickedButton = () =>{
+    if(showStockholm == true){
+        setShowStockholm(false);
+    }
+    if(showStockholm == false){
+        setShowStockholm(true); 
+    }
+}
   useEffect(() => {
     if (data.length > 0) {
       d3.select(d3Container.current)
@@ -16,12 +36,31 @@ const Map = ({data, filter}) => {
 
       let svg = d3.select(d3Container.current)
 
+      var data_show;
+      if(showStockholm == true){
+          data_show = data
+      }
+      if(showStockholm == false){
+          data_show = data_no_stockholm
+      }
       let countedData = d3
         .nest()
         .key(function(d) {
           return d.arrival_city
         })
-        .entries(data)
+        .entries(data_show)
+
+      let min = d3.min(
+        countedData.map(value => {
+          return value.values.length
+        })
+      )
+
+      let max = d3.max(
+        countedData.map(value => {
+          return value.values.length
+        })
+      )
 
       // The svg
       // Map and projection
@@ -34,8 +73,8 @@ const Map = ({data, filter}) => {
 
       var scale = d3
         .scaleSqrt()
-        .domain([1, 100])
-        .range([2, 30])
+        .domain([min, max])
+        .range([2, 10])
       // A path generator
       let path = d3.geoPath().projection(projection)
 
@@ -172,9 +211,7 @@ const Map = ({data, filter}) => {
                 country.length > 0 ? '#83be83' : '#b8b8b8'
               )
             })
-            .on('click', function(d) {
-              chosenCountry(d.properties.name)
-            })
+
             .style('stroke', '#fff')
             .style('stroke-width', 0.2)
         })
@@ -309,23 +346,24 @@ const Map = ({data, filter}) => {
   return (
     <React.Fragment>
      
-        
+      <button onClick={() => clickedButton()}>Hide Stockholm</button>
       <button className="btn btn-dark m-2" id='zoom_in'><i className="fas fa-plus"></i></button>
       <button className="btn btn-dark m-2" id='zoom_out'><i className="fas fa-minus"></i></button>
       
      
+
+ 
       <svg
       id="svgMap"
         width={1068}
         height={700}
         ref={d3Container}
         className='map'
+
       > 
       </svg>
       </React.Fragment>
-      
-      
-    
+
   )
 }
 
