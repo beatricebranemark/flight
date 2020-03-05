@@ -23,10 +23,16 @@
 }
 
 #barChart{
- 
+  margin: auto;
+  display: flex;
+  justify-content: center;
   border-bottom: 2px solid grey
 }
 
 #legendButton{
   margin:10px;
+}
+
+#pushaSideBar{
+  margin:0px !important;
 }
