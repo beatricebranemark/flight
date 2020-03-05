@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {withRouter} from 'react-router-dom'
+import {withRouter, NavLink } from 'react-router-dom'
 
 import './TopMenu.css'
 const TopMenu = props => {
@@ -8,11 +8,11 @@ const TopMenu = props => {
       id='navBar'
       className='navbar navbar-expand-lg navbar-light bg-light'
     >
-      <a onClick={() => props.history.push('/')}>
+      <NavLink exact to="/" id="FLIGHT">
         <h1 id='topMenuLeft' className='navbar-brand' href='#'>
           Flight
         </h1>
-      </a>
+      </NavLink>
       <button
         className='navbar-toggler'
         type='button'
@@ -30,26 +30,23 @@ const TopMenu = props => {
         id='navbarSupportedContent'
       >
         <ul className='navbar-nav mr-auto'></ul>
-        <form id='topMenuRight' className='form-inline'>
-          <a
-            onClick={() => props.history.push('/seeOrg')}
+        <div id='topMenuRight' className='form-inline'>
+          <NavLink to="/seeOrg"
             className='menuButton'
           >
             Visualisation
-          </a>
-          <a
-            onClick={() => props.history.push('/howitworks')}
+          </NavLink>
+          <NavLink to="/howitworks"
             className='menuButton'
           >
             How it works
-          </a>
-          <a
-            onClick={() => props.props.history.push('/about')}
+          </NavLink>
+          <NavLink to="/about"
             className='menuButton'
           >
             About
-          </a>
-        </form>
+          </NavLink>
+        </div>
       </div>
     </nav>
   )

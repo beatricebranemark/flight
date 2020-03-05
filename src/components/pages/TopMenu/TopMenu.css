@@ -9,17 +9,31 @@
 #topMenuRight{
     margin-right:20px;
     color:white;
-    
 }
 .menuButton{
     font-size:16px;
     margin:10px;
     color:white;
 }
-.menuButton:active{
+
+.menuButton:hover {
+    border-bottom: 2px solid green;
+}
+
+.menuButton:link,
+.menuButton:visited {
+    outline: none;
+    color: white;
+    text-decoration: none;
+}
+
+.active {
     border-bottom:2px solid green;
 }
 
+#FLIGHT {
+    border-bottom: none;
+}
 
 #navBar{
     background-color:#83be83 !important;
