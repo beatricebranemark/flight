@@ -23,10 +23,7 @@
 }
 
 #barChart{
-  text-align:center;
-  margin: auto;
-  display: flex;
-  justify-content: center;
+ 
   border-bottom: 2px solid grey
 }
 

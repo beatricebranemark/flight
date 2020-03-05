@@ -9,7 +9,7 @@ import SideChart from './SideChart/SideChart'
 import TopMenu from '../TopMenu/TopMenu'
 import Filter from './../../Filter'
 import { withRouter } from "react-router-dom";
-
+import './D3Index.css';
 import {useBooleanKnob} from 'retoggle'
 import {
   Header,
@@ -28,7 +28,17 @@ const D3Index = props => {
   store.subscribe(() => {
     setData(store.getState().getSchools.data)
   })
+const [visible, setVisible] = useBooleanKnob({ name: 'visible' })
+let showSideBar = () => {
+  console.log(visible)
+  if (visible === false) {
+    setVisible(true)
+  }
+  else{
+    setVisible(false)
+  }
 
+}
 
   return (
     <React.Fragment>
@@ -37,25 +47,26 @@ const D3Index = props => {
       <Provider store={store}>
         <>
           <NavBar props={props} />
-          <Sidebar.Pushable id="sideBarChart" as={Segment}>
+          <Sidebar.Pushable as={Segment}>
+          
             <Sidebar
               as={Menu}
               animation='push'
               icon='labeled'
               inverted
               vertical
-              visible
+              visible={visible}
               width='wide'
             >
               <SideChart filter={filter} ></SideChart>
             </Sidebar>
-            <Sidebar.Pusher>
+            <Sidebar.Pusher id="sideBarChart">
+              <span onClick={showSideBar} className="badge badge-success" id="showButton"><i class="fas fa-angle-right"></i></span>         
               <Segment basic>
                 <div id="secondViewBarChart">
                   <BarChart type={'secondView'} filter={filter}/>
                 </div>
                 <Map filter={filter} />
-                <TopTen/>
                 <HoverBox />
               </Segment>
             </Sidebar.Pusher>
@@ -63,6 +74,7 @@ const D3Index = props => {
         </>
 
       </Provider>
+ 
       </React.Fragment>
   )
 }

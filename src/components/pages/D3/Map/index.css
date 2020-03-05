@@ -1,3 +1,11 @@
 .tooltip{
   opacity: 1 !important;
 }
+#zoom_in{
+position: relative;
+    left: -100px;
+}
+#zoom_out{
+  position: relative;
+    left: -100px;
+}
