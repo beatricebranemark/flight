@@ -80,7 +80,7 @@ const PieChart = ({data, filter}) => {
     }
 
     console.log(table_objects)
-    var width = 1000
+    var width = 1068
     var height = 1000
     var margin = 40
 
