@@ -12,11 +12,14 @@ const HomeScreen = props => {
   )
 
   const [currentSchool, setCurrentSchool] = useState(
-    store.getState().getSelectedSchool.data
+    store.getState().getSelectedSchool.data.length > 0
+      ? store.getState().getSelectedSchool.data[0].school
+      : ''
   )
-
   const [currentOrg, setCurrentOrg] = useState(
-    store.getState().getSelectedOrg.data
+    store.getState().getSelectedOrg.data.length > 0
+      ? store.getState().getSelectedOrg.data[0].org
+      : ''
   )
 
   const [orgSelected, setSelectOrg] = useState(false)
@@ -29,12 +32,6 @@ const HomeScreen = props => {
     setOrgs(store.getState().getOrgs.data)
     //setSchools(store.getState().getSchools.data)
   })
-
-  function handleSelected(org) {
-    if (currentOrg.length > 0) {
-      return currentOrg[0].key === org.key ? true : false
-    }
-  }
 
   const schoolsButton = schools.map(school => {
     return (

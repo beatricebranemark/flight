@@ -3,15 +3,23 @@ import store from '../../../../reducers'
 import FilterScoolAndOrg from '../../../../data/FilterScoolAndOrg'
 
 const NavBar = props => {
+  if (store.getState().getSelectedSchool.data.length === 0) {
+    props.props.history.push('/')
+  }
   const [orgs, setOrgs] = useState(store.getState().getOrgs.data)
   const [schools, setSchools] = useState(
     store.getState().getSchools.data.map(schools => schools)
   )
   const [currentSchool, setCurrentSchool] = useState(
-    store.getState().getSelectedSchool.data[0].key
+    store.getState().getSelectedSchool.data.length > 0
+      ? store.getState().getSelectedSchool.data[0].key
+      : ''
   )
+
   const [currentOrg, setCurrentOrg] = useState(
-    store.getState().getSelectedOrg.data[0].key
+    store.getState().getSelectedOrg.data.length > 0
+      ? store.getState().getSelectedOrg.data[0].key
+      : ''
   )
 
   let organisationsList = React.createRef()

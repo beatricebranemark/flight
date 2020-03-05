@@ -35,30 +35,25 @@ const D3Index = props => {
     setData(store.getState().getSchools.data)
   })
 
-const [visible, setVisible] = useBooleanKnob({ name: 'visible' })
+  const [visible, setVisible] = useBooleanKnob({name: 'visible'})
 
-let showView = () => {
-  if (view === 'map'){
-    setView('pie')
+  let showView = () => {
+    if (view === 'map') {
+      setView('pie')
+    } else {
+      setView('map')
+    }
   }
-  else{
-    setView('map')
+  let showSideBar = () => {
+    console.log(visible)
+    if (visible === false) {
+      setVisible(true)
+      setArrow('fas fa-angle-left')
+    } else {
+      setVisible(false)
+      setArrow('fas fa-angle-right')
+    }
   }
-
-}
-let showSideBar = () => {
-  console.log(visible)
-  if (visible === false) {
-
-    setVisible(true)
-    setArrow("fas fa-angle-left")
-  }
-  else{
-    setVisible(false)
-    setArrow("fas fa-angle-right")
-  }
-
-}
 
   return (
     <React.Fragment>
@@ -67,8 +62,7 @@ let showSideBar = () => {
       <Provider store={store}>
         <>
           <NavBar props={props} />
-          <Sidebar.Pushable id="mainPusher" as={Segment}>
-          
+          <Sidebar.Pushable id='mainPusher' as={Segment}>
             <Sidebar
               as={Menu}
               animation='push'
@@ -77,25 +71,43 @@ let showSideBar = () => {
               vertical
               visible={visible}
               width='wide'
-              id="pushaSideBar"
+              id='pushaSideBar'
             >
               <h1>Employee Data</h1>
 
               <SideChart filter={filter}></SideChart>
             </Sidebar>
 
-            <Sidebar.Pusher id="sideBarChart">
-              <span onClick={showSideBar} className="badge badge-success" id="showButton"><i className={arrow}></i></span>         
+            <Sidebar.Pusher id='sideBarChart'>
+              <span
+                onClick={showSideBar}
+                className='badge badge-success'
+                id='showButton'
+              >
+                <i className={arrow}></i>
+              </span>
               <Segment basic>
                 <div id='secondViewBarChart'>
                   <BarChart type={'secondView'} filter={filter} />
                 </div>
-                <div id="viewButtons">
-                <button id="mapViewButton" type="button" class="btn btn-dark"><i class="fas fa-globe-americas"></i></button>
-                <button id="pieViewButton" type="button" class="btn btn-dark"><i class="fas fa-chart-pie"></i></button>
+                <div id='viewButtons'>
+                  <button
+                    id='mapViewButton'
+                    type='button'
+                    class='btn btn-dark'
+                  >
+                    <i class='fas fa-globe-americas'></i>
+                  </button>
+                  <button
+                    id='pieViewButton'
+                    type='button'
+                    class='btn btn-dark'
+                  >
+                    <i class='fas fa-chart-pie'></i>
+                  </button>
                 </div>
-                <div id="viewToggleBar">
-                    <Map filter={filter} />
+                <div id='viewToggleBar'>
+                  <Map filter={filter} />
                 </div>
                 <HoverBox />
               </Segment>

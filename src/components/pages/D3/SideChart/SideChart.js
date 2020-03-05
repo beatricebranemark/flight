@@ -106,7 +106,7 @@ const SideChart = ({data, filter}) => {
 
   const showAll = () => {
     filterByEmployee = []
-    filter.personList.filter = true
+    filter.personList.filter = false
     filter.personList.employees = filterByEmployee
     console.log('2')
     Model(filter)

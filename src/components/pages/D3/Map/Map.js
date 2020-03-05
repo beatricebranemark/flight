@@ -306,17 +306,18 @@ const Map = ({data, filter}) => {
   })
   return (
     <div>
-
-      <button className="btn btn-dark m-2" id='zoom_in'><i className="fas fa-plus"></i></button>
-      <button className="btn btn-dark m-2" id='zoom_out'><i className="fas fa-minus"></i></button>
+      <button className='btn btn-dark m-2' id='zoom_in'>
+        <i className='fas fa-plus'></i>
+      </button>
+      <button className='btn btn-dark m-2' id='zoom_out'>
+        <i className='fas fa-minus'></i>
+      </button>
       <svg
         width={1100}
         height={700}
         ref={d3Container}
         className='map'
-      > 
-      </svg>
-      
+      ></svg>
     </div>
   )
 }
