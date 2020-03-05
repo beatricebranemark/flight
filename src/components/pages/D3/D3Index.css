@@ -29,7 +29,7 @@ color:white;
   border-radius: 20px 20px 0px 0px;
   position: relative;
   /*left: 175px;*/
-  top: 42px;
+  top: 59px;
   z-index: 100;
 }
 
@@ -39,8 +39,8 @@ color:white;
   border-radius: 20px 20px 0px 0px;
   margin-left: 2px;
   z-index: 100;
-  position:relative;
-  top: 6px;
+  position: relative;
+  top: 59px;
   width: 50%;
 }
 
@@ -71,7 +71,8 @@ color:white;
   border-radius: 20px 20px 0px 0px;
  /* left: -5px;*/
   z-index: 100;
-  top: 6px;
+  position: relative;
+  top: 59px;
   width:50%
 }
 
@@ -80,7 +81,7 @@ color:white;
   width: 50%;
   border-radius: 20px 20px 0px 0px;
   margin-left: 2px;
-  top: 42px;
+  top: 59px;
   z-index: 100;
   position:relative;
 }
