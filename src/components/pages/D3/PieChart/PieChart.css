@@ -1,3 +1,7 @@
 .text_pie{
     color:black;
 }
+
+.slice_active{
+    opacity: 0.7;
+}

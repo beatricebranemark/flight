@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react'
+import React, {useRef, useEffect, useState} from 'react'
 import Model from '../../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
@@ -8,6 +8,26 @@ const Map = ({data, filter}) => {
   let d3Container = useRef(null)
   let countries = require('./csvjson.json')
 
+  const [showStockholm, setShowStockholm] = useState(true)
+  console.log(showStockholm)
+
+  var data_no_stockholm = []
+  data.forEach(trip => {
+    var arrival = trip.arrival_city.split(',')
+    var arrival_city = arrival[0]
+    if (arrival_city != 'Stockholm') {
+      data_no_stockholm.push(trip)
+    }
+  })
+
+  const clickedButton = () => {
+    if (showStockholm == true) {
+      setShowStockholm(false)
+    }
+    if (showStockholm == false) {
+      setShowStockholm(true)
+    }
+  }
   useEffect(() => {
     if (data.length > 0) {
       d3.select(d3Container.current)
@@ -16,12 +36,31 @@ const Map = ({data, filter}) => {
 
       let svg = d3.select(d3Container.current)
 
+      var data_show
+      if (showStockholm == true) {
+        data_show = data
+      }
+      if (showStockholm == false) {
+        data_show = data_no_stockholm
+      }
       let countedData = d3
         .nest()
         .key(function(d) {
           return d.arrival_city
         })
-        .entries(data)
+        .entries(data_show)
+
+      let min = d3.min(
+        countedData.map(value => {
+          return value.values.length
+        })
+      )
+
+      let max = d3.max(
+        countedData.map(value => {
+          return value.values.length
+        })
+      )
 
       // The svg
       // Map and projection
@@ -34,8 +73,8 @@ const Map = ({data, filter}) => {
 
       var scale = d3
         .scaleSqrt()
-        .domain([1, 100])
-        .range([2, 30])
+        .domain([min, max])
+        .range([2, 10])
       // A path generator
       let path = d3.geoPath().projection(projection)
 
@@ -146,12 +185,12 @@ const Map = ({data, filter}) => {
             .attr('fill', function(d) {
               let country = colorMap(d)
               return country.length > 0
-                ? '#83be83' //rgba(112,128,144, .2)
-                : '#b8b8b8'
+                ? '#B7B6BA' //rgba(112,128,144, .2)
+                : '#D8D6DB'
             }) // //return color(populationById[d.id])
             .attr('d', d3.geoPath().projection(projection))
             .on('mouseover', function(d) {
-              d3.select(this).attr('fill', 'rgba(112,128,144, 1)')
+              d3.select(this).attr('fill', '#9E9DA0')
               let xPosition = d3.mouse(this)[0] - 30
               let yPosition = d3.mouse(this)[1] - 50
               try {
@@ -169,12 +208,10 @@ const Map = ({data, filter}) => {
               let country = colorMap(d)
               d3.select(this).attr(
                 'fill',
-                country.length > 0 ? '#83be83' : '#b8b8b8'
+                country.length > 0 ? '#B7B6BA' : '#D8D6DB'
               )
             })
-            .on('click', function(d) {
-              chosenCountry(d.properties.name)
-            })
+
             .style('stroke', '#fff')
             .style('stroke-width', 0.2)
         })
@@ -250,39 +287,22 @@ const Map = ({data, filter}) => {
         .attr('class', function(d) {
           return 'dot' + ' ' + d.arrival_code + '1'
         })
-        //.attr('d', pathDot(link2))
+
         .style('fill', function(d) {
-          /* if (flight.travel_type === 'Enkel') {
-                return 'blue'
-              } else if (flight.travel_type === 'Tur och retur') {
-                return 'orange'
-              } else if (
-                flight.travel_type === 'Flera destinationer'
-              ) {*/
-          return 'red'
+
+          return '#4A7F91'
         })
-        .style('stroke', 'purple')
         .style('opacity', 1)
         .style('stroke-width', 0.5)
         .on('mouseover', function(d) {
-          d3.select(this).style('fill', 'blue')
-          d3.selectAll('.' + d.arrival_code).style('stroke', 'blue')
-          /*d3.selectAll('.' + d.departure_code + '1').style(
-            'fill',
-            'blue'
-          )*/
-          /*store.dispatch({
-                type: 'SET_HOVER_DATA',
-                payload: [flight],
-              })*/
+          d3.select(this).style('fill', '#274156')
+          d3.selectAll('.' + d.arrival_code).style('stroke', '#274156')
+
         })
         .on('mouseout', function(d) {
-          d3.select(this).style('fill', 'red')
+          d3.select(this).style('fill', '#4A7F91')
           d3.selectAll('.' + d.arrival_code).style('stroke', 'none')
-          /*d3.selectAll('.' + d.departure_code + '1').style(
-            'fill',
-            'red'
-          )*/
+   
         })
 
       let tooltip = svg
@@ -290,42 +310,45 @@ const Map = ({data, filter}) => {
         .attr('class', 'tooltip')
         .style('display', 'none')
 
-      tooltip
+     /* tooltip
         .append('rect')
-        .attr('width', 120)
-        .attr('height', 30)
+        .attr('width', 80)
+        .attr('height', 20)
         .attr('fill', 'white')
-        .style('opacity', 1)
+        .style('border-radius',10)
+        .style('opacity', 0.7)*/
 
       tooltip
         .append('text')
         .attr('x', 60)
         .attr('dy', '1.2em')
         .style('text-anchor', 'middle')
-        .attr('font-size', '20px')
+        .attr('font-size', '15px')
         .attr('font-weight', 'bold')
     }
   })
   return (
     <React.Fragment>
      
-        
+      <button onClick={() => clickedButton()}>Hide Stockholm</button>
       <button className="btn btn-dark m-2" id='zoom_in'><i className="fas fa-plus"></i></button>
       <button className="btn btn-dark m-2" id='zoom_out'><i className="fas fa-minus"></i></button>
       
      
+
+ 
+
       <svg
       id="svgMap"
         width={1068}
         height={700}
         ref={d3Container}
         className='map'
+
       > 
       </svg>
       </React.Fragment>
-      
-      
-    
+
   )
 }
 

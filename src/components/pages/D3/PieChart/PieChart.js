@@ -6,29 +6,28 @@ import './PieChart.css'
 const PieChart = ({data, filter}) => {
     let organisation_trips = data
     const d3Container = useRef(null)
+    const legendContainer = useRef(null)
+
 
     var unique_departure_cities = []
     var unique_arrival_cities = []
     var unique_cities = []
     let table_objects = {}
 
+    const [showStockholm,setShowStockholm] = useState(true)
+    console.log(showStockholm)
 
-    // const createArrays = ()=>{
     organisation_trips.forEach(trip => {
-      var departure = trip.departure_city.split(',')
       var arrival = trip.arrival_city.split(',')
-      var departure_city = departure[0]
       var arrival_city = arrival[0]
-      if (unique_departure_cities.includes(departure_city) == false) {
-        unique_departure_cities.push(departure_city)
-      }
+      var g_type = trip.geographic_type
+      var country = trip.arrival_country
       if (unique_arrival_cities.includes(arrival_city) == false) {
-        unique_arrival_cities.push(arrival_city)
+        unique_arrival_cities.push([arrival_city,g_type,country])
       }
     })
-    // }
 
-    // const createUnique = () =>{
+    /*
     if (unique_departure_cities.length > unique_arrival_cities) {
       unique_cities = unique_departure_cities
       for (var i = 0; i < unique_arrival_cities.length; i++) {
@@ -48,8 +47,8 @@ const PieChart = ({data, filter}) => {
           unique_cities.push(unique_departure_cities[i])
         }
       }
-    }
-    // }
+    }*/
+
 
     const countOccurrances = city => {
       var count = 0
@@ -63,15 +62,26 @@ const PieChart = ({data, filter}) => {
       return count
     }
 
-    //   const addTableObjects = () =>{
-    unique_cities.forEach(city => {
-      table_objects[city] = countOccurrances(city)
+    //  Create table_objects
+    unique_arrival_cities.forEach(list => {
+      table_objects[list[0]] = [countOccurrances(list[0]),list[1],list[2]]
     })
-    //    }
+
+    var table_objects_no_stockholm = Object.assign({},table_objects)
+    delete table_objects_no_stockholm['Stockholm']
+
+    const clickedButton = () =>{
+        if(showStockholm == true){
+            setShowStockholm(false);
+        }
+        if(showStockholm == false){
+            setShowStockholm(true); 
+        }
+    }
 
     console.log(table_objects)
-    var width = 600
-    var height = 600
+    var width = 1000
+    var height = 1000
     var margin = 40
 
 
@@ -97,15 +107,22 @@ const PieChart = ({data, filter}) => {
 
         // set the color scale
         var color = d3.scaleOrdinal()
-        //.domain(["a", "b", "c", "d", "e", "f", "g", "h"])
-        .range(d3.schemeDark2);
+        .domain(['Utrikes', 'Inrikes', 'Europa', 'Norden'])
+        .range(['#876f91', '#274156', '#BDC4A1', '#689FA3']);
 
         // Compute the position of each group on the pie:
         var pie = d3.pie()
         .sort(null) // Do not sort group by size
-        .value(function(d) {return d.value; })
-        var data_ready = pie(d3.entries(table_objects))
-
+        .value(function(d) {return d.value[0]; })
+        var data_show;
+        if(showStockholm == true){
+            data_show = table_objects
+        }
+        if(showStockholm == false){
+            data_show = table_objects_no_stockholm
+        }
+        var data_ready = pie(d3.entries(data_show))
+           
         // The arc generator
         var arc = d3.arc()
         .innerRadius(radius * 0.5)         // This is the size of the donut hole
@@ -124,29 +141,81 @@ const PieChart = ({data, filter}) => {
         .enter()
         .append('path')
         .attr('d', arc)
-        .attr('fill', function(d){ return(color(d.data.key)) })
+        .attr('fill', function(d){ return(color(d.data.value[1])) })
         .attr("stroke", "white")
+        .attr('class', 'slice_inactive')
         .style("stroke-width", "2px")
         .style("opacity", 0.7)
         .on('mouseover', function(d) {
             d3.select('.mouse_text').remove()
+            d3.select('.mouse_text2').remove()
+
             svg.append("text")
             .attr("class", "mouse_text")
             .attr("text-anchor", "middle")
-            .attr('font-size', '3em')
-            .attr('y', 10)
+            .attr('font-size', '5em')
+            .attr('y', 5)
             .attr('textLength', radius*0.8)
-            .text(d.data.key+': '+d.data.value);
+            .text(d.data.key+': '+d.data.value[0])
+
+            svg.append("text")
+            .attr("class", "mouse_text2")
+            .attr("text-anchor", "middle")
+            .attr('font-size', '3em')
+            .attr('y', 42)
+            .text(d.data.value[2])
+
+
           })
 
-       
-        
+      var legend_data = [{key: "Utrikes", value: '#876f91'}, {key: "Inrikes", value:'#274156'},{key:"Europa", value:'#BDC4A1'}, {key: "Norden", value:'#689FA3' }]
+      var legendContainerSVG = d3.select(legendContainer.current)
+
+      var legend = legendContainerSVG
+      .append('g')
+      .attr('font-family', 'sans-serif')
+      .attr('font-size', 12)
+      .attr('text-anchor', 'end')
+      .selectAll('g')
+      
+      .data(legend_data)
+      .enter()
+      .append('g')
+      .attr('transform', function(d, i) {
+        return 'translate(' + (i*65) + ',' + 0 + ')'
+      })
+      //.attr('class', 'legend_active')
+
+          legend
+          .append('rect')
+          .attr('x', 20)
+          .attr('cursor', 'pointer')
+          .attr('width', 23)
+          .attr('height', 23)
+          .attr('fill', function(d){return d.value})
+          .on('click', function(d){console.log(d.key)})
+
+    
+        legend
+          .append('text')
+          .attr('x', 35)
+          .attr('y', 10.5)
+          .attr('dy', '2em')
+          .text(function(d) {
+            return d.key
+          })
+
 
     })
     return(
         <React.Fragment>
+          
        <svg width={width} height={height} ref={d3Container}></svg>
-       <div id="PieChartToolTip" style={{position: 'absolute',backgroundColor:'transparent',padding:5+'px',fontSize:12+'px'}}></div>
+       <svg id="legendContainer" width={300} height={50} ref={legendContainer}></svg>
+       <div>
+       <button id="hideButton" className="btn btn-dark" onClick={() => clickedButton()}>Hide Stockholm</button>
+       </div>
+       
        </React.Fragment>
     )
 }
