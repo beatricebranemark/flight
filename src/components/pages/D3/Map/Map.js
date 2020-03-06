@@ -6,6 +6,7 @@ import './index.css'
 
 const Map = ({data, filter}) => {
   let d3Container = useRef(null)
+  const legendContainer = useRef(null)
   let countries = require('./csvjson.json')
 
   const [showStockholm, setShowStockholm] = useState(true)
@@ -66,7 +67,7 @@ const Map = ({data, filter}) => {
       // Map and projection
       let projection = d3
         .geoMercator()
-        .scale(150)
+        .scale(200)
         .translate([1200 / 2, (600 / 2) * 1.5])
 
       // Change these data to see ho the great circle reacts*/
@@ -194,10 +195,10 @@ const Map = ({data, filter}) => {
               let xPosition = d3.mouse(this)[0] - 30
               let yPosition = d3.mouse(this)[1] - 50
               try {
-                tooltip.attr(
+                /*tooltip.attr(
                   'transform',
                   'translate(' + xPosition + ',' + yPosition + ')'
-                )
+                )*/
                 tooltip.select('text').text(d.properties.name)
                 tooltip.style('display', 'block')
               } catch (TypeError) {
@@ -247,6 +248,7 @@ const Map = ({data, filter}) => {
             arrival_code: flight.arrival_code,
             departure_code: flight.departure_code,
             departure_city: flight.departure_city,
+            arrival_city: flight.arrival_city,
           }
           dotLinks.push(link2)
         } catch (TypeError) {
@@ -275,80 +277,94 @@ const Map = ({data, filter}) => {
         .data(dotLinks)
         .enter()
         .append('circle')
+
         .attr('cx', function(d) {
           return projection(d.coordinates)[0]
         })
         .attr('cy', function(d) {
           return projection(d.coordinates)[1]
         })
-        .attr('r', function(d) {
+        .style('r', function(d) {
           return scale(d.scale)
         })
         .attr('class', function(d) {
           return 'dot' + ' ' + d.arrival_code + '1'
         })
-
         .style('fill', function(d) {
-
           return '#4A7F91'
         })
         .style('opacity', 1)
         .style('stroke-width', 0.5)
         .on('mouseover', function(d) {
           d3.select(this).style('fill', '#274156')
-          d3.selectAll('.' + d.arrival_code).style('stroke', '#274156')
-
+          d3.selectAll('.' + d.arrival_code).style(
+            'stroke',
+            '#274156'
+          )
+          let xPosition = d3.mouse(this)[0] - 60
+          let yPosition = d3.mouse(this)[1] - 100
+          try {
+            /*tooltip.attr(
+              'transform',
+              'translate(' + xPosition + ',' + yPosition + ')'
+            )*/
+            tooltip
+              .select('text')
+              .text(
+                d.arrival_city + ', ' + d.scale + ' flights from here'
+              )
+            tooltip.style('display', 'block')
+          } catch (TypeError) {
+            console.log(TypeError)
+          }
         })
         .on('mouseout', function(d) {
           d3.select(this).style('fill', '#4A7F91')
           d3.selectAll('.' + d.arrival_code).style('stroke', 'none')
-   
         })
 
       let tooltip = svg
         .append('g')
         .attr('class', 'tooltip')
         .style('display', 'none')
+        .attr('transform', 'translate(' + 20 + ',' + 10 + ')')
 
-     /* tooltip
+      /*tooltip
         .append('rect')
         .attr('width', 80)
         .attr('height', 20)
         .attr('fill', 'white')
-        .style('border-radius',10)
-        .style('opacity', 0.7)*/
+        .style('border-radius', 10)
+        .style('opacity', 1)*/
 
       tooltip
         .append('text')
-        .attr('x', 60)
+        .attr('x', 0)
         .attr('dy', '1.2em')
-        .style('text-anchor', 'middle')
-        .attr('font-size', '15px')
+        .style('text-anchor', 'left')
+        .attr('font-size', '24px')
         .attr('font-weight', 'bold')
     }
   })
   return (
     <React.Fragment>
-     
-      <button onClick={() => clickedButton()}>Hide Stockholm</button>
-      <button className="btn btn-dark m-2" id='zoom_in'><i className="fas fa-plus"></i></button>
-      <button className="btn btn-dark m-2" id='zoom_out'><i className="fas fa-minus"></i></button>
-      
-     
-
- 
+      <button id="showStockholmButton"className="btn btn-dark m-2"onClick={() => clickedButton()}>Hide Stockholm</button>
+      <button className='btn btn-dark m-2' id='zoom_in'>
+        <i className='fas fa-plus'></i>
+      </button>
+      <button className='btn btn-dark m-2' id='zoom_out'>
+        <i className='fas fa-minus'></i>
+      </button>
 
       <svg
-      id="svgMap"
+        id='svgMap'
         width={1068}
         height={700}
         ref={d3Container}
         className='map'
-
-      > 
-      </svg>
-      </React.Fragment>
-
+      ></svg>
+      <p>Hover on a dot to see flights from a city</p>
+    </React.Fragment>
   )
 }
 
@@ -357,7 +373,7 @@ const mapStateToProps = (state, ownProps) => {
     state.getMap.data.length == 0 ? state.getData : state.getMap
   return {
     data: newData.data,
-    filter: ownProps.filter,
+    filter: state.getFilterOptions.data,
   }
 }
 export default connect(mapStateToProps)(Map)

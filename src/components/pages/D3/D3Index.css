@@ -1,88 +1,114 @@
 #showButton{
-    font-size: 20px;
-    background-color: #1b1c1d;
-    border-radius:0px 20px 20px 0px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 130px;
+  font-size: 20px;
+  background-color:#343a40 !important;
+  border-radius:0px 20px 20px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 130px;
+  color:white;
 }
 
 #showButtonText{
-  font-size:10px;
-  color:white;
+font-size:10px;
+color:white;
+
 }
-  .ui.segment{
-    margin:0px !important;
-  }
+.ui.segment{
+  margin:0px !important;
+}
 
- .mapPieActive{
-   background-color:white !important;
-   border:2px solid grey !important;
-   color:grey !important;
-   border-bottom:white !important;
- }
+.mapPieActive{
+ background-color:#f9f7f7 !important;
+ border:2px solid grey !important;
+ color:grey !important;
+ border-bottom:#f9f7f7 !important;
+}
 
-  #mapViewButton{
-    font-size: 20px;
-    width: 529px;
-    margin: 5px;
-    border-radius: 20px 20px 0px 0px;
-    position: relative;
-    left: 175px;
-    top: 42px;
-    z-index: 100;
-  }
-
-  #pieViewButtonPushed{
-    font-size: 20px;
-    margin: 5px;
-    border-radius: 20px 20px 0px 0px;
-    left: -5px;
-    z-index: 100;
-    position: relative;
-    top: 6px;
-    width: 529px;
-  }
-
-  #mapViewButtonPushed{
-    font-size: 20px;
-    margin: 5px;
-    border-radius: 20px 20px 0px 0px;
-    left: -5px;
-    z-index: 100;
-    position: relative;
-    top: 6px;
-    width: 529px;
-  }
-
-  #pieViewButton{
-    font-size: 20px;
-    width: 529px;
-    margin: 5px;
-    border-radius: 20px 20px 0px 0px;
-    position: relative;
-    left: 175px;
-    top: 42px;
-    z-index: 100;
-  }
-  
-
-
-
-  .mapNotPushed{
-    position: relative;
-    left: 108px;
-    top: 35px;
-  }
-
-  .barNotPushed{
-    position: relative;
-    left: 171px;
-  }
- .mapPushed{
-  
+#mapViewButton{
+  font-size: 20px;
+  width: 50%;
+  border-radius: 20px 20px 0px 0px;
   position: relative;
-  right: 72px;
+  /*left: 175px;*/
+  top: 59px;
+  z-index: 100;
+}
 
- }
+#pieViewButtonPushed{
+  font-size: 20px;
+  
+  border-radius: 20px 20px 0px 0px;
+  margin-left: 2px;
+  z-index: 100;
+  position: relative;
+  top: 59px;
+  width: 50%;
+}
+
+#viewToggleBar{
+  margin: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  position:relative;
+  bottom:40px
+}
+#viewToggleBarPushed{
+  margin: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  float:left;
+  bottom:40px;
+  position:relative;
+}
+
+#viewButtons{
+  width: 1068px;
+  display: flex;
+  position: absolute;
+  margin-top: 5px;
+}
+
+#mapViewButtonPushed{
+  font-size: 20px;
+  position:relative;
+  border-radius: 20px 20px 0px 0px;
+ /* left: -5px;*/
+  z-index: 100;
+  position: relative;
+  top: 59px;
+  width:50%
+}
+
+#pieViewButton{
+  font-size: 20px;
+  width: 50%;
+  border-radius: 20px 20px 0px 0px;
+  margin-left: 2px;
+  top: 59px;
+  z-index: 100;
+  position:relative;
+}
+
+
+
+
+.mapNotPushed{
+}
+
+.barNotPushed{
+  position: relative;
+  left: 171px;
+}
+.mapPushed{
+
+
+}
+#pushaSideBar{
+  background-color:#343a40 !important;
+}
+#sideBarChart{
+  background-color:#f9f7f7 !important;
+}

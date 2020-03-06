@@ -56,8 +56,13 @@ const NavBar = props => {
     FilterScoolAndOrg.setOrg(e.target.value)
   }
 
+  function reset() {
+    FilterScoolAndOrg.setOrg(currentOrg)
+  }
+
   return (
     <div className='NavBar'>
+    <div className={props.centerNavBar}>
       <select
         className='browser-default custom-select'
         id='schools'
@@ -88,6 +93,12 @@ const NavBar = props => {
         </option>
         {orgTags}
       </select>
+
+      <button className='btn btn-danger' onClick={reset}>
+        Reset
+      </button>
+
+      </div>
     </div>
   )
 }

@@ -2,18 +2,29 @@
   opacity: 1 !important;
 }
 #zoom_in{
+  z-index:100;
   position: relative;
-  right: 100px;
-  left: 1030px;
-    top: -320px;
+    left: 35%;
+    top: 103px;
 }
 #zoom_out{
+  z-index:100;
+  float:right;
   position: relative;
-  right: 100px;
-  left: 1030px;
-    top: -320px;
+    left: 35%;
+    top: 106px;
 }
 #svgMap{
-  border: 2px solid grey;
-  border-radius: 0px 0px 20px 20px;
+  border-left: 2px solid grey;
+    border-right: 2px solid grey;
+    border-radius: 0px 0px 20px 20px;
+    border-bottom: 2px solid grey;
+}
+
+#showStockholmButton{
+  z-index:100;
+  
+  position: relative;
+  left: 33%;
+  top:105px;
 }

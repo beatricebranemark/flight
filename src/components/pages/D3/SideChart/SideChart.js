@@ -10,7 +10,7 @@ const SideChart = ({data, filter}) => {
   const employee_list = []
   const na_list = []
 
-  var filterByEmployee = []
+  //var filter.personList.employees = []
 
   let ost = d3
 
@@ -81,28 +81,28 @@ const SideChart = ({data, filter}) => {
     } else {
       organisation_trips.forEach(trip => {
         if (trip.employee == clickedBar.emp) {
-          if (filterByEmployee.includes(trip) === false) {
-            if (clickedBar.class.split(' ')[1] == 'person_active') {
-              filterByEmployee.push(trip)
-            }
-            if (clickedBar.class.split(' ')[1] == 'person_inactive') {
-              const index = filterByEmployee.indexOf(trip)
-              filterByEmployee.splice(index, 1)
-            }
+          //if (filter.personList.employees.includes(trip) === false) {
+          if (clickedBar.class.split(' ')[1] == 'person_active') {
+            filter.personList.employees.push(trip)
           }
+          if (clickedBar.class.split(' ')[1] == 'person_inactive') {
+            const index = filter.personList.employees.indexOf(trip)
+            filter.personList.employees.splice(index, 1)
+          }
+          //}
         }
       })
 
       filter.personList.filter = true
-      filter.personList.employees = filterByEmployee
+      filter.personList.employees = filter.personList.employees
       Model(filter)
     }
   }
 
   const showAll = () => {
-    filterByEmployee = []
+    filter.personList.employees = []
     filter.personList.filter = false
-    filter.personList.employees = filterByEmployee
+    filter.personList.employees = filter.personList.employees
     Model(filter)
 
     var bars = document.getElementsByClassName('sideChartRect')
@@ -115,7 +115,14 @@ const SideChart = ({data, filter}) => {
 
   const dropdownChange = e => {
     loadData(e.target.value)
-    filterByEmployee = []
+    /*organisation_trips.forEach(trip => {
+      if (trip.position == e.target.value) {
+        filter.personList.employees.push(trip)
+      }
+    })
+    filter.personList.filter = true
+    filter.personList.employees = filter.personList.employees
+    Model(filter)*/
   }
 
   const getPositions = employees => {
@@ -127,21 +134,21 @@ const SideChart = ({data, filter}) => {
     return positions
   }
 
-  const testFunction = (data) => {
+  /*const testFunction = (data) => {
    
-    filterByEmployee = []
+    filter.personList.employees = []
     organisation_trips.forEach(trip => {
       data.forEach(employee => {
         if (trip.employee == employee.employee) {
-          filterByEmployee.push(trip)
+          filter.personList.employees.push(trip)
         }
       })
     })      
 
     filter.personList.filter = true
-    filter.personList.employees = filterByEmployee
+    filter.personList.employees = filter.personList.employees
     Model(filter)
-  }
+  }*/
 
   function loadData(filter) {
     let data = employee_list
@@ -157,7 +164,6 @@ const SideChart = ({data, filter}) => {
         }
       })
     }
-    testFunction(data);
 
     var svg = d3.select('#chart'),
       margin = {top: 20, right: 20, bottom: 30, left: 44},
@@ -336,7 +342,7 @@ const SideChart = ({data, filter}) => {
 
   useEffect(() => {
     loadData('none')
-    showAll()
+    //showAll()
     let data = employee_list
 
     d3.selectAll('.SideChartOption').remove()
@@ -399,13 +405,14 @@ const SideChart = ({data, filter}) => {
         </div>
       </div>
       <div className='sideChartFilters'>
-        <button
+        {/*<button
           id='sideChartSelectAll'
           className='btn btn-dark'
           onClick={e => showAll(e)}
         >
           Select all
-        </button>
+        </button>*/}
+
         <select
           className='browser-default custom-select'
           id='titleSelector'
@@ -434,7 +441,7 @@ const mapStateToProps = (state, ownProps) => {
     state.getPerson.data.length == 0 ? state.getData : state.getPerson
   return {
     data: newData.data,
-    filter: ownProps.filter,
+    filter: state.getFilterOptions.data,
   }
 }
 export default connect(mapStateToProps)(SideChart)
