@@ -5,3 +5,22 @@
 .slice_active{
     opacity: 0.7;
 }
+
+#pieChart{
+    position: relative;
+      top: 85px;
+      border-bottom: 2px solid grey;
+      border-left: 2px solid grey;
+      border-right: 2px solid grey;
+      border-radius:20px;
+  }
+  #legendContainerPie{
+    position: relative;
+    bottom: 585px;
+    left: 27%;
+  }
+  #hideButton{
+    position: relative;
+    bottom: 580px;
+    left: 332%;
+  }

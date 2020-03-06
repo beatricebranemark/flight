@@ -81,8 +81,8 @@ const PieChart = ({data, filter}) => {
 
     console.log(table_objects)
     var width = 1068
-    var height = 1000
-    var margin = 40
+    var height = 700
+    var margin = 0
 
 
     useEffect(()=>{
@@ -198,7 +198,7 @@ const PieChart = ({data, filter}) => {
     
         legend
           .append('text')
-          .attr('x', 35)
+          .attr('x', 40)
           .attr('y', 10.5)
           .attr('dy', '2em')
           .text(function(d) {
@@ -210,8 +210,8 @@ const PieChart = ({data, filter}) => {
     return(
         <React.Fragment>
           
-       <svg width={width} height={height} ref={d3Container}></svg>
-       <svg id="legendContainer" width={300} height={50} ref={legendContainer}></svg>
+       <svg id="pieChart" width={width} height={height} ref={d3Container}></svg>
+       <svg id="legendContainerPie" width={320} height={50} ref={legendContainer}></svg>
        <div>
        <button id="hideButton" className="btn btn-dark" onClick={() => clickedButton()}>Hide Stockholm</button>
        </div>

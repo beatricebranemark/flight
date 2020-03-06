@@ -1,26 +1,28 @@
 #showButton{
   font-size: 20px;
-  background-color: #1b1c1d;
+  background-color:#343a40 !important;
   border-radius:0px 20px 20px 0px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   width: 130px;
+  color:white;
 }
 
 #showButtonText{
 font-size:10px;
 color:white;
+
 }
 .ui.segment{
   margin:0px !important;
 }
 
 .mapPieActive{
- background-color:white !important;
+ background-color:#f9f7f7 !important;
  border:2px solid grey !important;
  color:grey !important;
- border-bottom:white !important;
+ border-bottom:#f9f7f7 !important;
 }
 
 #mapViewButton{
@@ -99,4 +101,10 @@ color:white;
 .mapPushed{
 
 
+}
+#pushaSideBar{
+  background-color:#343a40 !important;
+}
+#sideBarChart{
+  background-color:#f9f7f7 !important;
 }
