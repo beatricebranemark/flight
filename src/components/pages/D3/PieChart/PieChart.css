@@ -23,4 +23,10 @@
     position: relative;
     bottom: 580px;
     left: 332%;
+    width: 100px;
+  }
+  #pieChartText{
+    position: absolute;
+    top: 15%;
+    color:grey;
   }

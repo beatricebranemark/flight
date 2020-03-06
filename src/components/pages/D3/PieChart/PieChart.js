@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './PieChart.css'
 
-const PieChart = ({data, filter}) => {
+const PieChart = ({data,props}) => {
     let organisation_trips = data
     const d3Container = useRef(null)
     const d3Container2 = useRef(null)
@@ -16,6 +16,9 @@ const PieChart = ({data, filter}) => {
     let table_objects = {}
 
     const [showStockholm,setShowStockholm] = useState(true)
+    const [showText, setShowText] = useState('Hide')
+
+
 
     organisation_trips.forEach(trip => {
       var arrival = trip.arrival_city.split(',')
@@ -52,14 +55,15 @@ const PieChart = ({data, filter}) => {
     const clickedButton = () =>{
         if(showStockholm == true){
             setShowStockholm(false);
+            setShowText('Show')
         }
         if(showStockholm == false){
-            setShowStockholm(true); 
+            setShowStockholm(true);
+            setShowText('Hide')
         }
     }
 
 
-    console.log(table_objects)
     var width = 1068
     var height = 700
     var margin = 0
@@ -238,12 +242,15 @@ const PieChart = ({data, filter}) => {
     })
     return(
         <React.Fragment>
+          <h1 id="pieChartText">Number of flight arrivals to each city</h1>
+
           
+
 
        <svg id="pieChart" width={width} height={height} ref={d3Container}></svg>
        <svg id="legendContainerPie" width={320} height={50} ref={legendContainer}></svg>
        <div>
-       <button id="hideButton" className="btn btn-dark" onClick={() => clickedButton()}>Hide Stockholm</button>
+       <button id="hideButton" className="btn btn-dark" onClick={() => clickedButton()}>{showText} Stockholm</button>
        </div>
        
        
