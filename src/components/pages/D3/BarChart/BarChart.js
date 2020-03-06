@@ -12,7 +12,7 @@ const BarChart = ({data, filter}) => {
   const legendContainer = useRef(null)
   const airportData = require('../../../../data/airports.json')
   //TESTAR HALLÅ HEJ
-  var filteredTravels = []
+  //filter.barChart.employees = []
 
   const [active, setActive] = useState(false)
 
@@ -86,7 +86,7 @@ const BarChart = ({data, filter}) => {
           filterByYear.push(trip)
         }
       })
-      filteredTravels = filterByYear
+      filter.barChart.employees = filterByYear
     }
     //bar-filter
     else {
@@ -97,11 +97,11 @@ const BarChart = ({data, filter}) => {
           let ans = getKeyByValue(months, clickedBar.month)
           if (month_int == ans) {
             if (clickedBar.class == 'bar_active') {
-              filteredTravels.push(trip)
+              filter.barChart.employees.push(trip)
             }
             if (clickedBar.class == 'bar_inactive') {
-              const index = filteredTravels.indexOf(trip)
-              filteredTravels.splice(index, 1)
+              const index = filter.barChart.employees.indexOf(trip)
+              filter.barChart.employees.splice(index, 1)
             }
           }
         }
@@ -109,15 +109,15 @@ const BarChart = ({data, filter}) => {
     }
 
     filter.barChart.filter = true
-    filter.barChart.employees = filteredTravels
+    filter.barChart.employees = filter.barChart.employees
     Model(filter)
   }
 
   const showAll = () => {
     //document.getElementsByClassName('bar_inactive').className = "bar_active";
-    filteredTravels = []
-    filter.barChart.filter = true
-    filter.barChart.employees = filteredTravels
+    filter.barChart.employees = []
+    filter.barChart.filter = false
+    filter.barChart.employees = filter.barChart.employees
     Model(filter)
     setClass()
   }
@@ -140,6 +140,7 @@ const BarChart = ({data, filter}) => {
     var chart = d3.select('.svg_barchart')
     chart.remove()
     d3.select('.toolTip').remove()
+    d3.select('.bar_legend').remove()
 
     var svg = d3.select(d3Container.current),
       margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -152,7 +153,7 @@ const BarChart = ({data, filter}) => {
           'transform',
           'translate(' + margin.left + ',' + margin.top + ')'
         )
-       
+
     var x0 = d3
       .scaleBand()
       .rangeRound([0, width])
@@ -171,14 +172,17 @@ const BarChart = ({data, filter}) => {
 
     var keys = Object.keys(data[3]).slice(0, 3)
     g.append('g')
-    .attr('class', 'grid')
-    .attr('color', 'lightgrey')
-    .attr('opacity', 0.5)
-    .call(d3.axisLeft(y)
-    .ticks(null, 's')
-        .scale(y)
-        .tickSize(-width, 0, 0)
-        .tickFormat(''))
+      .attr('class', 'grid')
+      .attr('color', 'lightgrey')
+      .attr('opacity', 0.5)
+      .call(
+        d3
+          .axisLeft(y)
+          .ticks(null, 's')
+          .scale(y)
+          .tickSize(-width, 0, 0)
+          .tickFormat('')
+      )
     var divTooltip = d3
       .select('body')
       .append('div')
@@ -231,7 +235,6 @@ const BarChart = ({data, filter}) => {
       .attr('fill', function(d) {
         return z(d.key)
       })
-
       .on('mousemove', function(d) {
         divTooltip.style('left', d3.event.pageX + 10 + 'px')
         divTooltip.style('top', d3.event.pageY - 25 + 'px')
@@ -333,11 +336,9 @@ const BarChart = ({data, filter}) => {
     g.append('g')
       .attr('class', 'axis')
       .attr('transform', 'translate(0,' + height + ')')
-      
+
       .call(d3.axisBottom(x0))
 
-      
-    
     g.append('g')
       .attr('class', 'axis')
       .call(d3.axisLeft(y).ticks(null, 's'))
@@ -354,6 +355,7 @@ const BarChart = ({data, filter}) => {
 
     var legend = legendContainerSVG
       .append('g')
+      .attr('class', 'bar_legend')
       .attr('font-family', 'sans-serif')
       .attr('font-size', 10)
       .attr('text-anchor', 'end')
@@ -483,7 +485,7 @@ const mapStateToProps = (state, ownProps) => {
   }
   return {
     data: newData.data,
-    filter: ownProps.filter, //state.getFilterOptions.data
+    filter: state.getFilterOptions.data, //state.getFilterOptions.data
   }
 }
 export default connect(mapStateToProps)(BarChart)
