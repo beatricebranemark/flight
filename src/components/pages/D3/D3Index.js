@@ -45,6 +45,7 @@ const D3Index = props => {
   const [mapButton, setMapButton] = useState('mapViewButton')
   const [pieButton, setPieButton] = useState('pieViewButton')
   const [toggleBar, setToggleBar] = useState('viewToggleBar')
+  const [centerNavBar, setNavBar] = useState('NavBar')
 
   const filter = Filter()
 
@@ -64,6 +65,7 @@ const D3Index = props => {
       setMapButton('mapViewButtonPushed')
       setPieButton('pieViewButtonPushed')
       setToggleBar('viewToggleBarPushed')
+      setNavBar('NavBarPushed')
     } else {
       setVisible(false)
       setArrow('fas fa-angle-right')
@@ -72,6 +74,7 @@ const D3Index = props => {
       setMapButton('mapViewButton')
       setPieButton('pieViewButton')
       setToggleBar('viewToggleBar')
+      setNavBar('NavBar')
     }
   }
 
@@ -85,11 +88,10 @@ const D3Index = props => {
 
         <Provider store={store}>
           <>
-            <NavBar props={props} />
             <Sidebar.Pushable id='mainPusher' as={Segment}>
               <Sidebar
                 as={Menu}
-                animation='push'
+                animation='slide in'
                 icon='labeled'
                 inverted
                 vertical
@@ -102,6 +104,8 @@ const D3Index = props => {
                 <SideChart filter={filter}></SideChart>
               </Sidebar>
               <Sidebar.Pusher id='sideBarChart'>
+              <NavBar centerNavBar={centerNavBar}props={props} />
+
                 <span
                   onClick={showSideBar}
                   className='badge badge-success'
@@ -111,6 +115,7 @@ const D3Index = props => {
                   <span id='showButtonText'>Show employees</span>
                 </span>
                 <Segment basic>
+
                   <div className={barClass} id='secondViewBarChart'>
                     <BarChart type={'secondView'} filter={filter} />
                   </div>
@@ -145,7 +150,7 @@ const D3Index = props => {
                     {view === 'map' ? (
                       <Map filter={filter} />
                     ) : (
-                      <PieChart />
+                      <PieChart id="pieChart" />
                     )}
                   </div>
                   >

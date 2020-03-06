@@ -1,26 +1,28 @@
 #showButton{
   font-size: 20px;
-  background-color: #1b1c1d;
+  background-color:#343a40 !important;
   border-radius:0px 20px 20px 0px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   width: 130px;
+  color:white;
 }
 
 #showButtonText{
 font-size:10px;
 color:white;
+
 }
 .ui.segment{
   margin:0px !important;
 }
 
 .mapPieActive{
- background-color:white !important;
+ background-color:#f9f7f7 !important;
  border:2px solid grey !important;
  color:grey !important;
- border-bottom:white !important;
+ border-bottom:#f9f7f7 !important;
 }
 
 #mapViewButton{
@@ -29,7 +31,7 @@ color:white;
   border-radius: 20px 20px 0px 0px;
   position: relative;
   /*left: 175px;*/
-  top: 42px;
+  top: 59px;
   z-index: 100;
 }
 
@@ -39,8 +41,8 @@ color:white;
   border-radius: 20px 20px 0px 0px;
   margin-left: 2px;
   z-index: 100;
-  position:relative;
-  top: 6px;
+  position: relative;
+  top: 59px;
   width: 50%;
 }
 
@@ -49,6 +51,8 @@ color:white;
   align-items: center;
   display: flex;
   flex-direction: column;
+  position:relative;
+  bottom:40px
 }
 #viewToggleBarPushed{
   margin: auto;
@@ -56,6 +60,8 @@ color:white;
   display: flex;
   flex-direction: column;
   float:left;
+  bottom:40px;
+  position:relative;
 }
 
 #viewButtons{
@@ -71,7 +77,8 @@ color:white;
   border-radius: 20px 20px 0px 0px;
  /* left: -5px;*/
   z-index: 100;
-  top: 6px;
+  position: relative;
+  top: 59px;
   width:50%
 }
 
@@ -80,7 +87,7 @@ color:white;
   width: 50%;
   border-radius: 20px 20px 0px 0px;
   margin-left: 2px;
-  top: 42px;
+  top: 59px;
   z-index: 100;
   position:relative;
 }
@@ -98,4 +105,10 @@ color:white;
 .mapPushed{
 
 
+}
+#pushaSideBar{
+  background-color:#343a40 !important;
+}
+#sideBarChart{
+  background-color:#f9f7f7 !important;
 }
