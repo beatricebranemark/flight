@@ -253,7 +253,7 @@ const SideChart = ({data, filter}) => {
       })
       .on('mouseover', function(d) {
         divTooltip.style('left', d3.event.pageX + 10 + 'px')
-        divTooltip.style('top', d3.event.pageY - 150 + 'px')
+        divTooltip.style('top', d3.event.pageY - 100 + 'px')
         divTooltip.style('display', 'block')
         divTooltip.style('background-color', 'white')
         divTooltip.html(
@@ -266,7 +266,7 @@ const SideChart = ({data, filter}) => {
       .on('mouseout', function(d) {
         divTooltip.style('display', 'none')
       })
-      .on('click', function(d) {
+    /*.on('click', function(d) {
         var allStacked = document.getElementsByClassName(
           d.data.employee
         )
@@ -332,7 +332,7 @@ const SideChart = ({data, filter}) => {
         }
 
         sendData(obj)
-      })
+      })*/
 
     g.append('g')
       .attr('class', 'axis')

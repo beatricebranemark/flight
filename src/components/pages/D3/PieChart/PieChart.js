@@ -63,6 +63,41 @@ const PieChart = ({data,props,pieProp}) => {
             setShowText('Hide')
         }
     }
+    if (showStockholm == false) {
+      data_show = table_objects_no_stockholm
+    }
+    var data_ready = pie(d3.entries(data_show))
+
+    // The arc generator
+    var arc = d3
+      .arc()
+      .innerRadius(radius * 0.5) // This is the size of the donut hole
+      .outerRadius(radius * 0.8)
+
+    // Another arc that won't be drawn. Just for labels positioning
+    var outerArc = d3
+      .arc()
+      .innerRadius(radius * 0.9)
+      .outerRadius(radius * 0.9)
+
+    var divTooltip = d3.select('#PieChartToolTip')
+    // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+    svg
+      .selectAll('allSlices')
+      .data(data_ready)
+      .enter()
+      .append('path')
+      .attr('d', arc)
+      .attr('fill', function(d) {
+        return color(d.data.value[1])
+      })
+      .attr('stroke', 'white')
+      .attr('class', 'slice_inactive')
+      .style('stroke-width', '2px')
+      .style('opacity', 0.7)
+      .on('mouseover', function(d) {
+        d3.select('.mouse_text').remove()
+        d3.select('.mouse_text2').remove()
 
 
     var width = 1068
@@ -208,18 +243,34 @@ const PieChart = ({data,props,pieProp}) => {
       var legendContainerSVG = d3.select(legendContainer.current)
 
       var legend = legendContainerSVG
+
       .append('g')
       .attr('font-family', 'sans-serif')
       .attr('font-size', 12)
       .attr('text-anchor', 'end')
       .selectAll('g')
-      
+
       .data(legend_data)
       .enter()
       .append('g')
       .attr('transform', function(d, i) {
-        return 'translate(' + (i*65) + ',' + 0 + ')'
+        return 'translate(' + i * 65 + ',' + 0 + ')'
       })
+    //.attr('class', 'legend_active')
+
+    legend
+      .append('rect')
+      .attr('x', 20)
+      .attr('cursor', 'pointer')
+      .attr('width', 23)
+      .attr('height', 23)
+      .attr('fill', function(d) {
+        return d.value
+      })
+      .on('click', function(d) {
+        console.log(d.key)
+      })
+
       //.attr('class', 'legend_active')
 
           legend
@@ -258,9 +309,45 @@ const PieChart = ({data,props,pieProp}) => {
        </React.Fragment>
     )
 }
-
+    
+    legend
+      .append('text')
+      .attr('x', 40)
+      .attr('y', 10.5)
+      .attr('dy', '2em')
+      .text(function(d) {
+        return d.key
+      })
+  })
+  return (
+    <React.Fragment>
+      <svg
+        id='pieChart'
+        width={width}
+        height={height}
+        ref={d3Container}
+      ></svg>
+      <svg
+        id='legendContainerPie'
+        width={320}
+        height={50}
+        ref={legendContainer}
+      ></svg>
+      <div>
+        <button
+          id='hideButton'
+          className='btn btn-dark'
+          onClick={() => clickedButton()}
+        >
+          Hide Stockholm
+        </button>
+      </div>
+    </React.Fragment>
+  )
+}
 
 const mapStateToProps = (state, ownProps) => {
+
     let newData =
       state.getMap.data.length == 0 ? state.getData : state.getMap
     return {
@@ -269,7 +356,6 @@ const mapStateToProps = (state, ownProps) => {
       pieProp: ownProps.pieText,
     }
   }
+}
 
-  
-  export default connect(mapStateToProps)(PieChart)
-
+export default connect(mapStateToProps)(PieChart)

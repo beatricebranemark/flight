@@ -235,6 +235,7 @@ const BarChart = ({data, filter}) => {
       .attr('fill', function(d) {
         return z(d.key)
       })
+      .style('cursor', 'pointer')
       .on('mousemove', function(d) {
         divTooltip.style('left', d3.event.pageX + 10 + 'px')
         divTooltip.style('top', d3.event.pageY - 25 + 'px')

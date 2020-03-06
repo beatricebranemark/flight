@@ -111,7 +111,7 @@ const Map = ({data, filter}) => {
         svg
           .selectAll('.line')
           .attr('transform', d3.event.transform)
-          .style('stroke-width', 1 / d3.event.transform.k)
+          .style('stroke-width', 2 / d3.event.transform.k)
 
         svg
           .selectAll('circle') // To prevent stroke width from scaling
@@ -187,15 +187,15 @@ const Map = ({data, filter}) => {
             .data(map.features)
             .enter()
             .append('path')
-            .attr('fill', function(d) {
+            .style('fill', function(d) {
               let country = colorMap(d)
               return country.length > 0
-                ? '#B7B6BA' //rgba(112,128,144, .2)
+                ? '#7B92A3' //rgba(112,128,144, .2) rgb(113, 191, 126)
                 : '#D8D6DB'
             }) // //return color(populationById[d.id])
             .attr('d', d3.geoPath().projection(projection))
             .on('mouseover', function(d) {
-              d3.select(this).attr('fill', '#9E9DA0')
+              d3.select(this).style('fill', '#9E9DA0')
               let xPosition = d3.mouse(this)[0] - 30
               let yPosition = d3.mouse(this)[1] - 50
               try {
@@ -211,9 +211,9 @@ const Map = ({data, filter}) => {
             })
             .on('mouseout', function(d) {
               let country = colorMap(d)
-              d3.select(this).attr(
+              d3.select(this).style(
                 'fill',
-                country.length > 0 ? '#B7B6BA' : '#D8D6DB'
+                country.length > 0 ? '#7B92A3' : '#D8D6DB'
               )
             })
 
@@ -295,15 +295,15 @@ const Map = ({data, filter}) => {
           return 'dot' + ' ' + d.arrival_code + '1'
         })
         .style('fill', function(d) {
-          return '#4A7F91'
+          return 'red'
         })
         .style('opacity', 1)
         .style('stroke-width', 0.5)
         .on('mouseover', function(d) {
-          d3.select(this).style('fill', '#274156')
+          d3.select(this).style('fill', 'yellow ')
           d3.selectAll('.' + d.arrival_code).style(
             'stroke',
-            '#274156'
+            'yellow  '
           )
           let xPosition = d3.mouse(this)[0] - 60
           let yPosition = d3.mouse(this)[1] - 100
@@ -323,7 +323,7 @@ const Map = ({data, filter}) => {
           }
         })
         .on('mouseout', function(d) {
-          d3.select(this).style('fill', '#4A7F91')
+          d3.select(this).style('fill', 'red')
           d3.selectAll('.' + d.arrival_code).style('stroke', 'none')
         })
 
@@ -348,12 +348,14 @@ const Map = ({data, filter}) => {
         .style('text-anchor', 'left')
         .attr('font-size', '24px')
         .attr('font-weight', 'bold')
+        .style('fill', 'white')
     }
   })
   return (
     <React.Fragment>
       
       <button id="showStockholmButton"className="btn btn-dark m-2"onClick={() => clickedButton()}>{showText} Stockholm</button>
+
       <button className='btn btn-dark m-2' id='zoom_in'>
         <i className='fas fa-plus'></i>
       </button>
@@ -367,6 +369,7 @@ const Map = ({data, filter}) => {
         height={700}
         ref={d3Container}
         className='map'
+        style={{backgroundColor: '#333940'}}
       ></svg>
     </React.Fragment>
   )
