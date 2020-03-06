@@ -45,6 +45,7 @@ const D3Index = props => {
   const [mapButton, setMapButton] = useState('mapViewButton')
   const [pieButton, setPieButton] = useState('pieViewButton')
   const [toggleBar, setToggleBar] = useState('viewToggleBar')
+  const [centerNavBar, setNavBar] = useState('NavBar')
 
   const filter = Filter()
 
@@ -64,6 +65,7 @@ const D3Index = props => {
       setMapButton('mapViewButtonPushed')
       setPieButton('pieViewButtonPushed')
       setToggleBar('viewToggleBarPushed')
+      setNavBar('NavBarPushed')
     } else {
       setVisible(false)
       setArrow('fas fa-angle-right')
@@ -72,6 +74,7 @@ const D3Index = props => {
       setMapButton('mapViewButton')
       setPieButton('pieViewButton')
       setToggleBar('viewToggleBar')
+      setNavBar('NavBar')
     }
   }
 
@@ -101,7 +104,7 @@ const D3Index = props => {
                 <SideChart filter={filter}></SideChart>
               </Sidebar>
               <Sidebar.Pusher id='sideBarChart'>
-              <NavBar props={props} />
+              <NavBar centerNavBar={centerNavBar}props={props} />
 
                 <span
                   onClick={showSideBar}
