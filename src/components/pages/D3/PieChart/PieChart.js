@@ -3,9 +3,10 @@ import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './PieChart.css'
 
-const PieChart = ({data, filter}) => {
+const PieChart = ({data, props, pieProp}) => {
   let organisation_trips = data
   const d3Container = useRef(null)
+  const d3Container2 = useRef(null)
   const legendContainer = useRef(null)
 
   var unique_departure_cities = []
@@ -14,7 +15,7 @@ const PieChart = ({data, filter}) => {
   let table_objects = {}
 
   const [showStockholm, setShowStockholm] = useState(true)
-  console.log(showStockholm)
+  const [showText, setShowText] = useState('Hide')
 
   organisation_trips.forEach(trip => {
     var arrival = trip.arrival_city.split(',')
@@ -26,44 +27,26 @@ const PieChart = ({data, filter}) => {
     }
   })
 
-  /*
-    if (unique_departure_cities.length > unique_arrival_cities) {
-      unique_cities = unique_departure_cities
-      for (var i = 0; i < unique_arrival_cities.length; i++) {
-        if (
-          unique_cities.includes(unique_arrival_cities[i]) == false
-        ) {
-          unique_cities.push(unique_arrival_cities[i])
-        }
-      }
-    } else {
-      for (var i = 0; i < unique_departure_cities.length; i++) {
-        unique_cities = unique_arrival_cities
-
-        if (
-          unique_cities.includes(unique_departure_cities[i]) == false
-        ) {
-          unique_cities.push(unique_departure_cities[i])
-        }
-      }
-    }*/
-
   const countOccurrances = city => {
     var count = 0
+    var dep = []
     for (var i = 0; i < organisation_trips.length; i++) {
       if (city == organisation_trips[i].arrival_city.split(',')[0]) {
         count += 1
+        dep.push(organisation_trips[i].departure_city.split(',')[0])
       }
     }
-    return count
+    //console.log(dep)
+    return [count, dep]
   }
 
   //  Create table_objects
   unique_arrival_cities.forEach(list => {
     table_objects[list[0]] = [
-      countOccurrances(list[0]),
+      countOccurrances(list[0])[0],
       list[1],
       list[2],
+      countOccurrances(list[0])[1],
     ]
   })
 
@@ -73,13 +56,14 @@ const PieChart = ({data, filter}) => {
   const clickedButton = () => {
     if (showStockholm == true) {
       setShowStockholm(false)
+      setShowText('Show')
     }
     if (showStockholm == false) {
       setShowStockholm(true)
+      setShowText('Hide')
     }
   }
 
-  console.log(table_objects)
   var width = 1068
   var height = 700
   var margin = 0
@@ -89,10 +73,22 @@ const PieChart = ({data, filter}) => {
     var chart = d3.select('.pie_chart')
     chart.remove()
 
+    var y = d3
+      .scaleBand() // x = d3.scaleBand()
+      .rangeRound([0, height - 32]) // .rangeRound([0, width])
+      .padding(0.2)
+      .align(0.1)
+
     // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
     var radius = Math.min(width, height) / 2 - margin
 
     // append the svg object to the div called 'my_dataviz'
+    var svg2 = d3
+      .select(d3Container2.current)
+      .append('svg')
+      .append('g')
+      .attr('class', 'object_table')
+
     var svg = d3
       .select(d3Container.current)
       .append('svg')
@@ -104,9 +100,6 @@ const PieChart = ({data, filter}) => {
         'transform',
         'translate(' + width / 2 + ',' + height / 2 + ')'
       )
-
-    // Create dummy data
-    //var data = {a: 9, b: 20, c:30, d:8, e:12, f:3, g:7, h:14}
 
     // set the color scale
     var color = d3
@@ -157,6 +150,45 @@ const PieChart = ({data, filter}) => {
       .attr('class', 'slice_inactive')
       .style('stroke-width', '2px')
       .style('opacity', 0.7)
+      .on('click', function(d) {
+        /* d3.selectAll('.click_text').remove()
+          var dep_list= []
+          var dep_count = {}
+          var dep_list_objects = []
+          for(var i = 0;i<d.data.value[3].length;i++){
+            if(dep_list.includes(d.data.value[3][i])==false){
+              dep_list.push(d.data.value[3][i])
+            }
+          }
+          dep_list.forEach(city =>{
+            var count = 0
+            for(var i = 0;i<d.data.value[3].length;i++){
+              if(city == d.data.value[3][i]){
+                count +=1
+              }
+            }
+            dep_list_objects.push({key: city, value: count})
+
+          })
+          console.log(dep_list_objects)
+
+          y.domain(
+            dep_list_objects.map(function(d) {
+              return d.key
+            }))
+
+            svg2
+            .selectAll('click_text')
+            .data(dep_list_objects)
+            .enter()
+            .append("text")
+            .attr('class', 'click_text')
+            .attr('font-size', '1em')
+            .attr('x', 35)
+            .attr('y', function(d){console.log(d);return y(d.key)})
+            .attr('dx','4em')
+            .text(function(d){ return d.key+': '+d.value})*/
+      })
       .on('mouseover', function(d) {
         d3.select('.mouse_text').remove()
         d3.select('.mouse_text2').remove()
@@ -165,7 +197,7 @@ const PieChart = ({data, filter}) => {
           .append('text')
           .attr('class', 'mouse_text')
           .attr('text-anchor', 'middle')
-          .attr('font-size', '5em')
+          .attr('font-size', '4em')
           .attr('y', 5)
           .attr('textLength', radius * 0.8)
           .text(d.data.key + ': ' + d.data.value[0])
@@ -174,7 +206,7 @@ const PieChart = ({data, filter}) => {
           .append('text')
           .attr('class', 'mouse_text2')
           .attr('text-anchor', 'middle')
-          .attr('font-size', '3em')
+          .attr('font-size', '2em')
           .attr('y', 42)
           .text(d.data.value[2])
       })
@@ -205,14 +237,10 @@ const PieChart = ({data, filter}) => {
     legend
       .append('rect')
       .attr('x', 20)
-      .attr('cursor', 'pointer')
       .attr('width', 23)
       .attr('height', 23)
       .attr('fill', function(d) {
         return d.value
-      })
-      .on('click', function(d) {
-        console.log(d.key)
       })
 
     legend
@@ -226,6 +254,10 @@ const PieChart = ({data, filter}) => {
   })
   return (
     <React.Fragment>
+      <h1 id='pieChartText'>
+        Number of flight arrivals to each city
+      </h1>
+
       <svg
         id='pieChart'
         width={width}
@@ -233,7 +265,7 @@ const PieChart = ({data, filter}) => {
         ref={d3Container}
       ></svg>
       <svg
-        id='legendContainerPie'
+        className={pieProp}
         width={320}
         height={50}
         ref={legendContainer}
@@ -244,7 +276,7 @@ const PieChart = ({data, filter}) => {
           className='btn btn-dark'
           onClick={() => clickedButton()}
         >
-          Hide Stockholm
+          {showText} Stockholm
         </button>
       </div>
     </React.Fragment>
@@ -257,6 +289,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     data: newData.data,
     filter: ownProps.filter,
+    pieProp: ownProps.pieText,
   }
 }
 
