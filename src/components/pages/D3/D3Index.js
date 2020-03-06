@@ -110,7 +110,7 @@ const D3Index = props => {
                 <SideChart filter={filter}></SideChart>
               </Sidebar>
               <Sidebar.Pusher id='sideBarChart'>
-              <NavBar centerNavBar={centerNavBar}props={props} />
+                <NavBar centerNavBar={centerNavBar} props={props} />
 
                 <span
                   onClick={showSideBar}
@@ -118,10 +118,11 @@ const D3Index = props => {
                   id='showButton'
                 >
                   <i class={arrow}></i>
-                  <span id='showButtonText'>{showText} employees</span>
+                  <span id='showButtonText'>
+                    {showText} employees
+                  </span>
                 </span>
                 <Segment basic>
-
                   <div className={barClass} id='secondViewBarChart'>
                     <BarChart type={'secondView'} filter={filter} />
                   </div>
@@ -131,11 +132,7 @@ const D3Index = props => {
                         onClick={() => setView('map')}
                         id={mapButton}
                         type='button'
-                        class={
-                          view === 'map'
-                            ? 'btn btn-dark mapPieActive'
-                            : 'btn btn-dark'
-                        }
+                        class='btn btn-dark'
                       >
                         <i class='fas fa-globe-americas'></i>
                       </button>
@@ -143,23 +140,16 @@ const D3Index = props => {
                         onClick={() => setView('pie')}
                         id={pieButton}
                         type='button'
-                        class={
-                          view === 'pie'
-                            ? 'btn btn-dark mapPieActive'
-                            : 'btn btn-dark'
-                        }
+                        class='btn btn-dark  mapPieActive'
                       >
                         <i class='fas fa-chart-pie'></i>
                       </button>
                     </div>
 
-                   
-
-
                     {view === 'map' ? (
                       <Map filter={filter} />
                     ) : (
-                      <PieChart pieText={pieText} id="pieChart" />
+                      <PieChart pieText={pieText} id='pieChart' />
                     )}
                   </div>
                   >

@@ -149,7 +149,7 @@ const PieChart = ({data, props, pieProp}) => {
       .attr('stroke', 'white')
       .attr('class', 'slice_inactive')
       .style('stroke-width', '2px')
-      .style('opacity', 0.7)
+      .style('opacity', 1)
       .on('click', function(d) {
         /* d3.selectAll('.click_text').remove()
           var dep_list= []
