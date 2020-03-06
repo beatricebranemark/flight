@@ -12,7 +12,7 @@ const SideChart = ({data, filter}) => {
 
   //var filter.personList.employees = []
 
-  let ost = d3
+  let groupEmployees = d3
 
     .nest()
     .key(function(d) {
@@ -20,32 +20,32 @@ const SideChart = ({data, filter}) => {
     })
     .entries(organisation_trips)
 
-  ost.forEach(d => {
-    let korv = d3
+  groupEmployees.forEach(d => {
+    let employeeTickets = d3
       .nest()
       .key(function(d) {
         return d.ticket_type
       })
       .entries(d.values)
 
-    let ko = {
+    let groupByTickets = {
       employee: d.key,
-      position: korv[0].values[0].position,
+      position: employeeTickets[0].values[0].position,
       travelTypes: [
-        korv[0].values ? korv[0].values.length : 0,
-        korv[1] ? korv[1].values.length : 0,
-        korv[2] ? korv[2].values.length : 0,
-        korv[3] ? korv[3].values.length : 0,
+        employeeTickets[0].values ? employeeTickets[0].values.length : 0,
+        employeeTickets[1] ? employeeTickets[1].values.length : 0,
+        employeeTickets[2] ? employeeTickets[2].values.length : 0,
+        employeeTickets[3] ? employeeTickets[3].values.length : 0,
       ],
-      EkonomiKlass: korv[0].values ? korv[0].values.length : 0,
-      EkonomiPremium: korv[1] ? korv[1].values.length : 0,
-      Business: korv[2] ? korv[2].values.length : 0,
-      Unknown: korv[3] ? korv[3].values.length : 0,
+      EkonomiKlass: employeeTickets[0].values ? employeeTickets[0].values.length : 0,
+      EkonomiPremium: employeeTickets[1] ? employeeTickets[1].values.length : 0,
+      Business: employeeTickets[2] ? employeeTickets[2].values.length : 0,
+      Unknown: employeeTickets[3] ? employeeTickets[3].values.length : 0,
     }
 
-    ko['total'] =
-      ko.EkonomiKlass + ko.EkonomiPremium + ko.Business + ko.Unknown
-    employee_list.push(ko)
+    groupByTickets['total'] =
+      groupByTickets.EkonomiKlass + groupByTickets.EkonomiPremium + groupByTickets.Business + groupByTickets.Unknown
+    employee_list.push(groupByTickets)
   })
 
   //Click function, chosen employee är från början hela employee list

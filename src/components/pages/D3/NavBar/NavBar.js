@@ -94,9 +94,7 @@ const NavBar = props => {
         {orgTags}
       </select>
 
-      <button className='btn btn-danger' onClick={reset}>
-        Reset
-      </button>
+  
 
       </div>
     </div>

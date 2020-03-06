@@ -10,6 +10,8 @@ const Map = ({data, filter}) => {
   let countries = require('./csvjson.json')
 
   const [showStockholm, setShowStockholm] = useState(true)
+  const [showText, setShowText] = useState('Hide')
+
   console.log(showStockholm)
 
   var data_no_stockholm = []
@@ -24,9 +26,11 @@ const Map = ({data, filter}) => {
   const clickedButton = () => {
     if (showStockholm == true) {
       setShowStockholm(false)
+      setShowText('Show')
     }
     if (showStockholm == false) {
       setShowStockholm(true)
+      setShowText('Hide')
     }
   }
   useEffect(() => {
@@ -349,13 +353,9 @@ const Map = ({data, filter}) => {
   })
   return (
     <React.Fragment>
-      <button
-        id='showStockholmButton'
-        className='btn btn-dark m-2'
-        onClick={() => clickedButton()}
-      >
-        Hide Stockholm
-      </button>
+      
+      <button id="showStockholmButton"className="btn btn-dark m-2"onClick={() => clickedButton()}>{showText} Stockholm</button>
+
       <button className='btn btn-dark m-2' id='zoom_in'>
         <i className='fas fa-plus'></i>
       </button>
@@ -371,7 +371,6 @@ const Map = ({data, filter}) => {
         className='map'
         style={{backgroundColor: '#333940'}}
       ></svg>
-      <p>Hover on a dot to see flights from a city</p>
     </React.Fragment>
   )
 }
