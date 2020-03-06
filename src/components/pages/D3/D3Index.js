@@ -46,6 +46,7 @@ const D3Index = props => {
   const [pieButton, setPieButton] = useState('pieViewButton')
   const [toggleBar, setToggleBar] = useState('viewToggleBar')
   const [centerNavBar, setNavBar] = useState('NavBar')
+  const [showText, setShowText] = useState('Show')
 
   const filter = Filter()
 
@@ -66,6 +67,7 @@ const D3Index = props => {
       setPieButton('pieViewButtonPushed')
       setToggleBar('viewToggleBarPushed')
       setNavBar('NavBarPushed')
+      setShowText('Hide')
     } else {
       setVisible(false)
       setArrow('fas fa-angle-right')
@@ -75,6 +77,7 @@ const D3Index = props => {
       setPieButton('pieViewButton')
       setToggleBar('viewToggleBar')
       setNavBar('NavBar')
+      setShowText('Show')
     }
   }
 
@@ -112,7 +115,7 @@ const D3Index = props => {
                   id='showButton'
                 >
                   <i class={arrow}></i>
-                  <span id='showButtonText'>Show employees</span>
+                  <span id='showButtonText'>{showText} employees</span>
                 </span>
                 <Segment basic>
 
@@ -146,6 +149,9 @@ const D3Index = props => {
                         <i class='fas fa-chart-pie'></i>
                       </button>
                     </div>
+
+                   
+
 
                     {view === 'map' ? (
                       <Map filter={filter} />
