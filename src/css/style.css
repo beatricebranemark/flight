@@ -6,10 +6,13 @@
   box-sizing: inherit; }
 
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%; 
+  background-color:#f9f7f7 !important;}
 
 body {
-  box-sizing: border-box; }
+  box-sizing: border-box; 
+background-color:#f9f7f7 !important;}
+
 
 p {
   color: red;
