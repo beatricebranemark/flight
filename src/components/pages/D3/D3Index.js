@@ -47,6 +47,7 @@ const D3Index = props => {
   const [toggleBar, setToggleBar] = useState('viewToggleBar')
   const [centerNavBar, setNavBar] = useState('NavBar')
   const [showText, setShowText] = useState('Show')
+  const [pieText, setPieText] = useState('legendContainerPie')
 
   const filter = Filter()
 
@@ -68,6 +69,7 @@ const D3Index = props => {
       setToggleBar('viewToggleBarPushed')
       setNavBar('NavBarPushed')
       setShowText('Hide')
+      setPieText('legendContainerPiePushed')
     } else {
       setVisible(false)
       setArrow('fas fa-angle-right')
@@ -78,6 +80,7 @@ const D3Index = props => {
       setToggleBar('viewToggleBar')
       setNavBar('NavBar')
       setShowText('Show')
+      setPieText('legendContainerPie')
     }
   }
 
@@ -156,7 +159,7 @@ const D3Index = props => {
                     {view === 'map' ? (
                       <Map filter={filter} />
                     ) : (
-                      <PieChart id="pieChart" />
+                      <PieChart pieText={pieText} id="pieChart" />
                     )}
                   </div>
                   >

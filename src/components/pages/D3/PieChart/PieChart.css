@@ -14,10 +14,15 @@
       border-right: 2px solid grey;
       border-radius:20px;
   }
-  #legendContainerPie{
+  .legendContainerPie{
+    position: relative;
+    bottom: 590px;
+    left: 27%;
+  }
+  .legendContainerPiePushed{
     position: relative;
     bottom: 585px;
-    left: 27%;
+    left: 36%;
   }
   #hideButton{
     position: relative;
