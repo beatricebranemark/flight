@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './PieChart.css'
 
-const PieChart = ({data,props}) => {
+const PieChart = ({data,props,pieProp}) => {
+  
     let organisation_trips = data
     const d3Container = useRef(null)
     const d3Container2 = useRef(null)
@@ -248,7 +249,7 @@ const PieChart = ({data,props}) => {
 
 
        <svg id="pieChart" width={width} height={height} ref={d3Container}></svg>
-       <svg id="legendContainerPie" width={320} height={50} ref={legendContainer}></svg>
+       <svg className={pieProp} width={320} height={50} ref={legendContainer}></svg>
        <div>
        <button id="hideButton" className="btn btn-dark" onClick={() => clickedButton()}>{showText} Stockholm</button>
        </div>
@@ -265,6 +266,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
       data: newData.data,
       filter: ownProps.filter,
+      pieProp: ownProps.pieText,
     }
   }
 
