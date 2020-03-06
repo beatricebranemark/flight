@@ -55,6 +55,8 @@ const HomeScreen = props => {
   })
 
   function handleSelectedSchool(e) {
+    setCurrentOrg('DEFAULT')
+    setSelectOrg(false)
     setCurrentSchool(e.target.value)
     FilterScoolAndOrg.setSchool(e.target.value)
   }
@@ -105,6 +107,7 @@ const HomeScreen = props => {
                   key='Select an organisation'
                   value={'DEFAULT'}
                   disabled={true}
+                  selected={currentOrg === 'DEFAULT' ? true : false}
                 >
                   Select an organisation
                 </option>
