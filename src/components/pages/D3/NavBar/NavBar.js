@@ -58,6 +58,7 @@ const NavBar = props => {
 
   return (
     <div className='NavBar'>
+    <div className={props.centerNavBar}>
       <select
         className='browser-default custom-select'
         id='schools'
@@ -88,6 +89,7 @@ const NavBar = props => {
         </option>
         {orgTags}
       </select>
+      </div>
     </div>
   )
 }
