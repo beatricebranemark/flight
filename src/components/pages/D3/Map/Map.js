@@ -12,7 +12,6 @@ const Map = ({data, filter}) => {
   const [showStockholm, setShowStockholm] = useState(true)
   const [showText, setShowText] = useState('Hide')
 
-
   var data_no_stockholm = []
   data.forEach(trip => {
     var arrival = trip.arrival_city.split(',')
@@ -104,6 +103,7 @@ const Map = ({data, filter}) => {
 
       function zoomed() {
         g.attr('transform', 'translate(' + d3.event.transform.k + ')')
+
         g.selectAll('path') // To prevent stroke width from scaling
           .attr('transform', d3.event.transform)
 
@@ -314,7 +314,7 @@ const Map = ({data, filter}) => {
             tooltip
               .select('text')
               .text(
-                d.arrival_city + ', ' + d.scale + ' flights from here'
+                d.arrival_city + ', ' + d.scale + ' flights to here'
               )
             tooltip.style('display', 'block')
           } catch (TypeError) {
@@ -334,20 +334,21 @@ const Map = ({data, filter}) => {
 
       /*tooltip
         .append('rect')
-        .attr('width', 80)
-        .attr('height', 20)
+        .attr('height', 40)
+        .attr('width', '100%')
         .attr('fill', 'white')
         .style('border-radius', 10)
         .style('opacity', 1)*/
 
       tooltip
         .append('text')
-        .attr('x', 0)
+        .attr('x', 10)
         .attr('dy', '1.2em')
         .style('text-anchor', 'left')
         .attr('font-size', '24px')
         .attr('font-weight', 'bold')
         .style('fill', 'white')
+        .style('text-shadow', '2px 2px')
     }
   })
   return (
@@ -355,6 +356,8 @@ const Map = ({data, filter}) => {
       
       <button id="showStockholmButton"className="btn btn-info m-2"onClick={() => clickedButton()}>{showText} Stockholm</button>
 
+
+        <button data-toggle="tooltip" title='Most flights to Stockholm are return trips and you can therefore choose to hide them' id="showStockholmButton"className="btn btn-light m-2"onClick={() => clickedButton()}>{showText} Stockholm as a destination</button>
       <button className='btn btn-light m-2' id='zoom_in'>
         <i className='fas fa-plus'></i>
       </button>
