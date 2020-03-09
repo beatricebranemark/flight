@@ -21,14 +21,16 @@
   }
   .legendContainerPiePushed{
     position: relative;
-    bottom: 585px;
+    bottom: 576px;
     left: 36%;
   }
   #hideButton{
     position: relative;
     bottom: 580px;
-    left: 332%;
-    width: 100px;
+    left: 151%;
+
+    width: 100%;
+    font-size:16px
   }
   #pieChartText{
     position: absolute;

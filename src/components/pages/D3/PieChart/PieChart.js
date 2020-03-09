@@ -14,8 +14,8 @@ const PieChart = ({data, props, pieProp}) => {
   var unique_cities = []
   let table_objects = {}
 
-  const [showStockholm, setShowStockholm] = useState(true)
-  const [showText, setShowText] = useState('Hide')
+  const [showStockholm, setShowStockholm] = useState(false)
+  const [showText, setShowText] = useState('Show')
 
   organisation_trips.forEach(trip => {
     var arrival = trip.arrival_city.split(',')
@@ -294,11 +294,12 @@ const PieChart = ({data, props, pieProp}) => {
       ></svg>
       <div>
         <button
+        data-toggle="tooltip" title='Most flights to Stockholm are return trips and you can therefore choose to hide them'
           id='hideButton'
-          className='btn btn-light'
+          className='btn btn-info'
           onClick={() => clickedButton()}
         >
-          {showText} Stockholm
+          {showText} Stockholm as a destination
         </button>
       </div>
     </React.Fragment>
