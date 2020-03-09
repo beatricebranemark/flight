@@ -12,7 +12,6 @@ const Map = ({data, filter}) => {
   const [showStockholm, setShowStockholm] = useState(true)
   const [showText, setShowText] = useState('Hide')
 
-
   var data_no_stockholm = []
   data.forEach(trip => {
     var arrival = trip.arrival_city.split(',')
@@ -352,7 +351,15 @@ const Map = ({data, filter}) => {
   })
   return (
     <React.Fragment>
-        <button data-toggle="tooltip" title='Most flights to Stockholm are return trips and you can therefore choose to hide them' id="showStockholmButton"className="btn btn-light m-2"onClick={() => clickedButton()}>{showText} Stockholm as a destination</button>
+      <button
+        data-toggle='tooltip'
+        title='Most flights to Stockholm are return trips and you can therefore choose to hide them'
+        id='showStockholmButton'
+        className='btn btn-light m-2'
+        onClick={clickedButton}
+      >
+        {showText} Stockholm as a destination
+      </button>
 
       <button className='btn btn-light m-2' id='zoom_in'>
         <i className='fas fa-plus'></i>
