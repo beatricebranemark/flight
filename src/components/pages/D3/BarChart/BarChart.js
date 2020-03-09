@@ -496,7 +496,7 @@ const mapStateToProps = (state, ownProps) => {
   }
   return {
     data: newData.data,
-    filter: state.getFilterOptions.data, //state.getFilterOptions.data
+    filter: ownProps.filter, //state.getFilterOptions.data
   }
   
 }

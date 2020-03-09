@@ -12,7 +12,7 @@ const NavBar = props => {
   )
   const [currentSchool, setCurrentSchool] = useState(
     store.getState().getSelectedSchool.data.length > 0
-      ? store.getState().getSelectedSchool.data[0].key
+      ? store.getState().getSelectedSchool.data[0].school
       : ''
   )
 
@@ -62,40 +62,37 @@ const NavBar = props => {
 
   return (
     <div className='NavBar'>
-    <div className={props.centerNavBar}>
-      <select
-        className='browser-default custom-select'
-        id='schools'
-        onChange={handleSelectedSchool}
-        ref={schoolsList}
-        defaultValue={currentSchool}
-      >
-        <option key='Select a school' disabled={true} value={''}>
-          Select a school
-        </option>
-        {schoolTags}
-      </select>
-
-      <select
-        className='browser-default custom-select'
-        id='organisations'
-        onChange={handleSelectedOrg}
-        ref={organisationsList}
-        defaultValue={currentOrg}
-      >
-        <option
-          key='Select an organisation'
-          disabled={true}
-          value={'default'}
-          selected={currentOrg === 'default' ? true : false}
+      <div className={props.centerNavBar}>
+        <select
+          className='browser-default custom-select'
+          id='schools'
+          onChange={handleSelectedSchool}
+          ref={schoolsList}
+          defaultValue={currentSchool}
         >
-          Select an organisation
-        </option>
-        {orgTags}
-      </select>
+          <option key='Select a school' disabled={true} value={''}>
+            Select a school
+          </option>
+          {schoolTags}
+        </select>
 
-  
-
+        <select
+          className='browser-default custom-select'
+          id='organisations'
+          onChange={handleSelectedOrg}
+          ref={organisationsList}
+          defaultValue={currentOrg}
+        >
+          <option
+            key='Select an organisation'
+            disabled={true}
+            value={'default'}
+            selected={currentOrg === 'default' ? true : false}
+          >
+            Select an organisation
+          </option>
+          {orgTags}
+        </select>
       </div>
     </div>
   )
