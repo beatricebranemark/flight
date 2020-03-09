@@ -247,7 +247,7 @@ const BarChart = ({data, filter}) => {
         divTooltip.style('left', d3.event.pageX + 10 + 'px')
         divTooltip.style('top', d3.event.pageY - 25 + 'px')
         divTooltip.style('display', 'inline-block')
-        divTooltip.html(d.value + ' travels')
+        divTooltip.html(d.value + ' one-way flights')
       })
       .on('mouseout', function(d) {
         divTooltip.style('display', 'none')
@@ -357,7 +357,7 @@ const BarChart = ({data, filter}) => {
       .attr('fill', '#000')
       .attr('font-weight', 'bold')
       .attr('text-anchor', 'start')
-      .text('Number of travels')
+      .text('Number of one-way flights')
 
     var legendContainerSVG = d3.select(legendContainer.current)
 

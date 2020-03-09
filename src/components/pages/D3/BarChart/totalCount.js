@@ -16,7 +16,7 @@ const TotalCounts = (data,props) => {
       <Statistic.Value>
         <Icon name='plane' />{data.data.length}
       </Statistic.Value>
-      <Statistic.Label>Flights</Statistic.Label>
+      <Statistic.Label>Flights (one-way)</Statistic.Label>
     </Statistic>
 
   </Statistic.Group>
