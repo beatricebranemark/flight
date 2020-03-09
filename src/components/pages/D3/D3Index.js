@@ -58,7 +58,6 @@ const D3Index = props => {
   const [visible, setVisible] = useBooleanKnob({name: 'visible'})
 
   let showSideBar = () => {
-    console.log(visible)
     if (visible === false) {
       setVisible(true)
       setArrow('fas fa-angle-left')

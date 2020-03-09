@@ -3,12 +3,14 @@ import Model from '../../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './BarChart.css'
-import countTrips from '../CountTrips'
+import countTrips from '../CountTrips';
+
+import TotalCounts from './totalCount'
+
 const BarChart = ({data, filter}) => {
   // Data
   let organisation_trips = data
   const d3Container = useRef(null)
-
   const legendContainer = useRef(null)
   const airportData = require('../../../../data/airports.json')
   //TESTAR HALLÅ HEJ
@@ -88,6 +90,8 @@ const BarChart = ({data, filter}) => {
       })
       filter.barChart.employees = filterByYear
     }
+
+    
     //bar-filter
     else {
       organisation_trips.forEach(trip => {
@@ -108,19 +112,22 @@ const BarChart = ({data, filter}) => {
       })
     }
 
+
     filter.barChart.filter = true
     filter.barChart.employees = filter.barChart.employees
     Model(filter)
-  }
 
+  }
   const showAll = () => {
     //document.getElementsByClassName('bar_inactive').className = "bar_active";
     filter.barChart.employees = []
     filter.barChart.filter = false
     filter.barChart.employees = filter.barChart.employees
+
     Model(filter)
     setClass()
   }
+
 
   const setClass = () => {
     var bars = document.getElementsByClassName('bar_rect')
@@ -129,8 +136,8 @@ const BarChart = ({data, filter}) => {
       bars[i].className.baseVal =
         'bar_active ' + fullClassName[1] + ' bar_rect'
     }
-  }
 
+  }
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
     height = 250 - margin.top - margin.bottom
@@ -440,8 +447,10 @@ const BarChart = ({data, filter}) => {
 
   return (
     <React.Fragment>
+
       <div className='row' id='barChart'>
         <svg width={width} height={height} ref={d3Container}></svg>
+        
 
         <div id='legendChart'>
           <svg
@@ -459,6 +468,7 @@ const BarChart = ({data, filter}) => {
             Select all
           </button>
         </div>
+        <TotalCounts></TotalCounts>
       </div>
     </React.Fragment>
   )
@@ -488,5 +498,8 @@ const mapStateToProps = (state, ownProps) => {
     data: newData.data,
     filter: state.getFilterOptions.data, //state.getFilterOptions.data
   }
+  
 }
+
+
 export default connect(mapStateToProps)(BarChart)
