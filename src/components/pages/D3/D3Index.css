@@ -68,7 +68,7 @@ color:white;
   width: 1068px;
   display: flex;
   position: absolute;
-  margin-top: 5px;
+  margin-top: 14px;
 }
 
 #mapViewButtonPushed{
@@ -93,6 +93,10 @@ color:white;
   position:relative;
 }
 
+.employeeTitle{
+  color:white;
+  padding:5px;
+}
 
 
 

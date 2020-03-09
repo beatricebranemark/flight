@@ -353,6 +353,9 @@ const Map = ({data, filter}) => {
   })
   return (
     <React.Fragment>
+      
+      <button id="showStockholmButton"className="btn btn-info m-2"onClick={() => clickedButton()}>{showText} Stockholm</button>
+
 
         <button data-toggle="tooltip" title='Most flights to Stockholm are return trips and you can therefore choose to hide them' id="showStockholmButton"className="btn btn-light m-2"onClick={() => clickedButton()}>{showText} Stockholm as a destination</button>
       <button className='btn btn-light m-2' id='zoom_in'>
