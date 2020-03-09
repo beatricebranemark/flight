@@ -3,7 +3,7 @@ import Model from '../../../../data/model'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './BarChart.css'
-import countTrips from '../CountTrips';
+import countTrips from '../CountTrips'
 
 import TotalCounts from './totalCount'
 
@@ -91,7 +91,6 @@ const BarChart = ({data, filter}) => {
       filter.barChart.employees = filterByYear
     }
 
-    
     //bar-filter
     else {
       organisation_trips.forEach(trip => {
@@ -112,11 +111,9 @@ const BarChart = ({data, filter}) => {
       })
     }
 
-
     filter.barChart.filter = true
     filter.barChart.employees = filter.barChart.employees
     Model(filter)
-
   }
   const showAll = () => {
     //document.getElementsByClassName('bar_inactive').className = "bar_active";
@@ -128,7 +125,6 @@ const BarChart = ({data, filter}) => {
     setClass()
   }
 
-
   const setClass = () => {
     var bars = document.getElementsByClassName('bar_rect')
     for (var i = 0; i < bars.length; i++) {
@@ -136,7 +132,6 @@ const BarChart = ({data, filter}) => {
       bars[i].className.baseVal =
         'bar_active ' + fullClassName[1] + ' bar_rect'
     }
-
   }
   var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 960 - margin.left - margin.right,
@@ -447,10 +442,8 @@ const BarChart = ({data, filter}) => {
 
   return (
     <React.Fragment>
-
       <div className='row' id='barChart'>
         <svg width={width} height={height} ref={d3Container}></svg>
-        
 
         <div id='legendChart'>
           <svg
@@ -498,8 +491,6 @@ const mapStateToProps = (state, ownProps) => {
     data: newData.data,
     filter: ownProps.filter, //state.getFilterOptions.data
   }
-  
 }
-
 
 export default connect(mapStateToProps)(BarChart)
