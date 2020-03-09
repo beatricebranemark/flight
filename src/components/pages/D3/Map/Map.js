@@ -12,7 +12,6 @@ const Map = ({data, filter}) => {
   const [showStockholm, setShowStockholm] = useState(true)
   const [showText, setShowText] = useState('Hide')
 
-  console.log(showStockholm)
 
   var data_no_stockholm = []
   data.forEach(trip => {
@@ -354,12 +353,12 @@ const Map = ({data, filter}) => {
   return (
     <React.Fragment>
       
-      <button id="showStockholmButton"className="btn btn-dark m-2"onClick={() => clickedButton()}>{showText} Stockholm</button>
+      <button id="showStockholmButton"className="btn btn-light m-2"onClick={() => clickedButton()}>{showText} Stockholm</button>
 
-      <button className='btn btn-dark m-2' id='zoom_in'>
+      <button className='btn btn-light m-2' id='zoom_in'>
         <i className='fas fa-plus'></i>
       </button>
-      <button className='btn btn-dark m-2' id='zoom_out'>
+      <button className='btn btn-light m-2' id='zoom_out'>
         <i className='fas fa-minus'></i>
       </button>
 
