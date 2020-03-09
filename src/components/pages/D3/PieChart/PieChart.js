@@ -72,6 +72,8 @@ const PieChart = ({data, props, pieProp}) => {
     // set the dimensions and margins of the graph
     var chart = d3.select('.pie_chart')
     chart.remove()
+    d3.select('.pie_legend').remove()
+
 
     var y = d3
       .scaleBand() // x = d3.scaleBand()
@@ -115,13 +117,24 @@ const PieChart = ({data, props, pieProp}) => {
         return d.value[0]
       })
     var data_show
+
     if (showStockholm == true) {
       data_show = table_objects
     }
     if (showStockholm == false) {
       data_show = table_objects_no_stockholm
     }
+
+    var data_nested = d3.nest()
+          .key(function(d) { return d.data.key})
+
+          .entries(data_show);
+    console.log('nested '+data_nested)
+
     var data_ready = pie(d3.entries(data_show))
+
+     
+    
 
     // The arc generator
     var arc = d3
@@ -143,8 +156,16 @@ const PieChart = ({data, props, pieProp}) => {
       .enter()
       .append('path')
       .attr('d', arc)
-      .attr('fill', function(d) {
+      .sort(function(a,b)
+            {
+                return (a.value[0], b.value[0]);
+            })
+      .attr('fill', function(d){ if(d.data.key == "Stockholm"){
+        return ('#848484')
+      }
+      else{
         return color(d.data.value[1])
+      }
       })
       .attr('stroke', 'white')
       .attr('class', 'slice_inactive')
@@ -212,10 +233,11 @@ const PieChart = ({data, props, pieProp}) => {
       })
 
     var legend_data = [
-      {key: 'Utrikes', value: '#876f91'},
-      {key: 'Inrikes', value: '#274156'},
-      {key: 'Europa', value: '#BDC4A1'},
-      {key: 'Norden', value: '#689FA3'},
+      {key: 'Outside Europe', value: '#876f91'},
+      {key: 'Domestic', value: '#274156'},
+      {key: 'Europe', value: '#BDC4A1'},
+      {key: 'Scandinavia', value: '#689FA3'},
+      {key: 'Stockholm', value: '848484'}
     ]
     var legendContainerSVG = d3.select(legendContainer.current)
 
@@ -225,7 +247,7 @@ const PieChart = ({data, props, pieProp}) => {
       .attr('font-size', 12)
       .attr('text-anchor', 'end')
       .selectAll('g')
-
+      .attr('class', 'pie_legend')
       .data(legend_data)
       .enter()
       .append('g')
