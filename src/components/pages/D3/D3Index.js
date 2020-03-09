@@ -23,6 +23,7 @@ import {
   Sidebar,
 } from 'semantic-ui-react'
 import TopTen from './TopTen/TopTen'
+import PieMapWrapper from './PieMapWrapper'
 
 const D3Index = props => {
   const [currentSchool, setCurrentSchool] = useState(
@@ -38,16 +39,13 @@ const D3Index = props => {
 
   const [data, setData] = useState(store.getState().getSchools.data)
   const [arrow, setArrow] = useState('fas fa-angle-right')
-  const [view, setView] = useState('map')
+  //const [view, setView] = useState('map')
 
-  const [mapClass, setMapClass] = useState('mapNotPushed')
-  const [barClass, setBarClass] = useState('barNotPushed')
-  const [mapButton, setMapButton] = useState('mapViewButton')
-  const [pieButton, setPieButton] = useState('pieViewButton')
-  const [toggleBar, setToggleBar] = useState('viewToggleBar')
-  const [centerNavBar, setNavBar] = useState('NavBar')
+  const [barClass, setBarClass] = useState('barPushed')
+  const [toggleBar, setToggleBar] = useState('viewToggleBarPushed')
+  const [centerNavBar, setNavBar] = useState('NavBarPushed')
   const [showText, setShowText] = useState('Show')
-  const [pieText, setPieText] = useState('legendContainerPie')
+  const [pieText, setPieText] = useState('legendContainerPiePushed')
 
   const filter = Filter()
 
@@ -58,14 +56,10 @@ const D3Index = props => {
   const [visible, setVisible] = useBooleanKnob({name: 'visible'})
 
   let showSideBar = () => {
-    console.log(visible)
     if (visible === false) {
       setVisible(true)
       setArrow('fas fa-angle-left')
-      setMapClass('mapPushed')
       setBarClass('barPushed')
-      setMapButton('mapViewButtonPushed')
-      setPieButton('pieViewButtonPushed')
       setToggleBar('viewToggleBarPushed')
       setNavBar('NavBarPushed')
       setShowText('Hide')
@@ -73,10 +67,7 @@ const D3Index = props => {
     } else {
       setVisible(false)
       setArrow('fas fa-angle-right')
-      setMapClass('mapNotPushed')
       setBarClass('barNotPushed')
-      setMapButton('mapViewButton')
-      setPieButton('pieViewButton')
       setToggleBar('viewToggleBar')
       setNavBar('NavBar')
       setShowText('Show')
@@ -101,7 +92,7 @@ const D3Index = props => {
                 icon='labeled'
                 inverted
                 vertical
-                visible={visible}
+                visible={true}
                 width='wide'
                 id='pushaSideBar'
               >
@@ -112,46 +103,27 @@ const D3Index = props => {
               <Sidebar.Pusher id='sideBarChart'>
                 <NavBar centerNavBar={centerNavBar} props={props} />
 
-                <span
+                {/*<span
                   onClick={showSideBar}
                   className='badge badge-success'
                   id='showButton'
                 >
-                  <i class={arrow}></i>
+                  <i className={arrow}></i>
                   <span id='showButtonText'>
                     {showText} employees
                   </span>
-                </span>
+                </span>*/}
                 <Segment basic>
-                  <div className={barClass} id='secondViewBarChart'>
+                  <div
+                    className={'barPushed'}
+                    id='secondViewBarChart'
+                  >
                     <BarChart type={'secondView'} filter={filter} />
                   </div>
-                  <div id={toggleBar}>
-                    <div id='viewButtons'>
-                      <button
-                        onClick={() => setView('map')}
-                        id={mapButton}
-                        type='button'
-                        class='btn btn-dark'
-                      >
-                        <i class='fas fa-globe-americas'></i>
-                      </button>
-                      <button
-                        onClick={() => setView('pie')}
-                        id={pieButton}
-                        type='button'
-                        class='btn btn-dark  mapPieActive'
-                      >
-                        <i class='fas fa-chart-pie'></i>
-                      </button>
-                    </div>
-
-                    {view === 'map' ? (
-                      <Map filter={filter} />
-                    ) : (
-                      <PieChart pieText={pieText} id='pieChart' />
-                    )}
-                  </div>
+                  <PieMapWrapper
+                    toggleBar={toggleBar}
+                    pieText={pieText}
+                  />
                   >
                   <HoverBox />
                 </Segment>

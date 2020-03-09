@@ -16,6 +16,7 @@ const HomeScreen = props => {
       ? store.getState().getSelectedSchool.data[0].school
       : ''
   )
+
   const [currentOrg, setCurrentOrg] = useState(
     store.getState().getSelectedOrg.data.length > 0
       ? store.getState().getSelectedOrg.data[0].org
