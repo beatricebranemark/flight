@@ -233,7 +233,7 @@ const PieChart = ({data, props, pieProp}) => {
       })
 
     var legend_data = [
-      {key: 'Outside Europe', value: '#876f91'},
+      {key: 'Not Europe', value: '#876f91'},
       {key: 'Domestic', value: '#274156'},
       {key: 'Europe', value: '#BDC4A1'},
       {key: 'Scandinavia', value: '#689FA3'},
@@ -244,7 +244,7 @@ const PieChart = ({data, props, pieProp}) => {
     var legend = legendContainerSVG
       .append('g')
       .attr('font-family', 'sans-serif')
-      .attr('font-size', 12)
+      .attr('font-size', 10)
       .attr('text-anchor', 'end')
       .selectAll('g')
       .attr('class', 'pie_legend')
@@ -258,7 +258,7 @@ const PieChart = ({data, props, pieProp}) => {
 
     legend
       .append('rect')
-      .attr('x', 20)
+      .attr('x', 30)
       .attr('width', 23)
       .attr('height', 23)
       .attr('fill', function(d) {
@@ -267,9 +267,9 @@ const PieChart = ({data, props, pieProp}) => {
 
     legend
       .append('text')
-      .attr('x', 40)
+      .attr('x', 60)
       .attr('y', 10.5)
-      .attr('dy', '2em')
+      .attr('dy', '3em')
       .text(function(d) {
         return d.key
       })
@@ -288,7 +288,7 @@ const PieChart = ({data, props, pieProp}) => {
       ></svg>
       <svg
         className={pieProp}
-        width={320}
+        width={400}
         height={50}
         ref={legendContainer}
       ></svg>
