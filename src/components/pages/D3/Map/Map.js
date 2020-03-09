@@ -353,7 +353,7 @@ const Map = ({data, filter}) => {
   return (
     <React.Fragment>
       
-      <button id="showStockholmButton"className="btn btn-light m-2"onClick={() => clickedButton()}>{showText} Stockholm</button>
+      <button id="showStockholmButton"className="btn btn-info m-2"onClick={() => clickedButton()}>{showText} Stockholm</button>
 
       <button className='btn btn-light m-2' id='zoom_in'>
         <i className='fas fa-plus'></i>

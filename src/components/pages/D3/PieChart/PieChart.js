@@ -273,7 +273,7 @@ const PieChart = ({data, props, pieProp}) => {
       <div>
         <button
           id='hideButton'
-          className='btn btn-light'
+          className='btn btn-info'
           onClick={() => clickedButton()}
         >
           {showText} Stockholm

@@ -96,7 +96,7 @@ const D3Index = props => {
                 width='wide'
                 id='pushaSideBar'
               >
-                <h1>Employee Data</h1>
+                <h1 className="employeeTitle">Employee Data</h1>
 
                 <SideChart filter={filter}></SideChart>
               </Sidebar>
