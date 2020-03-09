@@ -27,8 +27,9 @@
   #hideButton{
     position: relative;
     bottom: 580px;
-    left: 233%;
-    width: 150px;
+    left: 151%;
+
+    width: 100%;
     font-size:16px
   }
   #pieChartText{
