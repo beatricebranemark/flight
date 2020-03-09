@@ -237,7 +237,7 @@ const PieChart = ({data, props, pieProp}) => {
       {key: 'Domestic', value: '#274156'},
       {key: 'Europe', value: '#BDC4A1'},
       {key: 'Scandinavia', value: '#689FA3'},
-      {key: 'Stockholm', value: '848484'}
+      {key: 'Stockholm', value: '#848484'}
     ]
     var legendContainerSVG = d3.select(legendContainer.current)
 
