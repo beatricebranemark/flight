@@ -16,8 +16,15 @@
     color:white;
 }
 
+.menuButton:hover, .menuButton:active{
+    font-size:16px;
+    margin:10px;
+    color:white;
+    font-weight: bold;
+}
+
 .menuButton:hover {
-    border-bottom: 2px solid green;
+    border-bottom: 2px solid white;
 }
 
 .menuButton:link,
@@ -28,7 +35,7 @@
 }
 
 .active {
-    border-bottom:2px solid green;
+    border-bottom:2px solid white;
 }
 
 #FLIGHT {

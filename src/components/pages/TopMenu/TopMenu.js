@@ -39,11 +39,11 @@ const TopMenu = props => {
         <ul className='navbar-nav mr-auto'></ul>
         <div id='topMenuRight' className='form-inline'>
           {currentSchool === '' ? <Link exact to="/" className='menuButton'>
-        Visualisation
+        Visualization
       </Link> :
       <NavLink to="/seeOrg"
         className='menuButton'>
-        Visualisation
+        Visualization
       </NavLink> }
           <NavLink to="/howitworks"
             className='menuButton'

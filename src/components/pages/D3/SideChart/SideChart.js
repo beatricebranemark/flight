@@ -258,9 +258,9 @@ const SideChart = ({data, filter}) => {
         divTooltip.style('background-color', 'white')
         divTooltip.html(
           d.data.position +
-            ' has travelled ' +
+            ': <strong>' + 
             d.data.total +
-            ' times'
+            '</strong> one-way flights'
         )
       })
       .on('mouseout', function(d) {

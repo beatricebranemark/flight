@@ -118,7 +118,7 @@ const HomeScreen = props => {
           )}
           {!orgSelected ? null : (
             <button
-              className='btn btn-success'
+              className='btn btn-dark'
               id='schoolButton'
               onClick={() => props.history.push('/seeOrg')}
             >
