@@ -6,18 +6,21 @@ import {connect} from 'react-redux'
 const TotalCounts = (data, props) => {
   return (
     <>
-      <Statistic.Group>
-        <Statistic>
-          <Statistic.Value>
-            <Icon name='plane' />
-            {data.data.length}
-          </Statistic.Value>
-          <Statistic.Label>Flights</Statistic.Label>
-        </Statistic>
-      </Statistic.Group>
-    </>
-  )
-}
+
+  <Statistic.Group>
+  
+
+    <Statistic>
+      <Statistic.Value>
+        <Icon name='plane' />{data.data.length}
+      </Statistic.Value>
+      <Statistic.Label>Flights (one-way)</Statistic.Label>
+    </Statistic>
+
+  </Statistic.Group>
+  </>
+    )
+    }
 
 const mapStateToProps = (state, ownProps) => {
   let newData
