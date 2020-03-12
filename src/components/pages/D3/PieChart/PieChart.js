@@ -125,16 +125,22 @@ const PieChart = ({data, props, pieProp}) => {
       data_show = table_objects_no_stockholm
     }
 
-    var data_nested = d3.nest()
-          .key(function(d) { return d.data.key})
+    var sortable = [];
+    for (var trip in data_show) {
+      sortable.push([trip, data_show[trip]]);
+    }
 
-          .entries(data_show);
-    console.log('nested '+data_nested)
-
-    var data_ready = pie(d3.entries(data_show))
-
-     
+    sortable.sort(function(a, b) {
+     return(a[1][1].localeCompare(b[1][1]))    
+    });   
     
+    var objSorted = {}
+    sortable.forEach(function(item){
+        objSorted[item[0]]=item[1]
+    })
+
+    var data_ready = pie(d3.entries(objSorted))
+
 
     // The arc generator
     var arc = d3
@@ -158,7 +164,8 @@ const PieChart = ({data, props, pieProp}) => {
       .attr('d', arc)
       .sort(function(a,b)
             {
-                return (a.value[0], b.value[0]);
+              return a.data.value[1].localeCompare(b.data.value[1]);
+               // return (a.data.value[1] - b.data.value[1]);
             })
       .attr('fill', function(d){ if(d.data.key == "Stockholm"){
         return ('#848484')
@@ -243,22 +250,23 @@ const PieChart = ({data, props, pieProp}) => {
 
     var legend = legendContainerSVG
       .append('g')
+      .attr('class', 'pie_legend')
       .attr('font-family', 'sans-serif')
-      .attr('font-size', 10)
+      .attr('font-size', 13)
       .attr('text-anchor', 'end')
       .selectAll('g')
-      .attr('class', 'pie_legend')
       .data(legend_data)
       .enter()
       .append('g')
       .attr('transform', function(d, i) {
-        return 'translate(' + i * 65 + ',' + 0 + ')'
+        //return 'translate(' + i * 65 + ',' + 0 + ')'
+        return "translate(0," + i * 50 + ")"
       })
     //.attr('class', 'legend_active')
 
     legend
       .append('rect')
-      .attr('x', 30)
+      .attr('x', 5)
       .attr('width', 23)
       .attr('height', 23)
       .attr('fill', function(d) {
@@ -267,12 +275,16 @@ const PieChart = ({data, props, pieProp}) => {
 
     legend
       .append('text')
-      .attr('x', 60)
-      .attr('y', 10.5)
+      .attr("text-anchor", "end")
+      .attr('x', 100)
+      .attr('y', -21)
       .attr('dy', '3em')
       .text(function(d) {
         return d.key
       })
+
+
+      
   })
   return (
     <React.Fragment>
@@ -286,12 +298,7 @@ const PieChart = ({data, props, pieProp}) => {
         height={height}
         ref={d3Container}
       ></svg>
-      <svg
-        className={pieProp}
-        width={400}
-        height={50}
-        ref={legendContainer}
-      ></svg>
+      
       <div>
         <button
         data-toggle="tooltip" title='Most flights to Stockholm are return trips and you can therefore choose to hide them'
@@ -302,6 +309,12 @@ const PieChart = ({data, props, pieProp}) => {
           {showText} Stockholm as a destination
         </button>
       </div>
+      <svg
+        className={pieProp}
+        width={100}
+        height={400}
+        ref={legendContainer}
+      ></svg>
     </React.Fragment>
   )
 }
