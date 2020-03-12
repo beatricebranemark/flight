@@ -13,20 +13,40 @@ const About = () => (
 
     <React.Fragment>
         <TopMenu></TopMenu>
-        <div id="textContainer">
-            <h1 id="textTitle">About The Project</h1>
-            <p id="text">
-            In order to achive the goal of reducing the flighing at KTH with 9%, the first step to take is to get to know your flying.
-            The flight-project is a way for the employees and other stakeholders at KTH to find pattern in their flying. The tool will help answer questions of:
-
-When has the employees travels?
-
-Where have they traveld to?
-
-Who has traveld?
-
-By answering theses questions, the stakeholders can start to analyse patterns to find out the reason for the flying - and most importantly - how to reduce it.
+        <div id="headerContainer">
+            <h1 id="textTitle"><strong>A FLIGHT VISUALIZATION TOOL</strong></h1>
+            <p id="text_citat">
+            “In this project, we will create and test practical tools to reduce travel-related CO2 emissions, thereby moving from words to action.” 
+            <p id="text_italic">
+            - Energimyndigheten ansökan, Daniel Pargman
             </p>
+            <p id="text_italic">
+            <a style={{color: '#404040'},{textDecoration: 'underline'}} href="https://www.kth.se/sv/mid/research/sustainability/projects/flight-1.920661" target="_blank" >Read more about the project here</a>
+            </p>
+            </p>
+            </div>
+        <div id="textContainer">
+          
+            <p id="text">
+            At KTH, where 75-80% of its budget goes to research, employees fly a lot. The emissions from flying were 2016 18 090 tonnes of CO2 and 92.5% of these emissions come from travels linked to flights performed within the service. Therefore, KTH has set a goal of reducing their flight emissions with 9% each year and the first step to take is to get to know how KTH flies. 
+            </p>
+            <p id="text">
+            This project supports this mission by presenting KTH flight data so that analysis of their flying patterns and trends can be performed, as well as asking the right questions. 
+            This flight visualization tool is a way for the employees and other stakeholders at KTH to find patterns and trends in their flying. The tool will also help to ask the right questions by presenting: 
+            </p>
+            <p id="text">
+            <strong>When</strong> the employees have traveled
+            </p>
+            <p id="text">
+            <strong>Where</strong> they have traveled to
+            </p>
+            <p id="text">
+            <strong>Who</strong> has traveled and how much
+            </p>
+            <p id="text">
+            By using this tool, KTH can start analyzing patterns to find out the reason for flying - and most importantly - how to possibly reduce it and reach the 9% goal. 
+            </p>
+                  
         </div>
 <div id="teamContainer">
 <h1 id="ourTeam">Our Team</h1>
@@ -34,13 +54,10 @@ By answering theses questions, the stakeholders can start to analyse patterns to
   <div className="imageDiv">
     <img src={viktor} wrapped ui={false} />
     <Card.Content>
-      <Card.Header>Victor Lémon</Card.Header>
+      <Card.Header>Viktor Lémon</Card.Header>
       <Card.Meta>
         <span className='date'>vlemon@kth.se</span>
       </Card.Meta>
-      <Card.Description>
-          Victor is a wizard 
-      </Card.Description>
     </Card.Content>
     </div>
   
@@ -51,9 +68,6 @@ By answering theses questions, the stakeholders can start to analyse patterns to
       <Card.Meta>
       <span className='date'>lovfor@kth.se</span>
       </Card.Meta>
-      <Card.Description>
-        Matthew is a musician living in Nashville.
-      </Card.Description>
     </Card.Content>
     </div>
   
@@ -64,9 +78,6 @@ By answering theses questions, the stakeholders can start to analyse patterns to
       <Card.Meta>
         <span className='date'>elinfors@kth.se</span>
       </Card.Meta>
-      <Card.Description>
-        Matthew is a musician living in Nashville.
-      </Card.Description>
     </Card.Content>
     </div>
   <div className="imageDiv">
@@ -76,9 +87,6 @@ By answering theses questions, the stakeholders can start to analyse patterns to
       <Card.Meta>
         <span className='date'>philipax@kth.se</span>
       </Card.Meta>
-      <Card.Description>
-        Matthew is a musician living in Nashville.
-      </Card.Description>
     </Card.Content>
     </div>
     <div className="imageDiv">
@@ -88,9 +96,6 @@ By answering theses questions, the stakeholders can start to analyse patterns to
       <Card.Meta>
         <span className='date'>beabra@kth.se</span>
       </Card.Meta>
-      <Card.Description>
-        Matthew is a musician living in Nashville.
-      </Card.Description>
     </Card.Content>
     </div>
   

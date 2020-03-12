@@ -126,7 +126,7 @@ const D3Index = props => {
                     toggleBar={toggleBar}
                     pieText={pieText}
                   />
-                  >
+                  
                   <HoverBox />
                 </Segment>
               </Sidebar.Pusher>
