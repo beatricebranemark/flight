@@ -14,7 +14,7 @@ const HomeScreen = props => {
   const [currentSchool, setCurrentSchool] = useState(
     store.getState().getSelectedSchool.data.length > 0
       ? store.getState().getSelectedSchool.data[0].school
-      : ''
+      : 'All schools'
   )
 
   const [currentOrg, setCurrentOrg] = useState(
@@ -39,7 +39,11 @@ const HomeScreen = props => {
       <button
         key={school.key}
         value={school.key}
-        className='btn btn-dark'
+        className={
+          currentSchool === school.key
+            ? 'btn btn-info'
+            : 'btn btn-dark'
+        }
         id='schoolButton'
         onClick={handleSelectedSchool}
       >
@@ -76,16 +80,20 @@ const HomeScreen = props => {
           <BarChart filter={filter} type={'firstView'} />
         </Provider>
         <div id='selectSchoolOrg'>
-          <h2>Select your school: {currentSchool}</h2>
+          <h2>Select a school</h2>
           <div
             className='buttonContainer'
             onChange={handleSelectedSchool}
             ref={schoolsList}
           >
             <button
-              key='kth'
-              value='kth'
-              className='btn btn-dark'
+              key='All schools'
+              value='All schools'
+              className={
+                currentSchool === 'All schools'
+                  ? 'btn btn-info'
+                  : 'btn btn-dark'
+              }
               id='schoolButton'
               onClick={handleSelectedSchool}
             >
@@ -94,7 +102,7 @@ const HomeScreen = props => {
             {schoolsButton}
           </div>
           {currentSchool.length === 0 ||
-          currentSchool === 'kth' ? null : (
+          currentSchool === 'All schools' ? null : (
             <div>
               <h2>Select an organisation</h2>
               <select
