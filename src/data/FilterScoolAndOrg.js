@@ -25,7 +25,10 @@ class FilterSchoolAndOrg {
         return d.school
       })
       .entries(this.data)
-
+      .sort(function(a, b) {
+        return d3.ascending(a.key, b.key)
+      })
+    console.log(this.schools)
     store.dispatch({
       type: 'SET_SCHOOLS',
       payload: this.schools,
@@ -62,6 +65,11 @@ class FilterSchoolAndOrg {
         payload: this.school[0].values,
       })
 
+      store.dispatch({
+        type: 'SET_MAP_DATA',
+        payload: [],
+      })
+
       //Group by organisation in the selected school
       this.organisationsInSelectedSchool = d3
         .nest()
@@ -69,6 +77,9 @@ class FilterSchoolAndOrg {
           return d.org_name
         })
         .entries(this.school[0].values)
+        .sort(function(a, b) {
+          return d3.ascending(a.key, b.key)
+        })
 
       store.dispatch({
         type: 'SET_ORGANISATIONS',
@@ -90,6 +101,7 @@ class FilterSchoolAndOrg {
         return org.key === this.selectedOrg
       }
     )
+
     store.dispatch({
       type: 'SET_SELECTED_ORGANISATION',
       payload: this.organisation,

@@ -32,7 +32,7 @@ const NavBar = props => {
   const schoolTags = schools.map(school => {
     return (
       <option key={school.key} value={school.key}>
-        {school.key}
+        {school.key + ' ' + '(' + school.values.length + ' flights)'}
       </option>
     )
   })
@@ -40,7 +40,7 @@ const NavBar = props => {
   const orgTags = orgs.map(org => {
     return (
       <option key={org.key} value={org.key}>
-        {org.key}
+        {org.key + ' ' + '(' + org.values.length + ' flights)'}
       </option>
     )
   })
