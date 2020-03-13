@@ -101,6 +101,16 @@ const getFilterOptionsReducer = (state = {}, action) => {
   return state
 }
 
+const getShowStockholmReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_STOCKHOLM': {
+      return {...state, data: action.payload}
+    }
+    default:
+  }
+  return state
+}
+
 const reducers = combineReducers({
   getData: getDataReducer,
   getBar: getBarDataReducer,
@@ -112,6 +122,7 @@ const reducers = combineReducers({
   getSchools: getSchoolReducer,
   getSelectedSchool: getSelectedSchoolReducer,
   getFilterOptions: getFilterOptionsReducer,
+  getShowStockholm: getShowStockholmReducer,
 })
 
 const store = createStore(reducers)
@@ -164,5 +175,10 @@ store.dispatch({
 store.dispatch({
   type: 'SET_SELECTED_ORGANISATION',
   payload: [],
+})
+
+store.dispatch({
+  type: 'SET_STOCKHOLM',
+  payload: true,
 })
 export default store

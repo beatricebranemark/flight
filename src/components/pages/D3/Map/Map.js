@@ -1,16 +1,18 @@
 import React, {useRef, useEffect, useState} from 'react'
 import Model from '../../../../data/model'
+import store from '../../../../reducers'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
 import './index.css'
 
-const Map = ({data, filter}) => {
+const Map = ({data, filter, showStockholm}) => {
   let d3Container = useRef(null)
-  const legendContainer = useRef(null)
+
   let countries = require('./csvjson.json')
 
-  const [showStockholm, setShowStockholm] = useState(true)
-  const [showText, setShowText] = useState('Hide')
+  const [showText, setShowText] = useState(
+    showStockholm ? 'Hide' : 'Show'
+  )
 
   var data_no_stockholm = []
   data.forEach(trip => {
@@ -22,12 +24,18 @@ const Map = ({data, filter}) => {
   })
 
   const clickedButton = () => {
-    if (showStockholm == true) {
-      setShowStockholm(false)
+    if (showStockholm === true) {
+      store.dispatch({
+        type: 'SET_STOCKHOLM',
+        payload: false,
+      })
       setShowText('Show')
     }
-    if (showStockholm == false) {
-      setShowStockholm(true)
+    if (showStockholm === false) {
+      store.dispatch({
+        type: 'SET_STOCKHOLM',
+        payload: true,
+      })
       setShowText('Hide')
     }
   }
@@ -80,17 +88,6 @@ const Map = ({data, filter}) => {
         .range([2, 10])
       // A path generator
       let path = d3.geoPath().projection(projection)
-
-      /*let pathDot = d3
-        .geoPath()
-        .projection(projection)
-        .pointRadius(function(d) {
-          return scale(d.scale)
-        })*/
-      /* .pointRadius(function(d) {
-          let scaling = scale(d.scale)
-          return scaling
-        })*/
 
       let g = svg.append('g')
 
@@ -332,14 +329,6 @@ const Map = ({data, filter}) => {
         .style('display', 'none')
         .attr('transform', 'translate(' + 20 + ',' + 10 + ')')
 
-      /*tooltip
-        .append('rect')
-        .attr('height', 40)
-        .attr('width', '100%')
-        .attr('fill', 'white')
-        .style('border-radius', 10)
-        .style('opacity', 1)*/
-
       tooltip
         .append('text')
         .attr('x', 10)
@@ -353,9 +342,15 @@ const Map = ({data, filter}) => {
   })
   return (
     <React.Fragment>
-
-
-        <button data-toggle="tooltip" title='Most flights to Stockholm are return trips and you can therefore choose to hide them' id="showStockholmButton"className="btn btn-info m-2"onClick={() => clickedButton()}>{showText} Stockholm as a destination</button>
+      <button
+        data-toggle='tooltip'
+        title='Most flights to Stockholm are return trips and you can therefore choose to hide them'
+        id='showStockholmButton'
+        className='btn btn-info m-2'
+        onClick={() => clickedButton()}
+      >
+        {showText} Stockholm as a destination
+      </button>
       <button className='btn btn-light m-2' id='zoom_in'>
         <i className='fas fa-plus'></i>
       </button>
@@ -376,11 +371,13 @@ const Map = ({data, filter}) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state)
   let newData =
     state.getMap.data.length == 0 ? state.getData : state.getMap
   return {
     data: newData.data,
     filter: state.getFilterOptions.data,
+    showStockholm: state.getShowStockholm.data,
   }
 }
 export default connect(mapStateToProps)(Map)

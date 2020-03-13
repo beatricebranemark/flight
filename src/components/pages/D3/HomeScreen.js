@@ -50,7 +50,7 @@ const HomeScreen = props => {
   const orgTags = orgs.map(org => {
     return (
       <option key={org.key} value={org.key}>
-        {org.key}
+        {org.key + ' ' + '(' + org.values.length + ' flights)'}
       </option>
     )
   })
@@ -96,7 +96,7 @@ const HomeScreen = props => {
           {currentSchool.length === 0 ||
           currentSchool === 'kth' ? null : (
             <div>
-              <h2>Select your org</h2>
+              <h2>Select an organisation</h2>
               <select
                 className='browser-default custom-select'
                 id='organisations'

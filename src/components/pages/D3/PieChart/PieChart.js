@@ -1,9 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {connect} from 'react-redux'
+import store from '../../../../reducers'
 import * as d3 from 'd3'
 import './PieChart.css'
 
-const PieChart = ({data, props, pieProp}) => {
+const PieChart = ({data, props, pieProp, showStockholm}) => {
   let organisation_trips = data
   const d3Container = useRef(null)
   const d3Container2 = useRef(null)
@@ -14,8 +15,9 @@ const PieChart = ({data, props, pieProp}) => {
   var unique_cities = []
   let table_objects = {}
 
-  const [showStockholm, setShowStockholm] = useState(false)
-  const [showText, setShowText] = useState('Show')
+  const [showText, setShowText] = useState(
+    showStockholm ? 'Hide' : 'Show'
+  )
 
   organisation_trips.forEach(trip => {
     var arrival = trip.arrival_city.split(',')
@@ -54,12 +56,18 @@ const PieChart = ({data, props, pieProp}) => {
   delete table_objects_no_stockholm['Stockholm']
 
   const clickedButton = () => {
-    if (showStockholm == true) {
-      setShowStockholm(false)
+    if (showStockholm === true) {
+      store.dispatch({
+        type: 'SET_STOCKHOLM',
+        payload: false,
+      })
       setShowText('Show')
     }
-    if (showStockholm == false) {
-      setShowStockholm(true)
+    if (showStockholm === false) {
+      store.dispatch({
+        type: 'SET_STOCKHOLM',
+        payload: true,
+      })
       setShowText('Hide')
     }
   }
@@ -73,7 +81,6 @@ const PieChart = ({data, props, pieProp}) => {
     var chart = d3.select('.pie_chart')
     chart.remove()
     d3.select('.pie_legend').remove()
-
 
     var y = d3
       .scaleBand() // x = d3.scaleBand()
@@ -125,22 +132,21 @@ const PieChart = ({data, props, pieProp}) => {
       data_show = table_objects_no_stockholm
     }
 
-    var sortable = [];
+    var sortable = []
     for (var trip in data_show) {
-      sortable.push([trip, data_show[trip]]);
+      sortable.push([trip, data_show[trip]])
     }
 
     sortable.sort(function(a, b) {
-     return(a[1][1].localeCompare(b[1][1]))    
-    });   
-    
+      return a[1][1].localeCompare(b[1][1])
+    })
+
     var objSorted = {}
-    sortable.forEach(function(item){
-        objSorted[item[0]]=item[1]
+    sortable.forEach(function(item) {
+      objSorted[item[0]] = item[1]
     })
 
     var data_ready = pie(d3.entries(objSorted))
-
 
     // The arc generator
     var arc = d3
@@ -162,17 +168,16 @@ const PieChart = ({data, props, pieProp}) => {
       .enter()
       .append('path')
       .attr('d', arc)
-      .sort(function(a,b)
-            {
-              return a.data.value[1].localeCompare(b.data.value[1]);
-               // return (a.data.value[1] - b.data.value[1]);
-            })
-      .attr('fill', function(d){ if(d.data.key == "Stockholm"){
-        return ('#848484')
-      }
-      else{
-        return color(d.data.value[1])
-      }
+      .sort(function(a, b) {
+        return a.data.value[1].localeCompare(b.data.value[1])
+        // return (a.data.value[1] - b.data.value[1]);
+      })
+      .attr('fill', function(d) {
+        if (d.data.key == 'Stockholm') {
+          return '#848484'
+        } else {
+          return color(d.data.value[1])
+        }
       })
       .attr('stroke', 'white')
       .attr('class', 'slice_inactive')
@@ -218,6 +223,7 @@ const PieChart = ({data, props, pieProp}) => {
             .text(function(d){ return d.key+': '+d.value})*/
       })
       .on('mouseover', function(d) {
+        d3.select(this).style('opacity', 0.5)
         d3.select('.mouse_text').remove()
         d3.select('.mouse_text2').remove()
 
@@ -238,13 +244,16 @@ const PieChart = ({data, props, pieProp}) => {
           .attr('y', 42)
           .text(d.data.value[2])
       })
+      .on('mouseout', function() {
+        d3.select(this).style('opacity', 1)
+      })
 
     var legend_data = [
       {key: 'Not Europe', value: '#876f91'},
       {key: 'Domestic', value: '#274156'},
       {key: 'Europe', value: '#BDC4A1'},
       {key: 'Scandinavia', value: '#689FA3'},
-      {key: 'Stockholm', value: '#848484'}
+      {key: 'Stockholm', value: '#848484'},
     ]
     var legendContainerSVG = d3.select(legendContainer.current)
 
@@ -260,7 +269,7 @@ const PieChart = ({data, props, pieProp}) => {
       .append('g')
       .attr('transform', function(d, i) {
         //return 'translate(' + i * 65 + ',' + 0 + ')'
-        return "translate(0," + i * 50 + ")"
+        return 'translate(0,' + i * 50 + ')'
       })
     //.attr('class', 'legend_active')
 
@@ -275,16 +284,13 @@ const PieChart = ({data, props, pieProp}) => {
 
     legend
       .append('text')
-      .attr("text-anchor", "end")
+      .attr('text-anchor', 'end')
       .attr('x', 100)
       .attr('y', -21)
       .attr('dy', '3em')
       .text(function(d) {
         return d.key
       })
-
-
-      
   })
   return (
     <React.Fragment>
@@ -298,10 +304,11 @@ const PieChart = ({data, props, pieProp}) => {
         height={height}
         ref={d3Container}
       ></svg>
-      
+
       <div>
         <button
-        data-toggle="tooltip" title='Most flights to Stockholm are return trips and you can therefore choose to hide them'
+          data-toggle='tooltip'
+          title='Most flights to Stockholm are return trips and you can therefore choose to hide them'
           id='hideButton'
           className='btn btn-info'
           onClick={() => clickedButton()}
@@ -326,6 +333,7 @@ const mapStateToProps = (state, ownProps) => {
     data: newData.data,
     filter: ownProps.filter,
     pieProp: ownProps.pieText,
+    showStockholm: state.getShowStockholm.data,
   }
 }
 
