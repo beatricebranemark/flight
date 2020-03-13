@@ -54,7 +54,7 @@ class FilterSchoolAndOrg {
       type: 'SET_SELECTED_ORGANISATION',
       payload: [],
     })
-    if (this.selectedSchool === 'kth') {
+    if (this.selectedSchool === 'All schools') {
       store.dispatch({
         type: 'SET_SELECTED_SCHOOL',
         payload: this.data,
