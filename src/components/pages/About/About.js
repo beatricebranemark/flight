@@ -9,10 +9,12 @@ var elin = require('./elin.png')
 var viktor = require('./viktor.png')
 var philip = require('./philip.png')
 var bea = require('./bea.png')
+var bubbles = require('./bubbles.gif')
 const About = () => (
 
     <React.Fragment>
         <TopMenu></TopMenu>
+
         <div id="headerContainer">
             <h1 id="textTitle"><strong>A FLIGHT VISUALIZATION TOOL</strong></h1>
             <p id="text_citat">
@@ -20,18 +22,17 @@ const About = () => (
             <p id="text_italic">
             - Energimyndigheten ansökan, Daniel Pargman
             </p>
-            <p id="text_italic">
-            <a style={{color: '#404040'},{textDecoration: 'underline'}} href="https://www.kth.se/sv/mid/research/sustainability/projects/flight-1.920661" target="_blank" >Read more about the project here</a>
+            <p id="text_italic"> 
+              <a href="https://www.kth.se/sv/mid/research/sustainability/projects/flight-1.920661" target="_blank" >Read more about the project here</a>
             </p>
-            </p>
+            </p>   
             </div>
         <div id="textContainer">
           
             <p id="text">
-            At KTH, where 75-80% of its budget goes to research, employees fly a lot. The emissions from flying were 2016 18 090 tonnes of CO2 and 92.5% of these emissions come from travels linked to flights performed within the service. Therefore, KTH has set a goal of reducing their flight emissions with 9% each year and the first step to take is to get to know how KTH flies. 
+            At KTH, where 75-80% of its budget goes to research, employees fly a lot. The emissions from flying were 2016 18 090 tonnes of CO2 and 92.5% of these emissions came from travels linked to flights performed within the service. Therefore, KTH has set a goal of reducing their flight emissions with 9% each year and the first step to take is to get to know how KTH flies. 
             </p>
             <p id="text">
-            This project supports this mission by presenting KTH flight data so that analysis of their flying patterns and trends can be performed, as well as asking the right questions. 
             This flight visualization tool is a way for the employees and other stakeholders at KTH to find patterns and trends in their flying. The tool will also help to ask the right questions by presenting: 
             </p>
             <p id="text">
@@ -46,13 +47,12 @@ const About = () => (
             <p id="text">
             By using this tool, KTH can start analyzing patterns to find out the reason for flying - and most importantly - how to possibly reduce it and reach the 9% goal. 
             </p>
-                  
         </div>
 <div id="teamContainer">
-<h1 id="ourTeam">Our Team</h1>
+<h1 id="ourTeam"><strong>OUR TEAM</strong></h1>
 <div id="aboutContainer">
   <div className="imageDiv">
-    <img src={viktor} wrapped ui={false} />
+    <img className="responsive" src={viktor} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Viktor Lémon</Card.Header>
       <Card.Meta>
@@ -62,7 +62,7 @@ const About = () => (
     </div>
   
     <div className="imageDiv">
-    <img id="image" src={lovisa} wrapped ui={false} />
+    <img className="responsive" id="image" src={lovisa} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Lovisa Forsberg</Card.Header>
       <Card.Meta>
@@ -72,7 +72,7 @@ const About = () => (
     </div>
   
     <div className="imageDiv">
-    <img src={elin} wrapped ui={false} />
+    <img className="responsive" src={elin} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Elin Forsberg</Card.Header>
       <Card.Meta>
@@ -81,7 +81,7 @@ const About = () => (
     </Card.Content>
     </div>
   <div className="imageDiv">
-    <img id="image" src={philip} wrapped ui={false} />
+    <img className="responsive" id="image" src={philip} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Philip Axelsson</Card.Header>
       <Card.Meta>
@@ -90,7 +90,7 @@ const About = () => (
     </Card.Content>
     </div>
     <div className="imageDiv">
-    <img src={bea} wrapped ui={false} />
+    <img className="responsive" src={bea} wrapped ui={false} />
     <Card.Content>
       <Card.Header>Beatrice Brånemark</Card.Header>
       <Card.Meta>
