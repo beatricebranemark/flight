@@ -4,13 +4,17 @@
 #zoom_in{
   z-index:100;
   position: relative;
-    left: 46%;
+  left: 507px;
+
+
     top: 116px;
 }
 #zoom_out{
   z-index:100;
   position: relative;
-    left: 46%;
+  left: 507px;
+
+
     top: 119px;
 }
 #svgMap{
@@ -25,7 +29,8 @@
   z-index:100;
   
   position: relative;
-  left: 36%;
-  top:122px;
+  left:390px;
+
+  top:115px;
   font-size:16px
 }

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import store from '../../../../reducers'
 import FilterScoolAndOrg from '../../../../data/FilterScoolAndOrg'
-
+import './NavBar.css'
 const NavBar = props => {
   if (store.getState().getSelectedSchool.data.length === 0) {
     props.props.history.push('/')
@@ -61,8 +61,8 @@ const NavBar = props => {
   }
 
   return (
-    <div className='NavBar'>
-      <div className={props.centerNavBar}>
+    <div id="navbarContainer" className='NavBar'>
+
         <select
           className='browser-default custom-select'
           id='schools'
@@ -93,7 +93,7 @@ const NavBar = props => {
           </option>
           {orgTags}
         </select>
-      </div>
+      
     </div>
   )
 }

@@ -51,22 +51,13 @@ color:white;
   width: 50%;
 }
 
-#viewToggleBar{
-  margin: auto;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  position:relative;
-  
-}
+
 #viewToggleBarPushed{
-  margin: auto;
   align-items: center;
   display: flex;
   flex-direction: column;
-  float:left;
-  
   position:relative;
+  left:-172px
 }
 
 #viewButtons{
@@ -105,18 +96,18 @@ color:white;
 
 
 
-.mapNotPushed{
-}
+
 
 .barNotPushed{
   position: relative;
   left: 171px;
 }
-.mapPushed{
 
-
+#pushaSideBar{
+  background-color:#343a40 !important;
 }
 
 #sideBarChart{
   background-color:#f9f7f7 !important;
 }
+
