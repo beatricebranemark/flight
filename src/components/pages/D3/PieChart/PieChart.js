@@ -262,7 +262,7 @@ const PieChart = ({data, props, pieProp, showStockholm}) => {
       .attr('class', 'pie_legend')
       .attr('font-family', 'sans-serif')
       .attr('font-size', 13)
-      .attr('text-anchor', 'end')
+      .attr('text-anchor', 'start')
       .selectAll('g')
       .data(legend_data)
       .enter()
@@ -274,22 +274,24 @@ const PieChart = ({data, props, pieProp, showStockholm}) => {
     //.attr('class', 'legend_active')
 
     legend
-      .append('rect')
-      .attr('x', 5)
-      .attr('width', 23)
-      .attr('height', 23)
-      .attr('fill', function(d) {
-        return d.value
-      })
-
-    legend
       .append('text')
       .attr('text-anchor', 'end')
-      .attr('x', 100)
+      .attr('x', function(d, i) {
+        return 130
+      })
       .attr('y', -21)
       .attr('dy', '3em')
       .text(function(d) {
         return d.key
+      })
+
+      legend
+      .append('rect')
+      .attr('x', 145)
+      .attr('width', 23)
+      .attr('height', 23)
+      .attr('fill', function(d) {
+        return d.value
       })
   })
   return (
@@ -318,7 +320,7 @@ const PieChart = ({data, props, pieProp, showStockholm}) => {
       </div>
       <svg
         className={pieProp}
-        width={100}
+        width={200}
         height={400}
         ref={legendContainer}
       ></svg>

@@ -1,6 +1,13 @@
+#pushaSideBar {
+    max-height: 1190px;
+    overflow-y: scroll;
+    border-bottom-right-radius: 2rem !important;
+    background-color:#343a40 !important;
+
+}
+
 #chart{
     margin: .2rem;
-    min-height: 300px;
 
     text {
         color: white;

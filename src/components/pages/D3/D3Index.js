@@ -7,6 +7,7 @@ import {Provider} from 'react-redux'
 import HoverBox from './HoverBox/hoverBox'
 import SideChart from './SideChart/SideChart'
 import TopMenu from '../TopMenu/TopMenu'
+import Footer from '../Footer/Footer'
 import Filter from './../../Filter'
 import PieChart from './PieChart/PieChart'
 import {withRouter} from 'react-router-dom'
@@ -131,6 +132,7 @@ const D3Index = props => {
             </Sidebar.Pushable>
           </>
         </Provider>
+        <Footer></Footer>
       </React.Fragment>
     )
   }

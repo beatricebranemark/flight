@@ -13,10 +13,6 @@ body {
   body button:focus {
     outline: none !important; }
 
-p {
-  color: red;
-  font-size: 3rem; }
-
 h1 {
   color: lightgrey; }
 
@@ -93,9 +89,14 @@ h1 {
   border-bottom: 2px solid grey;
   border-right: 2px solid grey; }
 
+#pushaSideBar {
+  max-height: 1190px;
+  overflow-y: scroll;
+  border-bottom-right-radius: 2rem !important;
+  background-color: #343a40 !important; }
+
 #chart {
   margin: .2rem;
-  min-height: 300px;
   /*.sideChartRect {
     
         cursor: pointer;
@@ -168,6 +169,7 @@ h1 {
     border: 2px solid #343a40;
     border-radius: 50px; }
 
+
 .homepage__heading {
   background-color: #83be83;
   padding: 15px; }
@@ -185,7 +187,8 @@ h1 {
 
 #selectSchoolOrg {
   margin-top: 2.5rem;
-  min-height: 60vh; }
+  min-height: 34vh;
+  padding-bottom: 1.5rem; }
 
 .buttonContainer {
   padding-bottom: 2rem;

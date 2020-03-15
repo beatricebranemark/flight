@@ -1,3 +1,8 @@
+#mainPusher {
+  border: none;
+  border-radius: 0;
+}
+
 #showButton{
   font-size: 20px;
   background-color:#343a40 !important;
@@ -101,6 +106,7 @@ color:white;
 #pushaSideBar{
   background-color:#343a40 !important;
 }
+
 #sideBarChart{
   background-color:#f9f7f7 !important;
 }
