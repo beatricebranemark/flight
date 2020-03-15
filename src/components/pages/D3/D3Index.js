@@ -43,7 +43,6 @@ const D3Index = props => {
 
   const [barClass, setBarClass] = useState('barPushed')
   const [toggleBar, setToggleBar] = useState('viewToggleBarPushed')
-  const [centerNavBar, setNavBar] = useState('NavBarPushed')
   const [showText, setShowText] = useState('Show')
   const [pieText, setPieText] = useState('legendContainerPiePushed')
 
@@ -61,7 +60,6 @@ const D3Index = props => {
       setArrow('fas fa-angle-left')
       setBarClass('barPushed')
       setToggleBar('viewToggleBarPushed')
-      setNavBar('NavBarPushed')
       setShowText('Hide')
       setPieText('legendContainerPiePushed')
     } else {
@@ -69,7 +67,7 @@ const D3Index = props => {
       setArrow('fas fa-angle-right')
       setBarClass('barNotPushed')
       setToggleBar('viewToggleBar')
-      setNavBar('NavBar')
+      
       setShowText('Show')
       setPieText('legendContainerPie')
     }
@@ -103,7 +101,7 @@ const D3Index = props => {
                 <SideChart filter={filter}></SideChart>
               </Sidebar>
               <Sidebar.Pusher id='sideBarChart'>
-                <NavBar centerNavBar={centerNavBar} props={props} />
+                <NavBar props={props} />
 
                 {/*<span
                   onClick={showSideBar}

@@ -7,9 +7,9 @@ import './D3Index.css'
 const PieMapWrapper = props => {
   const filter = Filter()
   const [view, setView] = useState('map')
-
+  console.log(props.toggleBar)
   return (
-    <div id={props.toggleBar}>
+    <div className="row" id={props.toggleBar}>
       <div id='viewButtons'>
         <button
           onClick={() => setView('map')}
