@@ -5,6 +5,8 @@ import BarChart from './BarChart/BarChart'
 import {Provider} from 'react-redux'
 import Filter from './../../Filter'
 import TopMenu from '../TopMenu/TopMenu'
+import Footer from '../Footer/Footer'
+
 const HomeScreen = props => {
   const [orgs, setOrgs] = useState(store.getState().getOrgs.data)
   const [schools, setSchools] = useState(
@@ -135,6 +137,7 @@ const HomeScreen = props => {
           )}
         </div>
       </div>
+      <Footer></Footer>
     </React.Fragment>
   )
 }

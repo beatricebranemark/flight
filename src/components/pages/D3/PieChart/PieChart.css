@@ -9,22 +9,26 @@
 #pieChart{
     position: relative;
       top: 85px;
+      padding-top: 50px;
       border-bottom: 2px solid grey;
       border-left: 2px solid grey;
       border-right: 2px solid grey;
       border-radius:20px;
   }
   .legendContainerPie{
+    padding-top: 40px;
     position: relative;
     bottom: 590px;
     left: 27%;
   }
   .legendContainerPiePushed{
+    padding-top: 40px;
     position: relative;
     bottom: 576px;
     left: 36%;
   }
   #hideButton{
+    margin-top: 70px;
     position: relative;
     bottom: 580px;
     left: 151%;
@@ -34,6 +38,6 @@
   }
   #pieChartText{
     position: absolute;
-    top: 15%;
+    top: 12%;
     color:grey;
   }
