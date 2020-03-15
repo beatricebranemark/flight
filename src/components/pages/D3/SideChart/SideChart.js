@@ -422,7 +422,7 @@ const SideChart = ({data, filter}) => {
         </select>
       </div>
 
-      <svg id='chart' width='320'></svg>
+      <svg id='chart' width='320' height={employee_list.length * 22 + 20}></svg>
       <div
         id='sideChartToolTip'
         style={{

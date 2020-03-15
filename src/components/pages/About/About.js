@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { Card, Icon, Image } from 'semantic-ui-react'
 import './About.css'
 import TopMenu from '../TopMenu/TopMenu'
+import Footer from '../Footer/Footer'
 var lovisa = require('./lovisa.png')
 var elin = require('./elin.png')
 var viktor = require('./viktor.png')
@@ -101,6 +102,7 @@ const About = () => (
   
   </div>
   </div>
+  <Footer></Footer>
   </React.Fragment>
   
 )
