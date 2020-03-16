@@ -9,6 +9,10 @@ const TopMenu = props => {
       ? store.getState().getSelectedSchool.data[0].key
       : ''
   )
+
+
+
+
   return (
     <nav
       id='navBar'
@@ -16,7 +20,7 @@ const TopMenu = props => {
     >
       <NavLink exact to="/" id="FLIGHT">
         <h1 id='topMenuLeft' className='navbar-brand' href='#'>
-          Flight
+          FLIGHT FIGHTERS
         </h1>
       </NavLink>
       <button
@@ -45,15 +49,15 @@ const TopMenu = props => {
         className='menuButton'>
         Visualization
       </NavLink> }
-          <NavLink to="/howitworks"
-            className='menuButton'
-          >
-            How it works
-          </NavLink>
           <NavLink to="/about"
             className='menuButton'
           >
             About
+          </NavLink>
+          <NavLink to="/howitworks"
+            className='menuButton'
+          >
+            How it works
           </NavLink>
         </div>
       </div>
