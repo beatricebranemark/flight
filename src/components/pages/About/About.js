@@ -10,24 +10,38 @@ var elin = require('./elin.png')
 var viktor = require('./viktor.png')
 var philip = require('./philip.png')
 var bea = require('./bea.png')
+var map = require('./map.png')
 var bubbles = require('./bubbles.gif')
 const About = () => (
 
     <React.Fragment>
-        <TopMenu></TopMenu>
-
+        
+      <TopMenu></TopMenu>
         <div id="headerContainer">
-            <h1 id="textTitle"><strong>A FLIGHT VISUALIZATION TOOL</strong></h1>
+          
+            <h1 id="textTitle"><strong>FLIGHT FIGHTERS</strong></h1>
             <p id="text_citat">
-            “In this project, we will create and test practical tools to reduce travel-related CO2 emissions, thereby moving from words to action.” 
-            <p id="text_italic">
-            - Energimyndigheten ansökan, Daniel Pargman
-            </p>
-            <p id="text_italic"> 
-              <a href="https://www.kth.se/sv/mid/research/sustainability/projects/flight-1.920661" target="_blank" >Read more about the project here</a>
-            </p>
+            Get to know your flying 
             </p>   
             </div>
+        
+      <div id= 'desriptionContainer'>
+      <h1 id="ourTeam"><strong>ABOUT THE PROJECT</strong></h1>
+        <div>
+          <img id='mapImg' src={map}></img>
+        </div>
+        <div>
+          <p id="img_text">This project aims to help employees and other stakeholders at KTH to 
+            make better decisions regarding their flying habits 
+            by using a visualization tool. 
+          </p>
+          <button className='greenBtn'>Go to visualization</button>
+        </div>
+
+
+      </div>
+
+
         <div id="textContainer">
           
             <p id="text">
@@ -59,6 +73,9 @@ const About = () => (
       <Card.Meta>
         <span className='date'>vlemon@kth.se</span>
       </Card.Meta>
+      <Card.Meta>
+        <span className='role'>ansvarsområde</span>
+      </Card.Meta>
     </Card.Content>
     </div>
   
@@ -68,6 +85,9 @@ const About = () => (
       <Card.Header>Lovisa Forsberg</Card.Header>
       <Card.Meta>
       <span className='date'>lovfor@kth.se</span>
+      </Card.Meta>
+      <Card.Meta>
+        <span className='role'>ansvarsområde</span>
       </Card.Meta>
     </Card.Content>
     </div>
@@ -79,6 +99,9 @@ const About = () => (
       <Card.Meta>
         <span className='date'>elinfors@kth.se</span>
       </Card.Meta>
+      <Card.Meta>
+        <span className='role'>ansvarsområde</span>
+      </Card.Meta>
     </Card.Content>
     </div>
   <div className="imageDiv">
@@ -88,6 +111,9 @@ const About = () => (
       <Card.Meta>
         <span className='date'>philipax@kth.se</span>
       </Card.Meta>
+      <Card.Meta>
+        <span className='role'>ansvarsområde</span>
+      </Card.Meta>
     </Card.Content>
     </div>
     <div className="imageDiv">
@@ -96,6 +122,9 @@ const About = () => (
       <Card.Header>Beatrice Brånemark</Card.Header>
       <Card.Meta>
         <span className='date'>beabra@kth.se</span>
+      </Card.Meta>
+      <Card.Meta>
+        <span className='role'>ansvarsområde</span>
       </Card.Meta>
     </Card.Content>
     </div>

@@ -169,6 +169,38 @@ h1 {
     border: 2px solid #343a40;
     border-radius: 50px; }
 
+.footer {
+  width: 100vw;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #343a40;
+  height: 12vh;
+  font-size: 1.4rem;
+  font-family: 'roboto';
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+  /*
+    &__wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__item {
+        margin: 1rem;
+        padding: .7rem;
+        border-radius: .5rem;
+
+        &:hover {
+            background-color: lighten(#343a40, 10%);
+        }
+    }*/ }
+  .footer a:link, .footer a:visited {
+    font-size: 1.4rem;
+    font-family: 'roboto';
+    color: white; }
 
 .homepage__heading {
   background-color: #83be83;
