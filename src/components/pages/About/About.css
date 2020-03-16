@@ -26,24 +26,47 @@
 
 #textContainer{
     text-align:center;
-    margin-left: 20%;
-    margin-right:20%;
+   /* margin-left: 20%;
+    margin-right:20%;*/
     margin-bottom: 6%;
 
 }
 #text{
-    font-size:16px;
+    font-size: 3rem;
     color:#404040;
     font-family:'roboto';
     padding:1%;
+    margin: 5% 15% 5% 15%;
+    font-weight: bold;
+}
+
+#text1{
+    font-size: 3rem;
+    color:#404040;
+    font-family:'roboto';
+    padding:1%;
+    margin:0% 15% 5% 15%;
+}
+
+#text3{
+    font-size: 3rem;
+    color:#404040;
+    font-family:'roboto';
+    padding:1%;
+    margin:5% 15% 0% 15%;
+}
+
+#essential{
+    text-align: left;
 
 }
 #text2{
-    font-size:16px;
+    font-size:4rem;
     color:#404040;
     font-family:'roboto';
     padding:1%;
-
+    align-self: center;
+    font-weight:'800';
 }
 #text_citat{
     float: right;
@@ -83,7 +106,7 @@
     opacity: 0.5;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    height:400px;
+    height:800px;
 
 }
 a:link, a:visited {
@@ -114,9 +137,6 @@ a:link, a:visited {
     color:white;
     padding:2%;
     margin: 20px;
-
-
-
 }
 
 #greenBtn:hover{
@@ -124,9 +144,12 @@ a:link, a:visited {
 }
 
 #mapImg{
-    width: 500px;
+    /*width: 500px;
     height: 300px;
-    border-radius:20px;
+    border-radius:20px;*/
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    float: left;
 }
 #img_text{
     font-size:3rem;
@@ -139,19 +162,22 @@ a:link, a:visited {
 #mapTextContainer{
     text-align:center;
     display: flex;
-    margin: 5%;
-
+    margin-top: 60px;
+   /* margin: 5%;*/
 }
 
 #mapTextContainer1{
-    display:inline-block;
-    margin: 10px 10px 10px 100px;
-  
+    width: 50%;
+   /* display:inline-block;*/
+   /* margin: 10px 10px 10px 100px;*/
+
 }
 
 #mapTextContainer2{
-   display:inline-block;
-   margin-right:80px;
+   width: 50%;
+   padding: 100px;
+    /*display:inline-block;*/
+    /*margin-right:80px;*/
 }
 #descriptionContainer{
     margin-top: 5%;
@@ -166,4 +192,10 @@ a:link, a:visited {
 }
 p:first-child{
     margin-top: 10px;
+}
+
+#detaildes{
+    display:flex;
+    flex-direction: column;
+    margin-top:5%;
 }
