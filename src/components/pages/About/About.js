@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import { withRouter } from "react-router-dom";
-
+import { withRouter,NavLink, Link  } from "react-router-dom";
+import store from '../../../reducers'
 import { Card, Icon, Image } from 'semantic-ui-react'
 import './About.css'
 import TopMenu from '../TopMenu/TopMenu'
@@ -12,8 +12,17 @@ var philip = require('./philip.png')
 var bea = require('./bea.png')
 var map = require('./map.png')
 var bubbles = require('./bubbles.gif')
-const About = () => (
 
+const About = (props) => {
+
+  const [currentSchool, setCurrentSchool] = useState(
+    store.getState().getSelectedSchool.data.length > 0
+      ? store.getState().getSelectedSchool.data[0].key
+      : ''
+  )
+  
+  
+return (
     <React.Fragment>
         
       <TopMenu></TopMenu>
@@ -27,17 +36,25 @@ const About = () => (
         
       <div id= 'desriptionContainer'>
       <h1 id="ourTeam"><strong>ABOUT THE PROJECT</strong></h1>
-        <div>
+      <div  id="mapTextContainer">
+        <div id="mapTextContainer1">
           <img id='mapImg' src={map}></img>
         </div>
-        <div>
+        <div id="mapTextContainer2">
           <p id="img_text">This project aims to help employees and other stakeholders at KTH to 
             make better decisions regarding their flying habits 
             by using a visualization tool. 
           </p>
-          <button className='greenBtn'>Go to visualization</button>
-        </div>
+          {currentSchool === '' ? <Link exact to="/" className='menuButton'>
+          <button  id="greenBtn" className='btn btn-light btn-lg'>Go to visualization</button>
 
+      </Link> :
+      <NavLink to="/seeOrg"
+        className='menuButton'>
+        <button  id="greenBtn" className='btn btn-light btn-lg'>Go to visualization</button>
+      </NavLink> }
+        </div>
+        </div>
 
       </div>
 
@@ -135,5 +152,5 @@ const About = () => (
   </React.Fragment>
   
 )
-
+}
 export default withRouter(About)
