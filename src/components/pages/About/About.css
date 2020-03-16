@@ -14,12 +14,12 @@
 #ourTeam{
     text-align:center;
     padding:1%;
-    color: #6b2c91;
-    font-size: 5rem;
+    color: #404040;
+    font-size: 4rem;
     
 }
 #teamContainer{
-    background-color: #f69487;
+    background-color: #DCE5D7;
     max-width: 100%;
 }
 
@@ -39,32 +39,27 @@
 
 }
 #text_citat{
-    text-align: center;
+    text-align: left;
     font-size:24px;
-    color:#f69487;
+    color:#F0F1F2;
     font-family:'roboto';
-    margin-left:15%;
-    margin-right:15%;
+    border-top: solid;
+    border-color: #F0F1F2;
+    width: fit-content;
+    margin-top: 10px;
+    padding-top: 10px;
 }
 
 #text_italic{
     font-size:14px;
-    color:#f69487;
+    color:#F0F1F2;
     font-family:'roboto';
 }
 
-#href{
-    font-size:14px;
-    color:#f69487;
-    font-family:'roboto';
-    text-align: center;
-    margin-top:3%;
-}
 #textTitle{
-    text-align: center;
-    color:#f69487;
-    font-size:48px;
-}
+    text-align: left;
+    color:#F0F1F2;
+    font-size: 5rem;}
 
 .imageDiv{
     text-align:center;
@@ -76,7 +71,9 @@
 }
 #headerContainer{
     padding:7%;
-    background-color: #6b2c91
+    background-image: url(plane.jpg);
+    opacity: 0.5;
+    height: 500px;
 }
 a:link, a:visited {
     text-align: center;
@@ -98,3 +95,21 @@ a:link, a:visited {
     border-style: none;
     border-radius: 50%;
   }
+
+.greenBtn{
+    background-color: #DCE5D7 ;
+}
+
+#mapImg{
+    border: solid;
+    border-radius: 10px;
+    height: 40%;
+    width: 40%;
+    border-color: white;
+}
+#img_text{
+    font-size:2rem;
+    color:#404040;
+    font-family:'roboto';
+    padding:1%;
+}

@@ -1,0 +1,15 @@
+#aboutContainer{
+    max-width: 100%;
+}
+
+#howitworks{
+    text-align:center;
+    padding:1%;
+    color: #404040;
+    font-size: 5rem;
+    
+}
+
+#demoContainer{
+    background-color: #DCE5D7;
+}
