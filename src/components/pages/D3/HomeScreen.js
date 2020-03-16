@@ -6,6 +6,7 @@ import {Provider} from 'react-redux'
 import Filter from './../../Filter'
 import TopMenu from '../TopMenu/TopMenu'
 import Footer from '../Footer/Footer'
+import '../../../css/style.css'
 
 const HomeScreen = props => {
   const [orgs, setOrgs] = useState(store.getState().getOrgs.data)
@@ -43,7 +44,7 @@ const HomeScreen = props => {
         value={school.key}
         className={
           currentSchool === school.key
-            ? 'btn btn-info'
+            ? 'btn-custom'
             : 'btn btn-dark'
         }
         id='schoolButton'
@@ -93,7 +94,7 @@ const HomeScreen = props => {
               value='All schools'
               className={
                 currentSchool === 'All schools'
-                  ? 'btn btn-info'
+                  ? 'btn-custom'
                   : 'btn btn-dark'
               }
               id='schoolButton'

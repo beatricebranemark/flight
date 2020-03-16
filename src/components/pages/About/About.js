@@ -11,7 +11,7 @@ var viktor = require('./viktor.png')
 var philip = require('./philip.png')
 var bea = require('./bea.png')
 var map = require('./map.png')
-var bubbles = require('./bubbles.gif')
+var plane = require('./plane.jpg')
 
 const About = (props) => {
 
@@ -34,16 +34,16 @@ return (
             </p>   
             </div>
         
-      <div id= 'desriptionContainer'>
+      <div id= 'descriptionContainer'>
       <h1 id="ourTeam"><strong>ABOUT THE PROJECT</strong></h1>
       <div  id="mapTextContainer">
         <div id="mapTextContainer1">
           <img id='mapImg' src={map}></img>
         </div>
         <div id="mapTextContainer2">
-          <p id="img_text">This project aims to help employees and other stakeholders at KTH to 
+          <p id="img_text"><strong>This project aims to help employees and other stakeholders at KTH to 
             make better decisions regarding their flying habits 
-            by using a visualization tool. 
+            by using a visualization tool. </strong>
           </p>
           {currentSchool === '' ? <Link exact to="/" className='menuButton'>
           <button  id="greenBtn" className='btn btn-light btn-lg'>Go to visualization</button>
@@ -67,13 +67,13 @@ return (
             <p id="text">
             This flight visualization tool is a way for the employees and other stakeholders at KTH to find patterns and trends in their flying. The tool will also help to ask the right questions by presenting: 
             </p>
-            <p id="text">
+            <p id="text2">
             <strong>When</strong> the employees have traveled
             </p>
-            <p id="text">
+            <p id="text2">
             <strong>Where</strong> they have traveled to
             </p>
-            <p id="text">
+            <p id="text2">
             <strong>Who</strong> has traveled and how much
             </p>
             <p id="text">
@@ -117,7 +117,9 @@ return (
         <span className='date'>elinfors@kth.se</span>
       </Card.Meta>
       <Card.Meta>
-        <span className='role'>ansvarsområde</span>
+        <p className='role'>Project Management</p>
+        <p className='role'>Concept Design</p>
+        <p className='role'>Front end development</p>
       </Card.Meta>
     </Card.Content>
     </div>

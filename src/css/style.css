@@ -6,7 +6,8 @@
   box-sizing: inherit; }
 
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%; 
+  width:100vw;}
 
 body {
   box-sizing: border-box; }
@@ -234,3 +235,16 @@ h1 {
   flex-wrap: wrap;
   justify-content: space-evenly;
   flex-basis: 30%; }
+
+  .btn-custom{
+    background-color:#BAD0B0;
+    border:none;
+    color:white;
+  }
+  .btn-custom2{
+    background-color:#BAD0B0;
+    border:none;
+    border-radius:5px;
+    padding:5px;
+    margin-top: 10px;
+  }
