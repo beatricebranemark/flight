@@ -67,6 +67,8 @@ color:white;
   margin-top: 14px;
 }
 
+
+
 #mapViewButtonPushed{
   font-size: 20px;
   position:relative;
@@ -88,6 +90,7 @@ color:white;
   z-index: 100;
   position:relative;
 }
+
 
 .employeeTitle{
   color:white;

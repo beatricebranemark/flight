@@ -312,7 +312,7 @@ const PieChart = ({data, props, pieProp, showStockholm}) => {
           data-toggle='tooltip'
           title='Most flights to Stockholm are return trips and you can therefore choose to hide them'
           id='hideButton'
-          className='btn btn-info'
+          className='btn-custom2'
           onClick={() => clickedButton()}
         >
           {showText} Stockholm as a destination
