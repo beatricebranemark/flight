@@ -1,19 +1,25 @@
 #topMenuLeft{
-   margin-left:20px;
-   font-size:30px;
-   font-family: 'Patua One', cursive;
+   margin-left:50px;
+   font-size:25px;
+   font-family: 'Roboto';
+   font-weight: bold;
    color:white;
    cursor:pointer;
+
 }
+
+
 
 #topMenuRight{
     margin-right:20px;
     color:white;
 }
 .menuButton{
-    font-size:16px;
+    font-size:20px;
     margin:10px;
     color:white;
+    margin-right: 50px;
+    letter-spacing: 0.1em;
 }
 
 .menuButton:hover {
@@ -37,4 +43,6 @@
 
 #navBar{
     background-color:#343a40 !important;
+    opacity: 1 !important;
+    
 }
