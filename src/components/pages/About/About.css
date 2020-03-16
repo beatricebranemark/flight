@@ -96,20 +96,48 @@ a:link, a:visited {
     border-radius: 50%;
   }
 
-.greenBtn{
-    background-color: #DCE5D7 ;
+#greenBtn{
+    background-color: #749860 ;
+    font-size: 24px;
+    border-color:#749860;
+    color:white;
+    margin: 50px;
+
+
+}
+
+#greenBtn:hover{
+    border-color:#749860;
 }
 
 #mapImg{
-    border: solid;
-    border-radius: 10px;
-    height: 40%;
-    width: 40%;
-    border-color: white;
+    width: 500px;
+    height: 300px;
+    border-radius:20px;
 }
 #img_text{
     font-size:2rem;
     color:#404040;
     font-family:'roboto';
     padding:1%;
+    margin: 20px;
+
+}
+#mapTextContainer{
+    text-align:center;
+    display: flex;
+
+}
+
+#mapTextContainer1{
+    display:inline-block;
+    margin: 10px 10px 10px 100px;
+   
+
+  
+}
+
+#mapTextContainer2{
+   display:inline-block;
+   margin-right:80px;
 }
