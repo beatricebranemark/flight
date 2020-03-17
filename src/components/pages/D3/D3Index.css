@@ -24,10 +24,10 @@ color:white;
 }
 
 .mapPieActive{
- background-color:#f9f7f7 !important;
- border:2px solid grey !important;
- color:grey !important;
- border-bottom:#f9f7f7 !important;
+ background-color:white !important;
+ border:2px solid #343a40 !important;
+ color:#343a40 !important;
+ border-bottom:white !important;
 }
 
 #mapViewButton{

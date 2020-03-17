@@ -18,10 +18,10 @@
     top: 119px;
 }
 #svgMap{
-  border-left: 2px solid grey;
-    border-right: 2px solid grey;
+  border-left: 2px solid #343a40;
+    border-right: 2px solid#343a40;
     border-radius: 0px 0px 20px 20px;
-    border-bottom: 2px solid grey;
+    border-bottom: 2px solid#343a40;
     margin-bottom: 1rem;
 }
 

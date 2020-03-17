@@ -32,36 +32,40 @@
 
 }
 #text{
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     color:#404040;
     font-family:'roboto';
     padding:1%;
-    margin: 5% 15% 5% 15%;
+    margin-top:8%;
+    margin-left:5%;
     font-weight: bold;
+    text-align:left;
 }
 
 #text1{
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     color:#404040;
     font-family:'roboto';
     padding:1%;
-    margin:0% 15% 5% 15%;
+    margin:0% 30% 0% 30%;
 }
 
 #text3{
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     color:#404040;
     font-family:'roboto';
     padding:1%;
-    margin:5% 15% 0% 15%;
+    margin:0% 30% 0% 30%;
 }
 
 #essential{
     text-align: left;
 
+  white-space: pre-wrap;
+
 }
 #text2{
-    font-size:3.5rem;
+    font-size:2rem;
     color:#404040;
     font-family:'roboto';
     padding:1%;
@@ -75,9 +79,10 @@
     font-family:'roboto';
     border-top: solid;
     border-color: #F0F1F2;
-    width:18%;
+    width:250px;
     margin-top: 10px;
     padding-top: 10px;
+    text-align: right;
 }
 
 #text_italic{
@@ -106,7 +111,7 @@
     opacity: 0.5;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    height:600px;
+    height:400px;
 
 }
 a:link, a:visited {
@@ -144,17 +149,16 @@ a:link, a:visited {
 }
 
 #mapImg{
-    /*width: 500px;
+   width:500px;
     height: 300px;
-    border-radius:20px;*/
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius:20px;
     float: left;
-    width: 100%;
+  
 }
 #barImg{
+    width:50%;
+    height: 100%;
     padding-left:2%;
-    padding-right:2%;
 }
 
 #img_text{
@@ -169,21 +173,28 @@ a:link, a:visited {
     text-align:center;
     display: flex;
     margin-top: 60px;
-   /* margin: 5%;*/
+   margin: 5%;
 }
 
 #mapTextContainer1{
     width: 50%;
-   /* display:inline-block;*/
-   /* margin: 10px 10px 10px 100px;*/
+    display:inline-block;
+   margin: 10px 10px 10px 100px;
 
 }
 
 #mapTextContainer2{
-   width: 50%;
-   padding: 5%;
-    /*display:inline-block;*/
-    /*margin-right:80px;*/
+   width: 60%;
+   padding: 2%;
+    display:inline-block;
+    margin-right:80px;
+}
+
+#barTextContainer{
+    text-align:center;
+    display: flex;
+    margin-top: 60px;
+   margin: 5%;
 }
 #descriptionContainer{
     margin-top: 5%;
@@ -204,4 +215,25 @@ p:first-child{
     display:flex;
     flex-direction: column;
     margin-top:5%;
+    text-align:center;
+}
+#bartext{
+    margin-right:5%;
+    margin-top:5%;
+}
+ul{
+    list-style-type: none;
+    text-align: center;
+}
+.processContainer{
+    margin:5% 10% 5% 10%;
+}
+#process{
+    font-size:16px;
+    text-align:left;
+    margin-bottom: 3%;
+    margin-top: 3%;
+}
+#techtext{
+    font-size:1.5rem;
 }
