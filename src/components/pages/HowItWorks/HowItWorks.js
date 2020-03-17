@@ -78,8 +78,7 @@ const HowItWorks = props => (
         Watch the video for insights on how this tool can be used. Follow a discovery process looking into how the department "Media Technology and Interaction Design" has been travelling over the past three years.
     </p>
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/vYf_7MLFkKw?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/vYf_7MLFkKw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>      </div>
     
     </div>
 

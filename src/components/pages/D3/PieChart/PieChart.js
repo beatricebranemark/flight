@@ -71,9 +71,18 @@ const PieChart = ({data, props, pieProp, showStockholm}) => {
     }
   }
 
-  var width = 1068
-  var height = 700
+ 
   var margin = 0
+
+  var mq = window.matchMedia( "(min-width: 1200px) and (max-width: 1600px)");
+  if (mq.matches) {
+    var width = 800
+    var height = 500
+  }
+  else {
+    var width = 1068
+    var height = 700
+  }
 
   useEffect(() => {
     // set the dimensions and margins of the graph

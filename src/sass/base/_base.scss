@@ -10,6 +10,8 @@
 html {
     //This defines what 1rem is
     font-size: 62.5%; // 1rem = 10px
+    width: 100vw;
+
 }
 
 body {
@@ -23,6 +25,7 @@ body {
 .App {
     display: flex;
     flex-direction: column;
+
 }
 
 .btn-custom{

@@ -6,7 +6,8 @@
   box-sizing: inherit; }
 
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%;
+  width: 100vw; }
 
 body {
   box-sizing: border-box; }
@@ -368,7 +369,15 @@ ul {
   width: 1068px;
   display: flex;
   position: absolute;
-  margin-top: 14px; }
+  margin-top: 14px;
+  /* ----------- Non-Retina Screens ----------- */
+  /* ----------- Retina Screens ----------- */ }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+    #viewButtons {
+      width: 800px; } }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    #viewButtons {
+      width: 800px; } }
 
 #mapViewButtonPushed {
   font-size: 20px;
@@ -485,7 +494,15 @@ ul {
   max-height: 1190px;
   overflow-y: scroll;
   border-bottom-right-radius: 2rem !important;
-  background-color: #343a40 !important; }
+  background-color: #343a40 !important;
+  /* ----------- Non-Retina Screens ----------- */
+  /* ----------- Retina Screens ----------- */ }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+    #pushaSideBar {
+      max-height: 990px; } }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    #pushaSideBar {
+      max-height: 990px; } }
 
 #chart {
   margin: .2rem;
@@ -576,19 +593,51 @@ ul {
   left: 507px;
   top: 119px; }
 
+#zoom_in, #zoom_out {
+  /* ----------- Non-Retina Screens ----------- */
+  /* ----------- Retina Screens ----------- */ }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+    #zoom_in, #zoom_out {
+      left: 367px; } }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    #zoom_in, #zoom_out {
+      left: 367px; } }
+
 #svgMap {
   border-left: 2px solid #343a40;
   border-right: 2px solid #343a40;
   border-radius: 0px 0px 20px 20px;
   border-bottom: 2px solid #343a40;
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  width: 1068px;
+  height: 700px;
+  /* ----------- Non-Retina Screens ----------- */
+  /* ----------- Retina Screens ----------- */ }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+    #svgMap {
+      width: 800px;
+      height: 500px; } }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    #svgMap {
+      width: 800px;
+      height: 500px; } }
 
 #showStockholmButton {
   z-index: 100;
   position: relative;
   left: 390px;
   top: 115px;
-  font-size: 16px; }
+  font-size: 16px;
+  /* ----------- Non-Retina Screens ----------- */
+  /* ----------- Retina Screens ----------- */ }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+    #showStockholmButton {
+      left: 290px;
+      font-size: 14px; } }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    #showStockholmButton {
+      left: 290px;
+      font-size: 14px; } }
 
 .text_pie {
   color: black; }
@@ -603,7 +652,15 @@ ul {
   border-bottom: 2px solid #343a40;
   border-left: 2px solid #343a40;
   border-right: 2px solid #343a40;
-  border-radius: 0px 0px 20px 20px; }
+  border-radius: 0px 0px 20px 20px;
+  /* ----------- Non-Retina Screens ----------- */
+  /* ----------- Retina Screens ----------- */ }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+    #pieChart {
+      padding-top: 2rem; } }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    #pieChart {
+      padding-top: 2rem; } }
 
 .legendContainerPie {
   padding-top: 40px;
@@ -615,7 +672,17 @@ ul {
   padding-top: 40px;
   position: relative;
   bottom: 576px;
-  left: 400px; }
+  left: 400px;
+  /* ----------- Non-Retina Screens ----------- */
+  /* ----------- Retina Screens ----------- */ }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+    .legendContainerPiePushed {
+      bottom: 430px;
+      left: 270px; } }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    .legendContainerPiePushed {
+      bottom: 430px;
+      left: 270px; } }
 
 #hideButton {
   margin-top: 70px;
@@ -623,12 +690,34 @@ ul {
   bottom: 580px;
   left: 390px;
   width: 100%;
-  font-size: 16px; }
+  font-size: 16px;
+  /* ----------- Non-Retina Screens ----------- */
+  /* ----------- Retina Screens ----------- */ }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+    #hideButton {
+      left: 260px;
+      font-size: 14px;
+      bottom: 415px; } }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    #hideButton {
+      left: 260px;
+      font-size: 14px;
+      bottom: 415px; } }
 
 #pieChartText {
   position: absolute;
   top: 11%;
-  color: grey; }
+  color: grey;
+  /* ----------- Non-Retina Screens ----------- */
+  /* ----------- Retina Screens ----------- */ }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+    #pieChartText {
+      top: 12%;
+      font-size: 22px; } }
+  @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    #pieChartText {
+      top: 12%;
+      font-size: 22px; } }
 
 .NavBar {
   text-align: center;

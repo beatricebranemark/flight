@@ -29,12 +29,53 @@
   
       top: 119px;
   }
+
+#zoom_in, #zoom_out {
+          /* ----------- Non-Retina Screens ----------- */
+          @media screen 
+          and (min-device-width: 1200px) 
+          and (max-device-width: 1600px) 
+          and (-webkit-min-device-pixel-ratio: 1) { 
+              left: 367px;
+      }
+  
+          /* ----------- Retina Screens ----------- */
+      @media screen 
+          and (min-device-width: 1200px) 
+          and (max-device-width: 1600px) 
+          and (-webkit-min-device-pixel-ratio: 2)
+          and (min-resolution: 192dpi) { 
+              left: 367px;
+      }
+}
+
   #svgMap{
     border-left: 2px solid #343a40;
       border-right: 2px solid#343a40;
       border-radius: 0px 0px 20px 20px;
       border-bottom: 2px solid#343a40;
       margin-bottom: 1rem;
+      width:1068px;
+      height:700px;
+
+      /* ----------- Non-Retina Screens ----------- */
+    @media screen 
+        and (min-device-width: 1200px) 
+        and (max-device-width: 1600px) 
+        and (-webkit-min-device-pixel-ratio: 1) { 
+            width:800px;
+            height:500px;
+    }
+
+        /* ----------- Retina Screens ----------- */
+    @media screen 
+        and (min-device-width: 1200px) 
+        and (max-device-width: 1600px) 
+        and (-webkit-min-device-pixel-ratio: 2)
+        and (min-resolution: 192dpi) { 
+            width:800px;
+            height:500px;
+    }
   }
   
   #showStockholmButton{
@@ -44,6 +85,24 @@
     left:390px;
   
     top:115px;
-    font-size:16px
-  }
+    font-size:16px;
+
+          /* ----------- Non-Retina Screens ----------- */
+          @media screen 
+          and (min-device-width: 1200px) 
+          and (max-device-width: 1600px) 
+          and (-webkit-min-device-pixel-ratio: 1) { 
+            left:290px;
+            font-size:14px;
+      }
   
+          /* ----------- Retina Screens ----------- */
+      @media screen 
+          and (min-device-width: 1200px) 
+          and (max-device-width: 1600px) 
+          and (-webkit-min-device-pixel-ratio: 2)
+          and (min-resolution: 192dpi) { 
+            left:290px;
+            font-size:14px;
+      }
+  }
