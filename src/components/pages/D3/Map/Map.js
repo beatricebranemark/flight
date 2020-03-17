@@ -359,8 +359,6 @@ const Map = ({data, filter, showStockholm}) => {
 
       <svg
         id='svgMap'
-        width={1068}
-        height={700}
         ref={d3Container}
         className='map'
         style={{backgroundColor: '#333940'}}
