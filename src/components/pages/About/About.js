@@ -81,7 +81,7 @@ const About = props => {
           get to know how KTH flies.
         </p>
 
-        <img id='barImg' src={bar}></img>
+        <img id='barImg' src={bar} width='100%'></img>
         <p>
           All the flights by the KTH employees between year 2017 and
           2019.
