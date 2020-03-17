@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import Map from './Map/Map'
 import PieChart from './PieChart/PieChart'
 import Filter from './../../Filter'
-import './D3Index.css'
 
 const PieMapWrapper = props => {
   const filter = Filter()

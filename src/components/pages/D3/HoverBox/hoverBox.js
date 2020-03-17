@@ -1,5 +1,4 @@
 import React, {useEffect, useRef} from 'react'
-import './index.css'
 import {connect} from 'react-redux'
 
 const HoverBox = ({data}) => {

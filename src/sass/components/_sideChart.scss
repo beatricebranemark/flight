@@ -1,0 +1,94 @@
+#pushaSideBar {
+    max-height: 1190px;
+    overflow-y: scroll;
+    border-bottom-right-radius: 2rem !important;
+    background-color:#343a40 !important;
+
+}
+
+#chart{
+    margin: .2rem;
+
+    text {
+        color: white;
+        fill: white;
+        font-size: 1.2rem;
+    }
+    .tick {
+
+        text-transform: uppercase;
+
+        & line {
+            color: transparent;
+         }
+    }
+
+
+    .domain {
+        color: transparent;
+    }
+
+    /*.sideChartRect {
+    
+        cursor: pointer;
+    }*/
+
+}
+.totalText{
+    color:white;
+}
+
+.labels {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+    width: 80%;
+    padding: 0 1rem 0 1rem;
+    margin-bottom: -1rem;;
+    fill: white;
+    color: white;
+    & > * {
+        margin: 0 .5rem .5rem .5rem;
+        display: flex;
+    }
+}
+
+.labelBox {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-left: .5rem;
+}
+
+.person_inactive{
+    opacity: 0.5;
+}
+
+.sideChartFilters {
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -1rem;
+
+    & > * {
+        margin-top: 1.5rem;
+    }
+}
+
+#sideChartSelectAll  {
+    padding-bottom: .2rem;
+    margin-right: 1rem;
+}
+
+#titleSelector {
+    border: .15rem solid #343a40;
+    border-radius: 5rem;
+    width: auto;
+    text-transform: uppercase;
+    
+}

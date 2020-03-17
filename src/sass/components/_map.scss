@@ -1,0 +1,49 @@
+.HoverBox{
+    width: 400px;
+    float: right;
+    margin-right: 50px;
+    color:white;
+    font-size:14px;
+  }
+  #hoverText{
+    font-size:14px;
+    padding:3px;
+  }
+
+  .tooltip{
+    opacity: 1 !important;
+  }
+  #zoom_in{
+    z-index:100;
+    position: relative;
+    left: 507px;
+  
+  
+      top: 116px;
+  }
+  #zoom_out{
+    z-index:100;
+    position: relative;
+    left: 507px;
+  
+  
+      top: 119px;
+  }
+  #svgMap{
+    border-left: 2px solid #343a40;
+      border-right: 2px solid#343a40;
+      border-radius: 0px 0px 20px 20px;
+      border-bottom: 2px solid#343a40;
+      margin-bottom: 1rem;
+  }
+  
+  #showStockholmButton{
+    z-index:100;
+    
+    position: relative;
+    left:390px;
+  
+    top:115px;
+    font-size:16px
+  }
+  
