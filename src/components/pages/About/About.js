@@ -193,9 +193,9 @@ const About = props => {
                 <span className='a_date'>philipax@kth.se</span>
               </Card.Meta>
               <Card.Meta>
-                <p className='role'>ansvarsområde</p>
-                <p className='role'>ansvarsområde</p>
-                <p className='role'>ansvarsområde</p>
+                <p className='role'>Front end</p>
+                <p className='role'>UI/UX</p>
+                <p className='role'>Style</p>
               </Card.Meta>
             </Card.Content>
           </div>
