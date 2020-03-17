@@ -118,7 +118,7 @@ const About = props => {
           <strong>OUR TEAM</strong>
         </h1>
         <div id='aboutContainer'>
-          <div className='imageDiv'>
+          <div className='imageDivAbout'>
             <img
               className='responsive'
               src={viktor}
@@ -138,7 +138,7 @@ const About = props => {
             </Card.Content>
           </div>
 
-          <div className='imageDiv'>
+          <div className='imageDivAbout'>
             <img
               className='responsive'
               id='image'
@@ -154,12 +154,12 @@ const About = props => {
               <Card.Meta>
                 <p className='role'>Front end</p>
                 <p className='role'>UI/UX</p>
-                <p className='role'>Data processing</p>
+                <p className='role'>Concept Design</p>
               </Card.Meta>
             </Card.Content>
           </div>
 
-          <div className='imageDiv'>
+          <div className='imageDivAbout'>
             <img
               className='responsive'
               src={elin}
@@ -178,7 +178,7 @@ const About = props => {
               </Card.Meta>
             </Card.Content>
           </div>
-          <div className='imageDiv'>
+          <div className='imageDivAbout'>
             <img
               className='responsive'
               id='image'
@@ -198,7 +198,7 @@ const About = props => {
               </Card.Meta>
             </Card.Content>
           </div>
-          <div className='imageDiv'>
+          <div className='imageDivAbout'>
             <img
               className='responsive'
               src={bea}
