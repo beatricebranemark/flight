@@ -165,7 +165,7 @@ h1 {
 
 .NavBar {
   text-align: center;
-  background-color: #f9f7f7;
+  background-color: white;
   padding-top: 15px;
   font-family: Arial; }
   .NavBar .custom-select {
@@ -247,4 +247,7 @@ h1 {
     border-radius:5px;
     padding:5px;
     margin-top: 10px;
+  }
+  .ui.basic.segment{
+    background-color:white;
   }

@@ -10,10 +10,12 @@
     position: relative;
       top: 85px;
       padding-top: 50px;
-      border-bottom: 2px solid grey;
-      border-left: 2px solid grey;
-      border-right: 2px solid grey;
+      border-bottom: 2px solid #343a40;
+      border-left: 2px solid #343a40;
+      border-right: 2px solid #343a40;
       border-radius:20px;
+
+ 
   }
   .legendContainerPie{
     padding-top: 40px;
@@ -32,7 +34,6 @@
     position: relative;
     bottom: 580px;
     left: 390px;
-
     width: 100%;
     font-size:16px
   }
