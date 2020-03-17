@@ -20,12 +20,12 @@ const HowItWorks = props => (
         <div className='imageDiv'>
           <img className='responsive' src={one} wrapped ui={false} />
           <Card.Content>
-            <Card.Header>Select school and organisation </Card.Header>
+            <Card.Header className="cardHeader"><strong>Select school and organisation </strong></Card.Header>
             <Card.Meta>
-              <span className='hw_date'>
+              <p className='hw_date'>
                 Compare different schools and organisations or go into
                 detail with a selected organisation
-              </span>
+              </p>
             </Card.Meta>
           </Card.Content>
         </div>
@@ -39,12 +39,12 @@ const HowItWorks = props => (
             ui={false}
           />
           <Card.Content>
-            <Card.Header>Discover patterns</Card.Header>
+            <Card.Header className="cardHeader"><strong>Discover patterns</strong></Card.Header>
             <Card.Meta>
-              <span className='hw_date'>
+              <p className='hw_date'>
                 To identify the reason for flying, dicover where, when
                 and who has been flying
-              </span>
+              </p>
             </Card.Meta>
           </Card.Content>
         </div>
@@ -57,12 +57,12 @@ const HowItWorks = props => (
             ui={false}
           />
           <Card.Content>
-            <Card.Header>Ask the right questions</Card.Header>
+            <Card.Header ><strong>Ask the right questions</strong></Card.Header>
             <Card.Meta>
-              <span className='hw_date'>
+              <p className='hw_date'>
                 When the patterns are established - take action and
                 reduce the flights!
-              </span>
+              </p>
             </Card.Meta>
           </Card.Content>
         </div>
@@ -70,7 +70,7 @@ const HowItWorks = props => (
     </div>
 
     <div id='demoContainer'>
-      <h1 id='howitworks'>
+      <h1 id='demo'>
         <strong>DEMO</strong>
       </h1>
     </div>
