@@ -6,10 +6,34 @@
     text-align:center;
     padding:1%;
     color: #404040;
-    font-size: 5rem;
+    font-size: 4rem;
+    margin-top: 5%;
+    
+}
+
+#demo{
+    text-align:center;
+    padding:1%;
+    color: #404040;
+    font-size: 4rem;
     
 }
 
 #demoContainer{
     background-color: #DCE5D7;
+}
+
+.hw_date{
+    width: 300px;
+    text-align: center;
+    justify-content: center;
+    margin-right: 0px;
+}
+
+.cardHeader{
+    font-weight: bold;
+}
+
+.imageDiv{
+    margin:5%;
 }
