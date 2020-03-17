@@ -311,7 +311,7 @@ const Map = ({data, filter, showStockholm}) => {
             tooltip
               .select('text')
               .text(
-                d.arrival_city + ', ' + d.scale + ' flights to here'
+                d.scale + ' flights to ' + d.arrival_city
               )
             tooltip.style('display', 'block')
           } catch (TypeError) {
@@ -334,10 +334,10 @@ const Map = ({data, filter, showStockholm}) => {
         .attr('x', 10)
         .attr('dy', '1.2em')
         .style('text-anchor', 'left')
-        .attr('font-size', '24px')
+        .attr('font-size', '20px')
         .attr('font-weight', 'bold')
         .style('fill', 'white')
-        .style('text-shadow', '2px 2px')
+        .style('text-shadow', '1.5px 1.5px')
     }
   })
   return (

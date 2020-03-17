@@ -21,6 +21,7 @@ color:white;
 }
 .ui.segment{
   margin:0px !important;
+  
 }
 
 .mapPieActive{
@@ -57,7 +58,7 @@ color:white;
   display: flex;
   flex-direction: column;
   position:relative;
-  left:-172px
+  left:-172px;
 }
 
 #viewButtons{
@@ -77,7 +78,8 @@ color:white;
   z-index: 100;
   position: relative;
   top: 59px;
-  width:50%
+  width:50%;
+  
 }
 
 
