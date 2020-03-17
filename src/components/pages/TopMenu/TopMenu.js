@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import {withRouter, NavLink, Link } from 'react-router-dom'
 import store from '../../../reducers'
 
-import './TopMenu.css'
 const TopMenu = props => {
   const [currentSchool, setCurrentSchool] = useState(
     store.getState().getSelectedSchool.data.length > 0
@@ -10,15 +9,12 @@ const TopMenu = props => {
       : ''
   )
 
-
-
-
   return (
     <nav
       id='navBar'
       className='navbar navbar-expand-lg navbar-light bg-light'
     >
-      <NavLink exact to="/" id="FLIGHT">
+      <NavLink exact to="/visualization" id="FLIGHT">
         <h1 id='topMenuLeft' className='navbar-brand' href='#'>
           FLIGHT FIGHTERS
         </h1>
@@ -42,10 +38,10 @@ const TopMenu = props => {
       >
         <ul className='navbar-nav mr-auto'></ul>
         <div id='topMenuRight' className='form-inline'>
-          {currentSchool === '' ? <Link exact to="/" className='menuButton'>
+          {currentSchool === '' ? <NavLink exact to="/visualization" className='menuButton'>
         Visualization
-      </Link> :
-      <NavLink to="/seeOrg"
+      </NavLink> :
+      <NavLink to="/visualization/details"
         className='menuButton'>
         Visualization
       </NavLink> }

@@ -21,6 +21,30 @@
 
 #demoContainer{
     background-color: #DCE5D7;
+    padding-top: 2rem;
+}
+
+.descriptionVideo {
+    display: flex;
+    justify-content: center;
+    //align-items: center;
+    margin-top: 4rem;
+    margin-bottom: 7rem;
+
+    & > * {
+        margin: 1rem;
+    }
+
+    & p {
+        color: #212529;
+        font-size: 1.6rem;
+        width: 25%;
+        margin-top: 3rem;
+    }
+
+    & iframe {
+        border-radius: .5rem;
+    }
 }
 
 .hw_date{

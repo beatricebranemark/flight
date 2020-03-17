@@ -3,7 +3,6 @@ import Model from '../../../../data/model'
 import store from '../../../../reducers'
 import {connect} from 'react-redux'
 import * as d3 from 'd3'
-import './index.css'
 
 const Map = ({data, filter, showStockholm}) => {
   let d3Container = useRef(null)

@@ -1,14 +1,15 @@
-@import "abstracts/functions";
-@import "abstracts/mixins";
-@import "abstracts/variables";
 
-@import "base/animations";
 @import "base/base";
-@import "base/typography";
-@import "base/utilities";
 
 @import "pages/home";
-@import "pages/sideChart";
+@import "pages/about";
+@import "pages/D3Index";
+@import "pages/howItWorks";
+
+@import "components/barchart";
+@import "components/sideChart";
+@import "components/map";
+@import "components/doughnutchart";
 
 @import "layouts/navbar";
 @import "layouts/footer";

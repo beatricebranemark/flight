@@ -12,8 +12,9 @@ import HowItWorks from './pages/HowItWorks/HowItWorks'
 const Router = () => {
   return (
     <Switch>
-      <Route exact path='/' component={HomeScreen} />
-      <Route exact path ='/seeOrg' component={D3Index} />
+      <Route exact path='/' component={About} />
+      <Route exact path='/visualization' component={HomeScreen} />
+      <Route exact path ='/visualization/details' component={D3Index} />
       <Route exact path ='/about' component={About} />
       <Route path='/howitworks' component={HowItWorks} />
     </Switch>

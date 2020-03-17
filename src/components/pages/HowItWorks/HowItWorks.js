@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
 import {Card, Icon, Image} from 'semantic-ui-react'
-import './HowItWorks.css'
+
 import TopMenu from '../TopMenu/TopMenu'
 import Footer from '../Footer/Footer'
 var one = require('./one.png')
@@ -73,16 +73,19 @@ const HowItWorks = props => (
       <h1 id='demo'>
         <strong>DEMO</strong>
       </h1>
+      <div className="descriptionVideo">
+      <p className="demoDescription">
+        Watch the video for insights on how this tool can be used. Follow a discovery process looking into how the department "Media Technology and Interaction Design" has been travelling over the past three years.
+    </p>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/vYf_7MLFkKw?controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    
     </div>
 
-    {/*
-            <div className="col-sm-12">
-                <h1>How it works</h1>
-            </div>
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
-            </div>
-        */}
+    
+           
+        
 
     <Footer></Footer>
   </React.Fragment>

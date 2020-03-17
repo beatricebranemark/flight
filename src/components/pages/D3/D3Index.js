@@ -11,7 +11,6 @@ import Footer from '../Footer/Footer'
 import Filter from './../../Filter'
 import PieChart from './PieChart/PieChart'
 import {withRouter} from 'react-router-dom'
-import './D3Index.css'
 
 import {useBooleanKnob} from 'retoggle'
 import {

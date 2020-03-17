@@ -131,7 +131,7 @@ const HomeScreen = props => {
             <button
               className='btn btn-dark'
               id='schoolButton'
-              onClick={() => props.history.push('/seeOrg')}
+              onClick={() => props.history.push('/visualization/details')}
             >
               See Details
             </button>

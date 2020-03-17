@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import {withRouter, NavLink, Link} from 'react-router-dom'
 import store from '../../../reducers'
-import {Card, Icon, Image} from 'semantic-ui-react'
-import './About.css'
+import {Card} from 'semantic-ui-react'
 import TopMenu from '../TopMenu/TopMenu'
 import Footer from '../Footer/Footer'
 var lovisa = require('./lovisa.png')
@@ -48,7 +47,7 @@ const About = props => {
               </strong>
             </p>
             {currentSchool === '' ? (
-              <Link exact to='/' className='a_menuButton'>
+              <Link exact to='/visualization' className='a_menuButton'>
                 <button
                   id='greenBtn'
                   className='btn btn-light btn-lg'
@@ -57,7 +56,7 @@ const About = props => {
                 </button>
               </Link>
             ) : (
-              <NavLink to='/seeOrg' className='a_menuButton'>
+              <NavLink to='/visualization/details' className='a_menuButton'>
                 <button
                   id='greenBtn'
                   className='btn btn-light btn-lg'
@@ -212,9 +211,9 @@ const About = props => {
                 <span className='a_date'>beabra@kth.se</span>
               </Card.Meta>
               <Card.Meta>
-                <p className='role'>ansvarsområde</p>
-                <p className='role'>ansvarsområde</p>
-                <p className='role'>ansvarsområde</p>
+                <p className='role'>Front end</p>
+                <p className='role'>Code architecture</p>
+                <p className='role'>Github repository maintenance</p>
               </Card.Meta>
             </Card.Content>
           </div>
