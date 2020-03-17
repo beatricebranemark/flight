@@ -48,7 +48,7 @@ const About = props => {
               </strong>
             </p>
             {currentSchool === '' ? (
-              <Link exact to='/' className='menuButton'>
+              <Link exact to='/' className='a_menuButton'>
                 <button
                   id='greenBtn'
                   className='btn btn-light btn-lg'
@@ -57,7 +57,7 @@ const About = props => {
                 </button>
               </Link>
             ) : (
-              <NavLink to='/seeOrg' className='menuButton'>
+              <NavLink to='/seeOrg' className='a_menuButton'>
                 <button
                   id='greenBtn'
                   className='btn btn-light btn-lg'
@@ -71,20 +71,21 @@ const About = props => {
       </div>
 
       <div id='textContainer'>
-        <div id="barTextContainer">
-        <p id='text'>
-          At KTH, where 75-80% of its budget goes to research,
-          employees fly a lot. The emissions from flying were 18 090
-          tonnes of CO2 year 2016 and 92.5% of these emissions came
-          from travels linked to flights performed within the service.
-          Therefore, KTH has set a goal of reducing their flight
-          emissions with 9% each year and the first step to take is to
-          get to know how KTH flies.
-        </p>
+        <div id='barTextContainer'>
+          <p id='text'>
+            At KTH, where 75-80% of its budget goes to research,
+            employees fly a lot. The emissions from flying were 18 090
+            tonnes of CO2 year 2016 and 92.5% of these emissions came
+            from travels linked to flights performed within the
+            service. Therefore, KTH has set a goal of reducing their
+            flight emissions with 9% each year and the first step to
+            take is to get to know how KTH flies.
+          </p>
 
-        <img id='barImg' src={bar} width='100%'></img>
-            <p id="bartext">All flights by KTH employees between year 2017-2019</p>
-        
+          <img id='barImg' src={bar} width='100%'></img>
+          <p id='bartext'>
+            All flights by KTH employees between year 2017-2019
+          </p>
         </div>
         <div id='detaildes'>
           <p id='text1'>
@@ -95,13 +96,13 @@ const About = props => {
           </p>
           <div id='text2'>
             <ul id='essential'>
-                <li>
+              <li>
                 <strong>When</strong> the employees have traveled
-                </li>
-                <li>
+              </li>
+              <li>
                 <strong>Where</strong> they have traveled to
-                </li>
-                <li>
+              </li>
+              <li>
                 <strong>Who</strong> has traveled and how much
               </li>
             </ul>
@@ -219,28 +220,61 @@ const About = props => {
           </div>
         </div>
       </div>
-      <div className="processContainer">
-      <h1 id='ourTeam'>
+      <div className='processContainer'>
+        <h1 id='ourTeam'>
           <strong>PROCESS</strong>
         </h1>
-        <p id="process">
-        This project was implemented as a part of the course Information Visualization at KTH - the Royal Institute of Technology. An agile working method was used throughout the project where an MVP, the minimal viable product was secured. The project proceeded for 7 weeks and at the beginning of the project different responsibilities were distributed among the team members, both to make sure that everyone had responsibilities but also to make sure that we had all the necessary competence in order to be able to proceed. 
-</p>
-<p id="process">
-Our goal with the project was to develop a visualization of how employees at KTH fly, in order to support the founded project FLIGHT at KTH.  For this, we needed to stay in contact with our collaborators throughout the project and understand their needs. 
-
-To be as efficient as possible, the work was distributed among the team members so that we could set things up simultaneously. The concept idea and design were set through iterative and explorative analysis of different visual structures and mappings, and at the same time the code structure was set up and collection- and processing of data was in full swing. This made sure that we quickly could begin implementing the visualization. 
-
-Prototyping of the user interface was conducted alongside the development of the visualization components and UX aspects were considered in all stages of the project. For communication reasons, we sat down and worked a lot together and when it wasn’t possible we made sure to maintain good communication and update each other on what we worked on. 
-</p>
-<p id="techtext">
-<strong>Technologies and tools: </strong>
-D3.js, React, Github, JSX, Sass, Figma, Firebase, Python, Google Calendar + Drive and Messenger. The data sources were: KTH flight data and data of airport coordinates. The data was processed through Python scripts and imported through JSON-files.
-</p>
-<p id="process">
-
-We have through this project gained more insight into how to represent a large amount of data through interactive visualizations - how to design visual structures and mappings. We have also learned how to handle complex datasets and how to select relevant data and process it, in order to get a structure to work with. We also learned how to combine React with the javascript library for visualizations, D3.js, and how to work efficiently with git branches so that we could work on different components simultaneously. 
-
+        <p id='process'>
+          This project was implemented as a part of the course
+          Information Visualization at KTH - the Royal Institute of
+          Technology. An agile working method was used throughout the
+          project where an MVP, the minimal viable product was
+          secured. The project proceeded for 7 weeks and at the
+          beginning of the project different responsibilities were
+          distributed among the team members, both to make sure that
+          everyone had responsibilities but also to make sure that we
+          had all the necessary competence in order to be able to
+          proceed.
+        </p>
+        <p id='process'>
+          Our goal with the project was to develop a visualization of
+          how employees at KTH fly, in order to support the founded
+          project FLIGHT at KTH. For this, we needed to stay in
+          contact with our collaborators throughout the project and
+          understand their needs. To be as efficient as possible, the
+          work was distributed among the team members so that we could
+          set things up simultaneously. The concept idea and design
+          were set through iterative and explorative analysis of
+          different visual structures and mappings, and at the same
+          time the code structure was set up and collection- and
+          processing of data was in full swing. This made sure that we
+          quickly could begin implementing the visualization.
+          Prototyping of the user interface was conducted alongside
+          the development of the visualization components and UX
+          aspects were considered in all stages of the project. For
+          communication reasons, we sat down and worked a lot together
+          and when it wasn’t possible we made sure to maintain good
+          communication and update each other on what we worked on.
+        </p>
+        <p id='techtext'>
+          <strong>Technologies and tools: </strong>
+          D3.js, React, Github, JSX, Sass, Figma, Firebase, Python,
+          Google Calendar + Drive and Messenger. The data sources
+          were: KTH flight data and data of airport coordinates. The
+          data was processed through Python scripts and imported
+          through JSON-files.
+        </p>
+        <p id='process'>
+          We have through this project gained more insight into how to
+          represent a large amount of data through interactive
+          visualizations - how to design visual structures and
+          mappings. We have also learned how to handle complex
+          datasets and how to select relevant data and process it, in
+          order to get a structure to work with. We also learned how
+          to combine React with the javascript library for
+          visualizations, D3.js, and how to work efficiently with git
+          branches so that we could work on different components
+          simultaneously.
         </p>
       </div>
       <Footer></Footer>
