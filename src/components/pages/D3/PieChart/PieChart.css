@@ -8,14 +8,13 @@
 
 #pieChart{
     position: relative;
-      top: 85px;
+      top: 105px;
       padding-top: 50px;
       border-bottom: 2px solid #343a40;
       border-left: 2px solid #343a40;
       border-right: 2px solid #343a40;
-      border-radius:20px;
-
- 
+      border-radius: 0px 0px 20px 20px;
+      
   }
   .legendContainerPie{
     padding-top: 40px;
