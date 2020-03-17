@@ -103,7 +103,7 @@
     max-height:100%;
     margin:2%;
     color:#404040;
-    padding:15px;
+    padding:0.5%;
 
 }
 #headerContainer{
@@ -185,10 +185,7 @@ a:link, a:visited {
 }
 
 #mapTextContainer2{
-   width: 60%;
-   padding: 2%;
-    display:inline-block;
-    margin-right:80px;
+    padding: 1% 5% 0% 5%;
 }
 
 #barTextContainer{
