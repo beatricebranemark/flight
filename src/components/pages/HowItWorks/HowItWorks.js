@@ -20,7 +20,7 @@ const HowItWorks = props => (
         <div className='imageDiv'>
           <img className='responsive' src={one} wrapped ui={false} />
           <Card.Content>
-            <Card.Header className="cardHeader"><strong>Select school and organisation </strong></Card.Header>
+            <Card.Header><strong>Select school and organisation </strong></Card.Header>
             <Card.Meta>
               <p className='hw_date'>
                 Compare different schools and organisations or go into
@@ -39,7 +39,7 @@ const HowItWorks = props => (
             ui={false}
           />
           <Card.Content>
-            <Card.Header className="cardHeader"><strong>Discover patterns</strong></Card.Header>
+            <Card.Header><strong>Discover patterns</strong></Card.Header>
             <Card.Meta>
               <p className='hw_date'>
                 To identify the reason for flying, dicover where, when
