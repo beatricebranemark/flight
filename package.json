@@ -16,7 +16,7 @@
     "firebase": "^7.8.1",
     "graphql": "^14.6.0",
     "increase-memory-limit": "^1.0.7",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
